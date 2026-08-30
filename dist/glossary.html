@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SupplyChain Sentinel — Glossary</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --accent: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    padding: 32px 24px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 26px; }
+  header p { margin: 0; color: #cbd5e1; max-width: 780px; }
+  header a { color: #93c5fd; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+  section { margin-bottom: 36px; }
+  h2 {
+    font-size: 22px;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  dl { margin: 0; }
+  dt {
+    font-weight: 700;
+    font-size: 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px 8px 0 0;
+    padding: 10px 14px;
+    margin-top: 14px;
+  }
+  dt code { font-size: 13px; color: var(--accent); font-weight: 600; }
+  dd {
+    margin: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #334155;
+  }
+  dd .example {
+    display: block;
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--muted);
+    background: #f1f5f9;
+    border-radius: 6px;
+    padding: 6px 10px;
+  }
+  a.back { display: inline-block; margin-top: 4px; font-size: 13px; }
+  footer {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Glossary</h1>
+  <p>What the terms on the SupplyChain Sentinel dashboard actually mean. <a href="index.html">&larr; Back to dashboard</a></p>
+</header>
+
+<main>
+  <section>
+    <h2>Entities (the data model)</h2>
+    <dl>
+      <dt>Policy Event <code>PolicyEvent</code></dt>
+      <dd>
+        One government/news action about pharma trade — a tariff change, an export restriction, a
+        regulatory probe. Extracted by the <strong>Policy Agent</strong> from a raw government notice
+        or news item, filtered for actual pharma relevance (most raw pulls are noise and get discarded).
+        Has a <em>country</em>, <em>policy type</em>, <em>affected product</em>, <em>date</em>,
+        <em>severity</em>, and a source citation.
+        <span class="example">e.g. a Federal Register notice cutting US tariffs on EU-origin generic drugs</span>
+      </dd>
+
+      <dt>Filing Mention <code>FilingMention</code></dt>
+      <dd>
+        One disclosed dependency from a company's own SEC 10-K — "we manufacture in Ireland," "we depend
+        on China-based API suppliers." Extracted by the <strong>Filing Agent</strong> from cached filing
+        excerpts, filtered to exclude generic boilerplate and incidental country mentions (e.g. "we sell
+        our drug in Japan" does NOT count — that's a market, not a sourcing/manufacturing dependency).
+        <span class="example">e.g. AbbVie's 10-K listing manufacturing sites in Ireland</span>
+      </dd>
+
+      <dt>Graph Link <code>GraphLink</code></dt>
+      <dd>
+        A confirmed connection between one Policy Event and one Filing Mention, found because they share
+        a country (and optionally a commodity). This is the actual cross-referencing step — checking
+        whether a policy notice and a company's own words are talking about the same place. Plain country
+        string matching, done in <code>src/graph.py</code>, no LLM call.
+      </dd>
+
+      <dt>Alert Card</dt>
+      <dd>
+        The final, human-readable output for one Graph Link: a title, a severity, and a plain-English
+        explanation that must cite both the policy source and the filing source. One more LLM call per
+        link, given only the specific policy snippet and filing excerpt (grounding both facts and, per
+        the prompt, forbidding invented specifics not in that text).
+      </dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Gap vs. Opportunity</h2>
+    <p style="color:#334155; font-size:14px;">
+      Neither side of a Graph Link is "more correct" than the other — a link needs BOTH a matching
+      Policy Event AND a matching Filing Mention. Either side can be the one that's missing:
+    </p>
+    <dl>
+      <dt>Gap</dt>
+      <dd>
+        A Filing Mention with <strong>no matching Policy Event</strong>. A company disclosed a real
+        dependency in its own 10-K, but nothing on the policy side confirms or contextualizes it yet.
+        <span class="example">e.g. Eli Lilly's 10-K states it depends on China-based API suppliers, but this run's
+        policy data pull has no China-specific tariff notice to link it to</span>
+      </dd>
+      <dt>Opportunity</dt>
+      <dd>
+        A Policy Event with <strong>no matching Filing Mention</strong>. A real policy action happened,
+        but no covered company's filing has been tied to it yet — worth a closer read of that company's
+        filing, or it may mean none of the companies tracked in this segment are actually exposed.
+        <span class="example">e.g. a US-Switzerland tariff notice exists, but no tracked company's filing
+        names Switzerland as a manufacturing/sourcing location this run</span>
+      </dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Graph terms</h2>
+    <dl>
+      <dt>Catalyst</dt>
+      <dd>
+        The graph's leftmost node — a Policy Event's short, human-readable <code>headline</code> (e.g.
+        "US-EU Framework Tariff Cut on Generic Drugs"), generated by the Policy Agent specifically so a
+        reader isn't stuck decoding a raw <code>country / policy_type</code> pair.
+      </dd>
+      <dt>Shared country / EU bloc matching</dt>
+      <dd>
+        The country a Policy Event and a Filing Mention have in common — the actual condition
+        <code>src/graph.py</code> checks to form a link. Some government notices describe an EU-wide
+        action ("products of the European Union") without naming one specific member state; those are
+        recorded as country <code>"European Union"</code> and matched against a Filing Mention naming
+        <em>any</em> EU member (see <code>EU_MEMBERS</code> in <code>src/graph.py</code>), with the link's
+        displayed "shared country" resolved to that specific member state, not the literal bloc name.
+      </dd>
+      <dt>hop_count / confidence</dt>
+      <dd>
+        <code>hop_count: 1</code> (confidence 0.9) means the Policy Event and Filing Mention share both
+        country AND commodity. <code>hop_count: 2</code> (confidence 0.6) means they share only the
+        country. Commodity-only matches (same product, different country) are deliberately excluded from
+        the graph entirely — too weak a signal at this scope.
+      </dd>
+      <dt>Detailed vs. Simplified view</dt>
+      <dd>
+        Detailed shows all four columns: Catalyst &rarr; Policy Scope (the event's raw country/commodity)
+        &rarr; Shared Country &rarr; Company. Simplified collapses the middle two into one hop: Catalyst
+        &rarr; Country &rarr; Company.
+      </dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Pipeline / evaluation terms</h2>
+    <dl>
+      <dt>Baseline</dt>
+      <dd>
+        A single direct LLM prompt over the same raw cached text (no graph, no forced citations, no
+        structure) — the comparison point the two-agent pipeline has to beat. Generated once
+        (<code>data/baseline_output.json</code>) and frozen; never regenerated after the Phase 6
+        evaluation runs against it, so the comparison stays reproducible.
+      </dd>
+      <dt>Trajectory</dt>
+      <dd>
+        A saved log of one real agent call: the exact system prompt, user prompt, raw model response, and
+        parsed output, written to <code>trajectories/</code> during the actual pipeline run — not
+        reconstructed afterward.
+      </dd>
+      <dt>Golden case</dt>
+      <dd>
+        One hand-labeled test case in <code>eval/golden_events_pharma.yaml</code> — a specific
+        company/country pair with a known correct answer (should the pipeline find a link, or correctly
+        not find one), written from manually reviewing the cached raw data.
+      </dd>
+    </dl>
+  </section>
+</main>
+
+<footer>
+  <a href="index.html">&larr; Back to dashboard</a> · See
+  <a href="../CHANGELOG.md">CHANGELOG.md</a> and <a href="../README.md">README.md</a> for the full build story.
+</footer>
+
+</body>
+</html>

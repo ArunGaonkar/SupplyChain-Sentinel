@@ -84,11 +84,13 @@ python -m eval.run_eval             # Phase 6  — baseline vs. advanced eval
   probe, resolved via `EU_MEMBERS` bloc matching in `src/graph.py`).
 - `data/alert_cards.json` — 8 Alert Cards, each citing both a policy source
   URL and a filing source URL.
-- `dist/index.html` also includes a Gap/Opportunity section (FilingMentions
-  with no matching PolicyEvent — ~12 at this data scope) and an interactive,
-  client-side-rendered dependency graph (hover/click to trace a company's
-  path back to its catalyst; time-range and detail-level controls).
-- `dist/index.html` — the dashboard.
+- `dist/index.html` — the dashboard: an interactive, client-side-rendered
+  dependency graph (hover/click to trace a company's path back to its
+  catalyst; time-range and detail-level controls, clickable stat tiles),
+  plus a Gap/Opportunity section — Gaps (FilingMentions with no matching
+  PolicyEvent, grouped by company, ~12 at this data scope) and Opportunities
+  (PolicyEvents with no matching FilingMention, grouped by country, ~10).
+- `dist/glossary.html` — term definitions for everything on the dashboard.
 - `eval/eval_results.json` + console table — baseline ~25% vs. advanced 100%
   accuracy on the 8 golden cases (baseline's exact number can vary a few
   points run-to-run since it's unstructured LLM prose being judged by another

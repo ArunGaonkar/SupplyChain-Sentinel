@@ -4,6 +4,51 @@ One entry per phase/iteration: what was tried, the evidence, and the
 decision/learning. Includes things tried and removed, per the hackathon's own
 rules for this document.
 
+## Post-submission — Dashboard v3 (Opportunities, grouping, sort, dynamic stats, glossary)
+
+Requested feedback on v2: the header stat tiles didn't visibly do anything,
+the Gap section was one flat list with no company grouping, "Gap/Opportunity"
+only ever showed Gaps, alert cards didn't show their own date, and there was
+nowhere to look up what any of the terminology meant.
+
+**Bug found and fixed before it shipped:** the first attempt at grouping
+gaps by company used a dict key named `"items"` — Jinja's `.` attribute
+access on a Python dict tries `getattr()` before `__getitem__`, so
+`group.items` silently resolved to `dict.items` (the built-in method
+object) instead of the list, and the template threw `TypeError: object of
+type 'builtin_function_or_method' has no len()` immediately, not silently
+wrong — caught before ever rendering. Renamed the key to `"mentions"`.
+
+**Bug found and fixed before it shipped (second one):** after adding
+country-grouping for Opportunities using the same `.company-group` CSS
+class as the company-grouped Gaps, the filter JS's "hide empty groups"
+logic only ever queried `.card[data-kind="gap"]` inside each group — so
+every Opportunity group (which only contains `data-kind="opportunity"`
+cards) always looked empty and got hidden regardless of the actual filter
+state. Fixed by making the group-emptying pass check both kinds and
+attribute each visible card to the right counter by its own `data-kind`.
+
+**Decision — what "Opportunity" means:** symmetric with Gap. A Gap is a
+FilingMention with no matching PolicyEvent (company disclosed a dependency,
+no policy confirms it). An Opportunity is the mirror case: a PolicyEvent
+with no matching FilingMention (a real policy action happened, but no
+covered company's filing has been tied to it). 10 of the 12 policy events
+this run are Opportunities — most policy actions in the pull don't happen
+to match any of the 8 seed companies' disclosed dependencies, which is
+itself informative (it's showing exactly how much of the policy landscape
+this narrow company list doesn't yet cover).
+
+**Added:** Alert Cards show their own Policy Event Date directly (previously
+only used for filtering, never displayed) and can be sorted most-recent /
+oldest. Gaps are grouped by company, Opportunities by country, both as
+nested collapsible `<details>`. Alert Cards and Gap/Opportunity are each
+one big collapsible section with a larger heading. Header stat tiles are
+now clickable (jump-and-expand to the relevant section) and update live
+from the current time-range filter, with a "showing: X" label so it's
+never ambiguous whether a number is the full dataset or the filtered view.
+A separate glossary.html page defines every entity and term used across
+the dashboard.
+
 ## Post-submission — Dashboard v2 (catalyst graph, Gap view, interactivity, filters)
 
 Requested after initial submission: a clearer graph, a Gap/Opportunity view

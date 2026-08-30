@@ -20,6 +20,8 @@
     --accent: #2563eb;
     --gap: #7c3aed;
     --gap-bg: #f5f3ff;
+    --opp: #0d9488;
+    --opp-bg: #f0fdfa;
     --node-event: #eff6ff;
     --node-event-border: #93c5fd;
     --node-scope: #f8fafc;
@@ -42,22 +44,101 @@
     color: #fff;
     padding: 32px 24px;
   }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
   header h1 { margin: 0 0 6px; font-size: 26px; }
   header p { margin: 0; color: #cbd5e1; max-width: 780px; }
+  .glossary-link {
+    font-size: 13px;
+    color: #cbd5e1;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 6px 14px;
+    white-space: nowrap;
+  }
+  .glossary-link:hover { background: rgba(255,255,255,0.08); color: #fff; }
   .stats {
     display: flex;
     gap: 20px;
     margin-top: 20px;
     flex-wrap: wrap;
   }
-  .stat { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 16px; min-width: 110px; }
+  .stat {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px 16px;
+    min-width: 110px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .stat:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.3); }
   .stat .n { font-size: 22px; font-weight: 700; }
   .stat .l { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.04em; }
+  .range-note { margin-top: 12px; font-size: 12px; color: #94a3b8; }
+  .range-note strong { color: #cbd5e1; }
 
   main { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
   section { margin-bottom: 40px; }
-  h2 { font-size: 18px; margin: 0 0 12px; }
+  h2 { font-size: 22px; margin: 0; }
+  h3.subhead { font-size: 16px; margin: 0 0 4px; }
   .section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+
+  /* --- collapsible sections --- */
+  details.collapsible { margin-bottom: 40px; }
+  details.collapsible > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  details.collapsible > summary::-webkit-details-marker { display: none; }
+  details.collapsible > summary::before {
+    content: "▸";
+    display: inline-block;
+    font-size: 16px;
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  details.collapsible[open] > summary::before { transform: rotate(90deg); }
+
+  details.company-group {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details.company-group.hidden-by-filter { display: none; }
+  details.company-group > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  details.company-group > summary::-webkit-details-marker { display: none; }
+  details.company-group > summary::before {
+    content: "▸";
+    display: inline-block;
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  details.company-group[open] > summary::before { transform: rotate(90deg); }
+  details.company-group .group-body { padding: 0 16px 16px; }
+  .count-pill {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
 
   /* --- controls bar --- */
   .controls {
@@ -141,7 +222,7 @@
   .gedge.active { stroke: var(--accent); stroke-width: 2.5; opacity: 1; }
   .empty-graph { color: var(--muted); font-style: italic; padding: 20px; }
 
-  /* --- alert / gap cards --- */
+  /* --- alert / gap / opportunity cards --- */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -154,6 +235,7 @@
   .card.medium { border-left-color: var(--medium); }
   .card.low { border-left-color: var(--low); }
   .card.gap-card { border-left-color: var(--gap); border-left-style: dashed; }
+  .card.opp-card { border-left-color: var(--opp); border-left-style: dashed; }
   .card.hidden-by-filter { display: none; }
 
   .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
@@ -171,6 +253,10 @@
   .badge.medium { background: var(--medium-bg); color: var(--medium); }
   .badge.low { background: var(--low-bg); color: var(--low); }
   .badge.gap { background: var(--gap-bg); color: var(--gap); }
+  .badge.opp { background: var(--opp-bg); color: var(--opp); }
+
+  .card .meta-date { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+  .card .meta-date strong { color: #475569; font-weight: 600; }
 
   .card p.explanation, .card p.gap-note { color: #334155; margin: 12px 0; font-size: 14px; }
   .card p.gap-note { font-style: italic; color: var(--muted); }
@@ -201,6 +287,7 @@
   .empty { color: var(--muted); font-style: italic; }
   .no-match { color: var(--muted); font-style: italic; display: none; padding: 12px 0; }
   .no-match.visible { display: block; }
+  .section-intro { font-size: 13px; color: var(--muted); margin: 0 0 16px; max-width: 820px; }
 
   footer {
     max-width: 1180px;
@@ -216,15 +303,22 @@
 <body>
 
 <header>
-  <h1>SupplyChain Sentinel</h1>
-  <p>Pharma trade &amp; tariff causality — cited, explainable Alert Cards connecting policy/news events to SEC filing disclosures via a shared entity graph.</p>
-  <div class="stats">
-    <div class="stat"><div class="n">12</div><div class="l">Policy Events</div></div>
-    <div class="stat"><div class="n">18</div><div class="l">Filing Mentions</div></div>
-    <div class="stat"><div class="n">8</div><div class="l">Graph Links</div></div>
-    <div class="stat"><div class="n">8</div><div class="l">Alert Cards</div></div>
-    <div class="stat"><div class="n">12</div><div class="l">Gap Signals</div></div>
+  <div class="header-top">
+    <div>
+      <h1>SupplyChain Sentinel</h1>
+      <p>Pharma trade &amp; tariff causality — cited, explainable Alert Cards connecting policy/news events to SEC filing disclosures via a shared entity graph.</p>
+    </div>
+    <a class="glossary-link" href="glossary.html" target="_blank" rel="noopener">📖 Glossary</a>
   </div>
+  <div class="stats">
+    <div class="stat" data-target="section-graph"><div class="n" id="stat-policy-events">12</div><div class="l">Policy Events</div></div>
+    <div class="stat" data-target="section-graph"><div class="n" id="stat-filing-mentions">18</div><div class="l">Filing Mentions</div></div>
+    <div class="stat" data-target="section-graph"><div class="n" id="stat-graph-links">8</div><div class="l">Graph Links</div></div>
+    <div class="stat" data-target="section-alerts"><div class="n" id="stat-alert-cards">8</div><div class="l">Alert Cards</div></div>
+    <div class="stat" data-target="subsection-gaps"><div class="n" id="stat-gap-signals">12</div><div class="l">Gap Signals</div></div>
+    <div class="stat" data-target="subsection-opportunities"><div class="n" id="stat-opportunities">10</div><div class="l">Opportunities</div></div>
+  </div>
+  <p class="range-note">Tiles reflect the <strong>Pharma</strong> segment, currently showing: <strong id="range-label">All time</strong> &middot; click a tile to jump to it</p>
 </header>
 
 <main>
@@ -252,7 +346,7 @@
     </div>
   </div>
 
-  <section>
+  <section id="section-graph">
     <div class="section-head">
       <h2>Dependency graph</h2>
     </div>
@@ -272,289 +366,508 @@
     </div>
   </section>
 
-  <section>
+  <details class="collapsible" id="section-alerts" open>
+    <summary><h2>Alert Cards</h2></summary>
     <div class="section-head">
-      <h2>Alert Cards</h2>
+      <span class="graph-hint">Graph links turned into cited, plain-English explanations.</span>
+      <div class="control">
+        <label for="sort-select">Sort by</label>
+        <select id="sort-select">
+          <option value="recent" selected>Most recent policy event</option>
+          <option value="oldest">Oldest policy event</option>
+        </select>
+      </div>
     </div>
     
-    
-      <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="ABBV" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-6973f850d0">
-        <div class="card-head">
-          <h3>US-EU Tariff Cut on Generic Drugs Eases Pressure on AbbVie&#39;s Irish Manufacturing Hub</h3>
-          <span class="badge medium">medium</span>
+    <div id="alert-cards-list">
+      
+        <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="ABBV" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-6973f850d0">
+          <div class="card-head">
+            <h3>US-EU Tariff Cut on Generic Drugs Eases Pressure on AbbVie&#39;s Irish Manufacturing Hub</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2025-09-25</p>
+          <p class="explanation">The Federal Register notice describes a US adjustment lowering tariffs on EU-origin generic pharmaceuticals and their ingredients/precursors as part of the US-EU reciprocal trade framework, a change the Policy Agent rates high severity given its broad scope across the sector. AbbVie&#39;s 10-K lists multiple manufacturing sites in Ireland (Clonshaugh, Cork, Sligo, Westport), confirming the company sources significant production from the EU country directly affected by this tariff action. While the filing doesn&#39;t specify these sites make generic drugs, the concentration of Irish manufacturing exposure means any EU-US tariff shift on pharmaceutical trade is directly relevant to AbbVie&#39;s supply chain and cost structure. Because this is a tariff decrease rather than an increase, the effect is likely favorable, potentially lowering import costs or easing trade friction for product moving from Ireland to the US—but the direct geographic overlap between the policy scope and AbbVie&#39;s disclosed manufacturing footprint is why this pairing is flagged for portfolio manager attention, even though the filing does not explicitly break out generics as a category.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-c7fa5690f2">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <p class="explanation">The Federal Register notice describes a US adjustment lowering tariffs on EU-origin generic pharmaceuticals and their ingredients/precursors as part of the US-EU reciprocal trade framework, a change the Policy Agent rates high severity given its broad scope across the sector. AbbVie&#39;s 10-K lists multiple manufacturing sites in Ireland (Clonshaugh, Cork, Sligo, Westport), confirming the company sources significant production from the EU country directly affected by this tariff action. While the filing doesn&#39;t specify these sites make generic drugs, the concentration of Irish manufacturing exposure means any EU-US tariff shift on pharmaceutical trade is directly relevant to AbbVie&#39;s supply chain and cost structure. Because this is a tariff decrease rather than an increase, the effect is likely favorable, potentially lowering import costs or easing trade friction for product moving from Ireland to the US—but the direct geographic overlap between the policy scope and AbbVie&#39;s disclosed manufacturing footprint is why this pairing is flagged for portfolio manager attention, even though the filing does not explicitly break out generics as a category.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+      
+        <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="ABBV" data-country="Germany" data-event-id="PE-c8158dc8a3" data-mention-id="FM-a5e14acda5">
+          <div class="card-head">
+            <h3>EU generic drug tariff cut aligns with AbbVie&#39;s German manufacturing footprint</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2025-09-25</p>
+          <p class="explanation">Per the Federal Register notice dated 2025-09-25, the U.S. is adjusting tariffs on EU-origin products including generic pharmaceuticals, their ingredients, and chemical precursors, as part of the US-EU reciprocal trade framework. AbbVie&#39;s 10-K discloses a manufacturing presence in Ludwigshafen, Germany, an EU country directly named in the policy snippet. While the tariff change is a decrease rather than an increase, it signals active U.S. regulatory attention to EU-sourced pharmaceutical supply chains, meaning AbbVie&#39;s German operations sit squarely within the scope of products being reassessed. Portfolio managers should note that any future shifts in this tariff framework could directly affect the cost structure or trade treatment of goods produced at this facility, given the direct overlap between the policy&#39;s affected product category and AbbVie&#39;s disclosed manufacturing location. Severity is rated medium because although the policy itself is high-severity in scope, the current action is a tariff decrease (potentially favorable) rather than a new restriction, and the filing text does not specify production volumes or export dependencies tied to this site.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-ee9af549e5">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-c7fa5690f2">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="ABBV" data-country="Germany" data-event-id="PE-c8158dc8a3" data-mention-id="FM-a5e14acda5">
-        <div class="card-head">
-          <h3>EU generic drug tariff cut aligns with AbbVie&#39;s German manufacturing footprint</h3>
-          <span class="badge medium">medium</span>
+      
+        <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="BMY" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-b7da58b503">
+          <div class="card-head">
+            <h3>US-EU Tariff Cut on Generics Touches BMY&#39;s Irish Manufacturing Footprint</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2025-09-25</p>
+          <p class="explanation">Per the Federal Register notice dated 2025-09-25, the US is adjusting tariffs on EU-origin products including generic pharmaceuticals and their ingredients and chemical precursors — a high-severity policy shift affecting EU-based drug manufacturing. As Bristol-Myers Squibb&#39;s 10-K discloses, the company operates significant manufacturing operations in Ireland (an EU member state), among other locations. While the filing does not specify that BMY&#39;s Irish operations produce generics, the geographic overlap means any tariff-related changes affecting EU pharmaceutical trade could touch products and ingredients moving through BMY&#39;s Irish facilities. This pairing is flagged as medium severity because the policy is a tariff decrease (generally favorable for cross-border trade costs) rather than an increase, but the direct EU-Ireland manufacturing link warrants monitoring given the sector-wide scope of the tariff snippet&#39;s language covering pharmaceuticals and their supply chain inputs.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm" target="_blank" rel="noopener">Filing source: Bristol-Myers Squibb 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-233c5e4230">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <p class="explanation">Per the Federal Register notice dated 2025-09-25, the U.S. is adjusting tariffs on EU-origin products including generic pharmaceuticals, their ingredients, and chemical precursors, as part of the US-EU reciprocal trade framework. AbbVie&#39;s 10-K discloses a manufacturing presence in Ludwigshafen, Germany, an EU country directly named in the policy snippet. While the tariff change is a decrease rather than an increase, it signals active U.S. regulatory attention to EU-sourced pharmaceutical supply chains, meaning AbbVie&#39;s German operations sit squarely within the scope of products being reassessed. Portfolio managers should note that any future shifts in this tariff framework could directly affect the cost structure or trade treatment of goods produced at this facility, given the direct overlap between the policy&#39;s affected product category and AbbVie&#39;s disclosed manufacturing location. Severity is rated medium because although the policy itself is high-severity in scope, the current action is a tariff decrease (potentially favorable) rather than a new restriction, and the filing text does not specify production volumes or export dependencies tied to this site.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+      
+        <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="LLY" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-051b01435e">
+          <div class="card-head">
+            <h3>EU Tariff Cut on Generics/APIs Could Ease Cost Pressure on Lilly&#39;s Ireland Manufacturing</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2025-09-25</p>
+          <p class="explanation">The Federal Register notice describes a US-EU framework adjusting tariffs on EU-origin generic pharmaceuticals and their ingredients and chemical precursors, a high-severity policy shift per the Federal Register source. Eli Lilly&#39;s 10-K discloses that its active ingredient manufacturing and finishing operations—including formulation, filling, device assembly, and packaging—take place at sites including Ireland, an EU member state. Because Lilly sources active pharmaceutical ingredients from an EU country directly named in the tariff action, any change to EU-related tariffs on APIs and precursors could affect the cost structure or trade flows tied to Lilly&#39;s Ireland-based manufacturing network. While this is a tariff decrease (generally favorable rather than disruptive), the direct overlap between the policy&#39;s scope (generic drugs and their ingredients from the EU) and Lilly&#39;s disclosed dependency on Irish API/finishing operations makes this a relevant, though not urgent, monitoring item for investors tracking Lilly&#39;s supply chain economics.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-d649520021">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-ee9af549e5">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="BMY" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-b7da58b503">
-        <div class="card-head">
-          <h3>US-EU Tariff Cut on Generics Touches BMY&#39;s Irish Manufacturing Footprint</h3>
-          <span class="badge medium">medium</span>
+      
+        <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="LLY" data-country="Germany" data-event-id="PE-c8158dc8a3" data-mention-id="FM-2a2445d519">
+          <div class="card-head">
+            <h3>EU Tariff Cut on Generic Drugs Lowers Cost Pressure on Lilly&#39;s German Manufacturing Footprint</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2025-09-25</p>
+          <p class="explanation">The Federal Register notice describes a US-EU agreement adjusting (decreasing) tariffs on products of the European Union, explicitly including generic pharmaceuticals and their ingredients and chemical precursors. Eli Lilly&#39;s 10-K discloses that Germany is one of the countries where it is investing to expand manufacturing capacity, alongside sites in Ireland and the Netherlands. Because Lilly&#39;s supply chain runs through EU-based manufacturing including Germany, a reduction in tariffs on EU-origin pharmaceutical products and precursors, as outlined in the policy snippet, could ease cross-border cost pressures tied to goods produced at or sourced through these German operations. While the filing does not specify generic drug production or import volumes from Germany, the geographic overlap between the tariff action and Lilly&#39;s disclosed manufacturing footprint is direct enough to warrant monitoring, particularly given the high severity assigned to the policy change itself.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-c61f6935b6">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <p class="explanation">Per the Federal Register notice dated 2025-09-25, the US is adjusting tariffs on EU-origin products including generic pharmaceuticals and their ingredients and chemical precursors — a high-severity policy shift affecting EU-based drug manufacturing. As Bristol-Myers Squibb&#39;s 10-K discloses, the company operates significant manufacturing operations in Ireland (an EU member state), among other locations. While the filing does not specify that BMY&#39;s Irish operations produce generics, the geographic overlap means any tariff-related changes affecting EU pharmaceutical trade could touch products and ingredients moving through BMY&#39;s Irish facilities. This pairing is flagged as medium severity because the policy is a tariff decrease (generally favorable for cross-border trade costs) rather than an increase, but the direct EU-Ireland manufacturing link warrants monitoring given the sector-wide scope of the tariff snippet&#39;s language covering pharmaceuticals and their supply chain inputs.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm" target="_blank" rel="noopener">Filing source: Bristol-Myers Squibb 10-K</a>
+      
+        <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="VTRS" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-b1284fcb15">
+          <div class="card-head">
+            <h3>US-EU Tariff Cut on Generic Drugs Could Ease Cost Pressure for Viatris&#39; Irish API Operations</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2025-09-25</p>
+          <p class="explanation">The Federal Register notice describes a tariff adjustment lowering duties on EU-origin generic pharmaceuticals and their ingredients/precursors, explicitly naming generic drugs as an affected product category. Viatris&#39; 10-K discloses that its manufacturing footprint includes &#39;certain EU countries, including Ireland,&#39; tied to active pharmaceutical ingredients. Because Ireland is an EU member state and Viatris relies on EU-based manufacturing for API and related production, this tariff change is directly relevant to the cost structure of goods flowing from those Irish facilities into the U.S. market. While the policy event is a tariff decrease (generally a tailwind rather than a risk), the Policy Agent flagged it as high severity given its scope, and the direct overlap with Viatris&#39; disclosed Ireland-based API operations makes this a meaningful, trackable link for investors monitoring margin or supply-chain cost shifts. Severity is set to medium because the direction of impact is favorable (cost relief) rather than a disruption risk, even though the policy-filing match is precise on geography and commodity.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-314d7003a5">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-233c5e4230">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="LLY" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-051b01435e">
-        <div class="card-head">
-          <h3>EU Tariff Cut on Generics/APIs Could Ease Cost Pressure on Lilly&#39;s Ireland Manufacturing</h3>
-          <span class="badge medium">medium</span>
+      
+        <div class="card medium" data-kind="alert" data-date="2026-06-24" data-ticker="ABBV" data-country="Germany" data-event-id="PE-7c5a675c4e" data-mention-id="FM-a5e14acda5">
+          <div class="card-head">
+            <h3>Section 301 Probe into Germany&#39;s Drug Pricing Could Pressure AbbVie&#39;s Ludwigshafen Operations</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2026-06-24</p>
+          <p class="explanation">The U.S. has initiated a Section 301 investigation into Germany&#39;s persistent underpayment for innovative pharmaceutical products, per the Federal Register notice, signaling potential trade friction or retaliatory measures tied to German drug pricing practices. AbbVie&#39;s 10-K discloses a manufacturing presence in Ludwigshafen, Germany, meaning the company has direct operational exposure to whatever policy outcomes emerge from this probe. While the filing does not specify the scale of AbbVie&#39;s German operations or quantify financial exposure, the overlap between the investigation&#39;s target country and AbbVie&#39;s disclosed manufacturing footprint there warrants monitoring, particularly if the investigation leads to pricing reforms, tariffs, or trade actions affecting pharmaceutical products manufactured in or exported from Germany. Given the medium severity of the policy action and the direct but non-specific nature of the filing&#39;s disclosure, this pairing merits a medium severity rating for portfolio risk tracking.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent" target="_blank" rel="noopener">Policy source: Section 301 Germany Drug Pricing Probe</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-80905a9565">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <p class="explanation">The Federal Register notice describes a US-EU framework adjusting tariffs on EU-origin generic pharmaceuticals and their ingredients and chemical precursors, a high-severity policy shift per the Federal Register source. Eli Lilly&#39;s 10-K discloses that its active ingredient manufacturing and finishing operations—including formulation, filling, device assembly, and packaging—take place at sites including Ireland, an EU member state. Because Lilly sources active pharmaceutical ingredients from an EU country directly named in the tariff action, any change to EU-related tariffs on APIs and precursors could affect the cost structure or trade flows tied to Lilly&#39;s Ireland-based manufacturing network. While this is a tariff decrease (generally favorable rather than disruptive), the direct overlap between the policy&#39;s scope (generic drugs and their ingredients from the EU) and Lilly&#39;s disclosed dependency on Irish API/finishing operations makes this a relevant, though not urgent, monitoring item for investors tracking Lilly&#39;s supply chain economics.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+      
+        <div class="card medium" data-kind="alert" data-date="2026-06-24" data-ticker="LLY" data-country="Germany" data-event-id="PE-7c5a675c4e" data-mention-id="FM-2a2445d519">
+          <div class="card-head">
+            <h3>US Section 301 Probe into German Drug Pricing Could Hit Lilly&#39;s German Manufacturing Footprint</h3>
+            <span class="badge medium">medium</span>
+          </div>
+          <p class="meta-date"><strong>Policy Event Date:</strong> 2026-06-24</p>
+          <p class="explanation">The US has initiated a Section 301 investigation into Germany&#39;s persistent underpayment for innovative pharmaceutical products, per the Federal Register notice. This matters for Eli Lilly because its 10-K discloses that Germany is one of the countries where it is investing to increase manufacturing capacity. A US trade action targeting Germany over pharma pricing practices could create regulatory or tariff-related friction for companies with active manufacturing investments there, potentially complicating Lilly&#39;s German expansion plans or the economics of products made in that facility. While the filing does not specify dollar amounts tied to the German site, the direct geographic overlap between the investigation&#39;s target and Lilly&#39;s disclosed manufacturing footprint warrants monitoring.</p>
+          <div class="sources">
+            <a href="https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent" target="_blank" rel="noopener">Policy source: Section 301 Germany Drug Pricing Probe</a>
+            <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+          </div>
+          <label class="approve">
+            <input type="checkbox" class="approve-checkbox" data-alert-id="AC-a69ca849ac">
+            Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+          </label>
         </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-d649520021">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="LLY" data-country="Germany" data-event-id="PE-c8158dc8a3" data-mention-id="FM-2a2445d519">
-        <div class="card-head">
-          <h3>EU Tariff Cut on Generic Drugs Lowers Cost Pressure on Lilly&#39;s German Manufacturing Footprint</h3>
-          <span class="badge medium">medium</span>
-        </div>
-        <p class="explanation">The Federal Register notice describes a US-EU agreement adjusting (decreasing) tariffs on products of the European Union, explicitly including generic pharmaceuticals and their ingredients and chemical precursors. Eli Lilly&#39;s 10-K discloses that Germany is one of the countries where it is investing to expand manufacturing capacity, alongside sites in Ireland and the Netherlands. Because Lilly&#39;s supply chain runs through EU-based manufacturing including Germany, a reduction in tariffs on EU-origin pharmaceutical products and precursors, as outlined in the policy snippet, could ease cross-border cost pressures tied to goods produced at or sourced through these German operations. While the filing does not specify generic drug production or import volumes from Germany, the geographic overlap between the tariff action and Lilly&#39;s disclosed manufacturing footprint is direct enough to warrant monitoring, particularly given the high severity assigned to the policy change itself.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
-        </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-c61f6935b6">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2025-09-25" data-ticker="VTRS" data-country="Ireland" data-event-id="PE-c8158dc8a3" data-mention-id="FM-b1284fcb15">
-        <div class="card-head">
-          <h3>US-EU Tariff Cut on Generic Drugs Could Ease Cost Pressure for Viatris&#39; Irish API Operations</h3>
-          <span class="badge medium">medium</span>
-        </div>
-        <p class="explanation">The Federal Register notice describes a tariff adjustment lowering duties on EU-origin generic pharmaceuticals and their ingredients/precursors, explicitly naming generic drugs as an affected product category. Viatris&#39; 10-K discloses that its manufacturing footprint includes &#39;certain EU countries, including Ireland,&#39; tied to active pharmaceutical ingredients. Because Ireland is an EU member state and Viatris relies on EU-based manufacturing for API and related production, this tariff change is directly relevant to the cost structure of goods flowing from those Irish facilities into the U.S. market. While the policy event is a tariff decrease (generally a tailwind rather than a risk), the Policy Agent flagged it as high severity given its scope, and the direct overlap with Viatris&#39; disclosed Ireland-based API operations makes this a meaningful, trackable link for investors monitoring margin or supply-chain cost shifts. Severity is set to medium because the direction of impact is favorable (cost relief) rather than a disruption risk, even though the policy-filing match is precise on geography and commodity.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: US-EU Framework Tariff Cut on Generic Drugs</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
-        </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-314d7003a5">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2026-06-24" data-ticker="ABBV" data-country="Germany" data-event-id="PE-7c5a675c4e" data-mention-id="FM-a5e14acda5">
-        <div class="card-head">
-          <h3>Section 301 Probe into Germany&#39;s Drug Pricing Could Pressure AbbVie&#39;s Ludwigshafen Operations</h3>
-          <span class="badge medium">medium</span>
-        </div>
-        <p class="explanation">The U.S. has initiated a Section 301 investigation into Germany&#39;s persistent underpayment for innovative pharmaceutical products, per the Federal Register notice, signaling potential trade friction or retaliatory measures tied to German drug pricing practices. AbbVie&#39;s 10-K discloses a manufacturing presence in Ludwigshafen, Germany, meaning the company has direct operational exposure to whatever policy outcomes emerge from this probe. While the filing does not specify the scale of AbbVie&#39;s German operations or quantify financial exposure, the overlap between the investigation&#39;s target country and AbbVie&#39;s disclosed manufacturing footprint there warrants monitoring, particularly if the investigation leads to pricing reforms, tariffs, or trade actions affecting pharmaceutical products manufactured in or exported from Germany. Given the medium severity of the policy action and the direct but non-specific nature of the filing&#39;s disclosure, this pairing merits a medium severity rating for portfolio risk tracking.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent" target="_blank" rel="noopener">Policy source: Section 301 Germany Drug Pricing Probe</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
-        </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-80905a9565">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
-      <div class="card medium" data-kind="alert" data-date="2026-06-24" data-ticker="LLY" data-country="Germany" data-event-id="PE-7c5a675c4e" data-mention-id="FM-2a2445d519">
-        <div class="card-head">
-          <h3>US Section 301 Probe into German Drug Pricing Could Hit Lilly&#39;s German Manufacturing Footprint</h3>
-          <span class="badge medium">medium</span>
-        </div>
-        <p class="explanation">The US has initiated a Section 301 investigation into Germany&#39;s persistent underpayment for innovative pharmaceutical products, per the Federal Register notice. This matters for Eli Lilly because its 10-K discloses that Germany is one of the countries where it is investing to increase manufacturing capacity. A US trade action targeting Germany over pharma pricing practices could create regulatory or tariff-related friction for companies with active manufacturing investments there, potentially complicating Lilly&#39;s German expansion plans or the economics of products made in that facility. While the filing does not specify dollar amounts tied to the German site, the direct geographic overlap between the investigation&#39;s target and Lilly&#39;s disclosed manufacturing footprint warrants monitoring.</p>
-        <div class="sources">
-          <a href="https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent" target="_blank" rel="noopener">Policy source: Section 301 Germany Drug Pricing Probe</a>
-          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
-        </div>
-        <label class="approve">
-          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-a69ca849ac">
-          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
-        </label>
-      </div>
-    
+      
+    </div>
     <p class="no-match" id="alert-no-match">No Alert Cards match the current filter.</p>
-  </section>
+  </details>
 
-  <section>
-    <div class="section-head">
-      <h2>Gap / Opportunity signals</h2>
-    </div>
-    <p class="graph-hint" style="margin-bottom: 12px;">Companies whose own SEC filings disclose a real country/commodity dependency, but for which no matching policy event exists in this run's data — nothing to graph yet, but worth watching. See CHANGELOG.md for why this is a real, documented limitation rather than a filtering failure.</p>
+  <details class="collapsible" id="section-gapopp" open>
+    <summary><h2>Gap / Opportunity signals</h2></summary>
+    <p class="section-intro">Neither side of a Graph Link is "more correct" than the other — a link needs BOTH a matching Policy Event and a matching Filing Mention. A <strong>Gap</strong> is a company-disclosed dependency with no policy match yet; an <strong>Opportunity</strong> is a policy action with no company filing tied to it yet. See the <a href="glossary.html" target="_blank" rel="noopener">glossary</a> for more, and CHANGELOG.md for why this is a real, documented limitation rather than a filtering failure.</p>
+
+    <h3 class="subhead" id="subsection-gaps">Gaps — grouped by company (12)</h3>
     
     
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-20" data-ticker="ABBV" data-country="Puerto Rico">
-        <div class="card-head">
-          <h3>AbbVie (ABBV) — Puerto Rico / pharmaceutical manufacturing</h3>
-          <span class="badge gap">gap</span>
+      <details class="company-group" open>
+        <summary>AbbVie (ABBV) <span class="count-pill">1 gap</span></summary>
+        <div class="group-body">
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-20" data-ticker="ABBV" data-country="Puerto Rico">
+              <div class="card-head">
+                <h3>Puerto Rico / pharmaceutical manufacturing</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-20</p>
+              <p class="gap-note">"Abbott was identified as one of many potentially responsible parties in investigations and/or remediations at several locations in the United States, including Puerto Rico" — disclosed in 10-K, but no policy event in this data pull names Puerto Rico for pharmaceutical manufacturing.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+              </div>
+            </div>
+          
         </div>
-        <p class="gap-note">"Abbott was identified as one of many potentially responsible parties in investigations and/or remediations at several locations in the United States, including Puerto Rico" — disclosed in 10-K filed 2026-02-20, but no policy event in this data pull names Puerto Rico for pharmaceutical manufacturing.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
-        </div>
-      </div>
+      </details>
     
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-11" data-ticker="BMY" data-country="Ireland">
-        <div class="card-head">
-          <h3>Bristol-Myers Squibb (BMY) — Ireland / biologics/pharmaceutical manufacturing</h3>
-          <span class="badge gap">gap</span>
+      <details class="company-group" open>
+        <summary>Bristol-Myers Squibb (BMY) <span class="count-pill">1 gap</span></summary>
+        <div class="group-body">
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-11" data-ticker="BMY" data-country="Ireland">
+              <div class="card-head">
+                <h3>Ireland / biologics/pharmaceutical manufacturing</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-11</p>
+              <p class="gap-note">"Our significant biologics, cell therapy and pharmaceutical manufacturing facilities are located in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland" — disclosed in 10-K, but no policy event in this data pull names Ireland for biologics/pharmaceutical manufacturing.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm" target="_blank" rel="noopener">Filing source: Bristol-Myers Squibb 10-K</a>
+              </div>
+            </div>
+          
         </div>
-        <p class="gap-note">"Our significant biologics, cell therapy and pharmaceutical manufacturing facilities are located in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland" — disclosed in 10-K filed 2026-02-11, but no policy event in this data pull names Ireland for biologics/pharmaceutical manufacturing.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm" target="_blank" rel="noopener">Filing source: Bristol-Myers Squibb 10-K</a>
-        </div>
-      </div>
+      </details>
     
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-12" data-ticker="LLY" data-country="Puerto Rico">
-        <div class="card-head">
-          <h3>Eli Lilly (LLY) — Puerto Rico / active pharmaceutical ingredients</h3>
-          <span class="badge gap">gap</span>
+      <details class="company-group" open>
+        <summary>Eli Lilly (LLY) <span class="count-pill">3 gaps</span></summary>
+        <div class="group-body">
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-12" data-ticker="LLY" data-country="Puerto Rico">
+              <div class="card-head">
+                <h3>Puerto Rico / active pharmaceutical ingredients</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-12</p>
+              <p class="gap-note">"Our active ingredient manufacturing and finishing operations, including formulation, filling, assembling, delivery device manufacturing, and packaging, take place at sites in the U.S., including Puerto Rico, Ireland and a number of other sites throughout the world." — disclosed in 10-K, but no policy event in this data pull names Puerto Rico for active pharmaceutical ingredients.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+              </div>
+            </div>
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-12" data-ticker="LLY" data-country="China">
+              <div class="card-head">
+                <h3>China / supply chain components</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-12</p>
+              <p class="gap-note">"we, and the pharmaceutical industry generally, depend on China-based suppliers for portions of our supply chain." — disclosed in 10-K, but no policy event in this data pull names China for supply chain components.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+              </div>
+            </div>
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-12" data-ticker="LLY" data-country="Puerto Rico">
+              <div class="card-head">
+                <h3>Puerto Rico / pharmaceutical products</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-12</p>
+              <p class="gap-note">"We manufacture and distribute our products through facilities in the United States (U.S.), including Puerto Rico, and in Europe and Asia." — disclosed in 10-K, but no policy event in this data pull names Puerto Rico for pharmaceutical products.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+              </div>
+            </div>
+          
         </div>
-        <p class="gap-note">"Our active ingredient manufacturing and finishing operations, including formulation, filling, assembling, delivery device manufacturing, and packaging, take place at sites in the U.S., including Puerto Rico, Ireland and a number of other sites throughout the world." — disclosed in 10-K filed 2026-02-12, but no policy event in this data pull names Puerto Rico for active pharmaceutical ingredients.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
-        </div>
-      </div>
+      </details>
     
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-12" data-ticker="LLY" data-country="China">
-        <div class="card-head">
-          <h3>Eli Lilly (LLY) — China / supply chain components</h3>
-          <span class="badge gap">gap</span>
+      <details class="company-group" open>
+        <summary>Pfizer (PFE) <span class="count-pill">2 gaps</span></summary>
+        <div class="group-body">
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="PFE" data-country="India">
+              <div class="card-head">
+                <h3>India / pharmaceutical manufacturing</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-26</p>
+              <p class="gap-note">"Pfizer Global Supply (PGS) had responsibility for 36 manufacturing plants around the world, which manufacture products for our commercial divisions, including in Belgium, Germany, India, Ireland, Italy, Japan, Singapore and the U.S." — disclosed in 10-K, but no policy event in this data pull names India for pharmaceutical manufacturing.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm" target="_blank" rel="noopener">Filing source: Pfizer 10-K</a>
+              </div>
+            </div>
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="PFE" data-country="India">
+              <div class="card-head">
+                <h3>India / R&amp;D operations</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-26</p>
+              <p class="gap-note">"Outside of the U.S., we lease R&amp;D labs in the U.K., India and Belgium." — disclosed in 10-K, but no policy event in this data pull names India for R&amp;D operations.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm" target="_blank" rel="noopener">Filing source: Pfizer 10-K</a>
+              </div>
+            </div>
+          
         </div>
-        <p class="gap-note">"we, and the pharmaceutical industry generally, depend on China-based suppliers for portions of our supply chain." — disclosed in 10-K filed 2026-02-12, but no policy event in this data pull names China for supply chain components.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
-        </div>
-      </div>
+      </details>
     
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-12" data-ticker="LLY" data-country="Puerto Rico">
-        <div class="card-head">
-          <h3>Eli Lilly (LLY) — Puerto Rico / pharmaceutical products</h3>
-          <span class="badge gap">gap</span>
+      <details class="company-group" open>
+        <summary>Teva Pharmaceutical (TEVA) <span class="count-pill">2 gaps</span></summary>
+        <div class="group-body">
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-03" data-ticker="TEVA" data-country="India">
+              <div class="card-head">
+                <h3>India / generic drugs</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-03</p>
+              <p class="gap-note">"The vast majority of our production capacity of our manufacturing sites is located in North America, Europe, Latin America, India and Israel." — disclosed in 10-K, but no policy event in this data pull names India for generic drugs.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm" target="_blank" rel="noopener">Filing source: Teva Pharmaceutical 10-K</a>
+              </div>
+            </div>
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-03" data-ticker="TEVA" data-country="India">
+              <div class="card-head">
+                <h3>India / active pharmaceutical ingredients</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-03</p>
+              <p class="gap-note">"In recent years, we have closed or divested a significant number of manufacturing plants in the United States, Europe, Israel, Japan and India in connection with a restructuring plan and our ongoing efforts to consolidate our manufacturing and supply network." — disclosed in 10-K, but no policy event in this data pull names India for active pharmaceutical ingredients.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm" target="_blank" rel="noopener">Filing source: Teva Pharmaceutical 10-K</a>
+              </div>
+            </div>
+          
         </div>
-        <p class="gap-note">"We manufacture and distribute our products through facilities in the United States (U.S.), including Puerto Rico, and in Europe and Asia." — disclosed in 10-K filed 2026-02-12, but no policy event in this data pull names Puerto Rico for pharmaceutical products.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
-        </div>
-      </div>
+      </details>
     
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="PFE" data-country="India">
-        <div class="card-head">
-          <h3>Pfizer (PFE) — India / pharmaceutical manufacturing</h3>
-          <span class="badge gap">gap</span>
+      <details class="company-group" open>
+        <summary>Viatris (VTRS) <span class="count-pill">3 gaps</span></summary>
+        <div class="group-body">
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="VTRS" data-country="India">
+              <div class="card-head">
+                <h3>India / generic drugs</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-26</p>
+              <p class="gap-note">"supply disruptions and the FDA issued warning letter and import alert related to our oral finished dose manufacturing facility in Indore, India" — disclosed in 10-K, but no policy event in this data pull names India for generic drugs.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
+              </div>
+            </div>
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="VTRS" data-country="Puerto Rico">
+              <div class="card-head">
+                <h3>Puerto Rico / active pharmaceutical ingredients</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-26</p>
+              <p class="gap-note">"The Company’s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland." — disclosed in 10-K, but no policy event in this data pull names Puerto Rico for active pharmaceutical ingredients.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
+              </div>
+            </div>
+          
+            <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="VTRS" data-country="China">
+              <div class="card-head">
+                <h3>China / active pharmaceutical ingredients</h3>
+                <span class="badge gap">gap</span>
+              </div>
+              <p class="meta-date"><strong>Filing Date:</strong> 2026-02-26</p>
+              <p class="gap-note">"The Company’s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland." — disclosed in 10-K, but no policy event in this data pull names China for active pharmaceutical ingredients.</p>
+              <div class="sources">
+                <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
+              </div>
+            </div>
+          
         </div>
-        <p class="gap-note">"Pfizer Global Supply (PGS) had responsibility for 36 manufacturing plants around the world, which manufacture products for our commercial divisions, including in Belgium, Germany, India, Ireland, Italy, Japan, Singapore and the U.S." — disclosed in 10-K filed 2026-02-26, but no policy event in this data pull names India for pharmaceutical manufacturing.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm" target="_blank" rel="noopener">Filing source: Pfizer 10-K</a>
-        </div>
-      </div>
-    
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="PFE" data-country="India">
-        <div class="card-head">
-          <h3>Pfizer (PFE) — India / R&amp;D operations</h3>
-          <span class="badge gap">gap</span>
-        </div>
-        <p class="gap-note">"Outside of the U.S., we lease R&amp;D labs in the U.K., India and Belgium." — disclosed in 10-K filed 2026-02-26, but no policy event in this data pull names India for R&amp;D operations.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm" target="_blank" rel="noopener">Filing source: Pfizer 10-K</a>
-        </div>
-      </div>
-    
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-03" data-ticker="TEVA" data-country="India">
-        <div class="card-head">
-          <h3>Teva Pharmaceutical (TEVA) — India / generic drugs</h3>
-          <span class="badge gap">gap</span>
-        </div>
-        <p class="gap-note">"The vast majority of our production capacity of our manufacturing sites is located in North America, Europe, Latin America, India and Israel." — disclosed in 10-K filed 2026-02-03, but no policy event in this data pull names India for generic drugs.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm" target="_blank" rel="noopener">Filing source: Teva Pharmaceutical 10-K</a>
-        </div>
-      </div>
-    
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-03" data-ticker="TEVA" data-country="India">
-        <div class="card-head">
-          <h3>Teva Pharmaceutical (TEVA) — India / active pharmaceutical ingredients</h3>
-          <span class="badge gap">gap</span>
-        </div>
-        <p class="gap-note">"In recent years, we have closed or divested a significant number of manufacturing plants in the United States, Europe, Israel, Japan and India in connection with a restructuring plan and our ongoing efforts to consolidate our manufacturing and supply network." — disclosed in 10-K filed 2026-02-03, but no policy event in this data pull names India for active pharmaceutical ingredients.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm" target="_blank" rel="noopener">Filing source: Teva Pharmaceutical 10-K</a>
-        </div>
-      </div>
-    
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="VTRS" data-country="India">
-        <div class="card-head">
-          <h3>Viatris (VTRS) — India / generic drugs</h3>
-          <span class="badge gap">gap</span>
-        </div>
-        <p class="gap-note">"supply disruptions and the FDA issued warning letter and import alert related to our oral finished dose manufacturing facility in Indore, India" — disclosed in 10-K filed 2026-02-26, but no policy event in this data pull names India for generic drugs.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
-        </div>
-      </div>
-    
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="VTRS" data-country="Puerto Rico">
-        <div class="card-head">
-          <h3>Viatris (VTRS) — Puerto Rico / active pharmaceutical ingredients</h3>
-          <span class="badge gap">gap</span>
-        </div>
-        <p class="gap-note">"The Company’s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland." — disclosed in 10-K filed 2026-02-26, but no policy event in this data pull names Puerto Rico for active pharmaceutical ingredients.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
-        </div>
-      </div>
-    
-      <div class="card gap-card" data-kind="gap" data-date="2026-02-26" data-ticker="VTRS" data-country="China">
-        <div class="card-head">
-          <h3>Viatris (VTRS) — China / active pharmaceutical ingredients</h3>
-          <span class="badge gap">gap</span>
-        </div>
-        <p class="gap-note">"The Company’s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland." — disclosed in 10-K filed 2026-02-26, but no policy event in this data pull names China for active pharmaceutical ingredients.</p>
-        <div class="sources">
-          <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
-        </div>
-      </div>
+      </details>
     
     <p class="no-match" id="gap-no-match">No gap signals match the current filter.</p>
-  </section>
+
+    <h3 class="subhead" id="subsection-opportunities" style="margin-top: 28px;">Opportunities — policy events with no matched filing yet (10)</h3>
+    <p class="section-intro">Not grouped by company — a policy event with no matching filing doesn't have one yet. Grouped here by country instead.</p>
+    
+    
+      <details class="company-group" open>
+        <summary>Switzerland <span class="count-pill">1 opportunity</span></summary>
+        <div class="group-body">
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2025-12-18" data-country="Switzerland" data-event-id="PE-798fb587e1">
+              <div class="card-head">
+                <h3>US-Switzerland Tariff Cut on Generic Drugs</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2025-12-18 &middot; generic drugs</p>
+              <p class="gap-note">"adjust tariffs on certain articles that are products of Switzerland or Liechtenstein, including ... generic pharmaceuticals and their ingredients and chemical precursors" — no tracked company's filing names Switzerland for generic drugs this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2025/12/18/2025-23316/implementing-certain-tariff-related-elements-of-the-framework-for-a-united" target="_blank" rel="noopener">Policy source: US-Switzerland Tariff Cut on Generic Drugs</a>
+              </div>
+            </div>
+          
+        </div>
+      </details>
+    
+      <details class="company-group" open>
+        <summary>United Kingdom <span class="count-pill">1 opportunity</span></summary>
+        <div class="group-body">
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2026-08-04" data-country="United Kingdom" data-event-id="PE-cd03449cd1">
+              <div class="card-head">
+                <h3>US Zeroes Out UK Pharma Tariffs</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2026-08-04 &middot; patented pharmaceuticals and active pharmaceutical ingredients</p>
+              <p class="gap-note">"revises the tariff rate on patented pharmaceuticals and associated pharmaceutical ingredients that are products of the United Kingdom from 10 percent to zero percent" — no tracked company's filing names United Kingdom for patented pharmaceuticals and active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2026/08/04/2026-15799/notice-of-reduction-of-tariffs-on-patented-pharmaceuticals-and-pharmaceutical-ingredients-for" target="_blank" rel="noopener">Policy source: US Zeroes Out UK Pharma Tariffs</a>
+              </div>
+            </div>
+          
+        </div>
+      </details>
+    
+      <details class="company-group" open>
+        <summary>United States <span class="count-pill">8 opportunities</span></summary>
+        <div class="group-body">
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2026-05-13" data-country="United States" data-event-id="PE-a918f9ca30">
+              <div class="card-head">
+                <h3>Section 232 Pharma Onshoring Tariff Relief</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2026-05-13 &middot; active pharmaceutical ingredients</p>
+              <p class="gap-note">"Companies that enter into such agreements are eligible for a reduced Section 232 duty rate for imports of their pharmaceutical products and associated ingredients." — no tracked company's filing names United States for active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2026/05/13/2026-09489/procedures-to-apply-for-company-specific-onshoring-agreements-to-obtain-tariff-adjustments-for" target="_blank" rel="noopener">Policy source: Section 232 Pharma Onshoring Tariff Relief</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2026-04-09" data-country="United States" data-event-id="PE-bffc7d308c">
+              <div class="card-head">
+                <h3>Section 232 Pharma Import Tariff Action</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2026-04-09 &middot; active pharmaceutical ingredients</p>
+              <p class="gap-note">"Adjusting Imports of Pharmaceuticals and Pharmaceutical Ingredients Into the United States" — no tracked company's filing names United States for active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2026/04/09/2026-06956/adjusting-imports-of-pharmaceuticals-and-pharmaceutical-ingredients-into-the-united-states" target="_blank" rel="noopener">Policy source: Section 232 Pharma Import Tariff Action</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2026-04-28" data-country="United States" data-event-id="PE-1cceec5593">
+              <div class="card-head">
+                <h3>Marijuana Drug Rescheduling Import Permits</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2026-04-28 &middot; marijuana-based drug products</p>
+              <p class="gap-note">"this final rule also adds such drugs to the list of substances that may only be imported or exported pursuant to a permit" — no tracked company's filing names United States for marijuana-based drug products this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2026/04/28/2026-08176/schedules-of-controlled-substances-rescheduling-of-food-and-drug-administration-approved-products" target="_blank" rel="noopener">Policy source: Marijuana Drug Rescheduling Import Permits</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2025-04-16" data-country="United States" data-event-id="PE-f1e23590d2">
+              <div class="card-head">
+                <h3>Section 232 Probe on Pharma Imports</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2025-04-16 &middot; active pharmaceutical ingredients</p>
+              <p class="gap-note">"investigation to determine the effects on the national security of imports of pharmaceuticals and pharmaceutical ingredients ... under section 232 of the Trade Expansion Act of 1962" — no tracked company's filing names United States for active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2025/04/16/2025-06587/notice-of-request-for-public-comments-on-section-232-national-security-investigation-of-imports-of" target="_blank" rel="noopener">Policy source: Section 232 Probe on Pharma Imports</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2025-08-19" data-country="United States" data-event-id="PE-55ef7b32f4">
+              <div class="card-head">
+                <h3>US Strategic API Reserve Plan</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2025-08-19 &middot; active pharmaceutical ingredients</p>
+              <p class="gap-note">"Ensuring American Pharmaceutical Supply Chain Resilience by Filling the Strategic Active Pharmaceutical Ingredients Reserve" — no tracked company's filing names United States for active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2025/08/19/2025-15823/ensuring-american-pharmaceutical-supply-chain-resilience-by-filling-the-strategic-active" target="_blank" rel="noopener">Policy source: US Strategic API Reserve Plan</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2026-01-29" data-country="United States" data-event-id="PE-08d18c8e54">
+              <div class="card-head">
+                <h3>Medicare &#39;Made in America&#39; Medical Supplies Rule</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2026-01-29 &middot; medical devices</p>
+              <p class="gap-note">"foster a more resilient supply chain for American-made personal protective equipment and essential medicines to secure our nation&#39;s health and safety" — no tracked company's filing names United States for medical devices this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2026/01/29/2026-01730/medicare-program-ensuring-safety-through-domestic-security-with-made-in-america-personal-protective" target="_blank" rel="noopener">Policy source: Medicare &#39;Made in America&#39; Medical Supplies Rule</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2025-08-08" data-country="United States" data-event-id="PE-83b2be3624">
+              <div class="card-head">
+                <h3>FDA Onshoring Drug Manufacturing Framework</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2025-08-08 &middot; active pharmaceutical ingredients</p>
+              <p class="gap-note">"accelerating the establishment of new pharmaceutical manufacturing facilities in the United States" — no tracked company's filing names United States for active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2025/08/08/2025-15083/onshoring-manufacturing-of-drugs-and-biological-products-public-meeting-request-for-comments" target="_blank" rel="noopener">Policy source: FDA Onshoring Drug Manufacturing Framework</a>
+              </div>
+            </div>
+          
+            <div class="card opp-card" data-kind="opportunity" data-date="2026-05-20" data-country="United States" data-event-id="PE-bb25871d52">
+              <div class="card-head">
+                <h3>DEA Export Quota Rules for Controlled Substances</h3>
+                <span class="badge opp">opportunity</span>
+              </div>
+              <p class="meta-date"><strong>Policy Event Date:</strong> 2026-05-20 &middot; active pharmaceutical ingredients</p>
+              <p class="gap-note">"clarify which use-specific subcategories for quotas should be used for controlled substances that will be sold domestically and controlled substances that will be exported" — no tracked company's filing names United States for active pharmaceutical ingredients this run, so nothing to graph yet. Worth checking whether a covered company is actually exposed.</p>
+              <div class="sources">
+                <a href="https://www.federalregister.gov/documents/2026/05/20/2026-10128/revision-of-applications-for-manufacturing-and-procurement-quotas" target="_blank" rel="noopener">Policy source: DEA Export Quota Rules for Controlled Substances</a>
+              </div>
+            </div>
+          
+        </div>
+      </details>
+    
+    <p class="no-match" id="opportunity-no-match">No opportunity signals match the current filter.</p>
+  </details>
 </main>
 
 <footer>
   Built with a two-agent pipeline (Policy Agent + Filing Agent) + causal graph merge, coded with Claude Code.
-  See <a href="../CHANGELOG.md">CHANGELOG.md</a> for the baseline-vs-advanced comparison and <a href="../REPRODUCTION.md">REPRODUCTION.md</a> to rerun from cached data.
+  See <a href="../CHANGELOG.md">CHANGELOG.md</a> for the baseline-vs-advanced comparison, <a href="../REPRODUCTION.md">REPRODUCTION.md</a> to rerun from cached data, and the <a href="glossary.html">glossary</a> for term definitions.
 </footer>
 
 <script id="graph-data" type="application/json">{"events": [{"id": "PE-a918f9ca30", "headline": "Section 232 Pharma Onshoring Tariff Relief", "country": "United States", "commodity": "active pharmaceutical ingredients", "date": "2026-05-13", "severity": "high", "source_url": "https://www.federalregister.gov/documents/2026/05/13/2026-09489/procedures-to-apply-for-company-specific-onshoring-agreements-to-obtain-tariff-adjustments-for"}, {"id": "PE-bffc7d308c", "headline": "Section 232 Pharma Import Tariff Action", "country": "United States", "commodity": "active pharmaceutical ingredients", "date": "2026-04-09", "severity": "high", "source_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06956/adjusting-imports-of-pharmaceuticals-and-pharmaceutical-ingredients-into-the-united-states"}, {"id": "PE-1cceec5593", "headline": "Marijuana Drug Rescheduling Import Permits", "country": "United States", "commodity": "marijuana-based drug products", "date": "2026-04-28", "severity": "low", "source_url": "https://www.federalregister.gov/documents/2026/04/28/2026-08176/schedules-of-controlled-substances-rescheduling-of-food-and-drug-administration-approved-products"}, {"id": "PE-798fb587e1", "headline": "US-Switzerland Tariff Cut on Generic Drugs", "country": "Switzerland", "commodity": "generic drugs", "date": "2025-12-18", "severity": "high", "source_url": "https://www.federalregister.gov/documents/2025/12/18/2025-23316/implementing-certain-tariff-related-elements-of-the-framework-for-a-united"}, {"id": "PE-c8158dc8a3", "headline": "US-EU Framework Tariff Cut on Generic Drugs", "country": "European Union", "commodity": "generic drugs", "date": "2025-09-25", "severity": "high", "source_url": "https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal"}, {"id": "PE-f1e23590d2", "headline": "Section 232 Probe on Pharma Imports", "country": "United States", "commodity": "active pharmaceutical ingredients", "date": "2025-04-16", "severity": "medium", "source_url": "https://www.federalregister.gov/documents/2025/04/16/2025-06587/notice-of-request-for-public-comments-on-section-232-national-security-investigation-of-imports-of"}, {"id": "PE-55ef7b32f4", "headline": "US Strategic API Reserve Plan", "country": "United States", "commodity": "active pharmaceutical ingredients", "date": "2025-08-19", "severity": "high", "source_url": "https://www.federalregister.gov/documents/2025/08/19/2025-15823/ensuring-american-pharmaceutical-supply-chain-resilience-by-filling-the-strategic-active"}, {"id": "PE-08d18c8e54", "headline": "Medicare 'Made in America' Medical Supplies Rule", "country": "United States", "commodity": "medical devices", "date": "2026-01-29", "severity": "medium", "source_url": "https://www.federalregister.gov/documents/2026/01/29/2026-01730/medicare-program-ensuring-safety-through-domestic-security-with-made-in-america-personal-protective"}, {"id": "PE-83b2be3624", "headline": "FDA Onshoring Drug Manufacturing Framework", "country": "United States", "commodity": "active pharmaceutical ingredients", "date": "2025-08-08", "severity": "medium", "source_url": "https://www.federalregister.gov/documents/2025/08/08/2025-15083/onshoring-manufacturing-of-drugs-and-biological-products-public-meeting-request-for-comments"}, {"id": "PE-bb25871d52", "headline": "DEA Export Quota Rules for Controlled Substances", "country": "United States", "commodity": "active pharmaceutical ingredients", "date": "2026-05-20", "severity": "medium", "source_url": "https://www.federalregister.gov/documents/2026/05/20/2026-10128/revision-of-applications-for-manufacturing-and-procurement-quotas"}, {"id": "PE-cd03449cd1", "headline": "US Zeroes Out UK Pharma Tariffs", "country": "United Kingdom", "commodity": "patented pharmaceuticals and active pharmaceutical ingredients", "date": "2026-08-04", "severity": "high", "source_url": "https://www.federalregister.gov/documents/2026/08/04/2026-15799/notice-of-reduction-of-tariffs-on-patented-pharmaceuticals-and-pharmaceutical-ingredients-for"}, {"id": "PE-7c5a675c4e", "headline": "Section 301 Germany Drug Pricing Probe", "country": "Germany", "commodity": "innovative pharmaceutical products", "date": "2026-06-24", "severity": "medium", "source_url": "https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent"}], "mentions": [{"id": "FM-6973f850d0", "company": "AbbVie", "ticker": "ABBV", "country": "Ireland", "commodity": "biologics/pharmaceutical manufacturing", "date": "2026-02-20", "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm"}, {"id": "FM-a5e14acda5", "company": "AbbVie", "ticker": "ABBV", "country": "Germany", "commodity": "pharmaceutical manufacturing", "date": "2026-02-20", "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm"}, {"id": "FM-a93ff184d0", "company": "AbbVie", "ticker": "ABBV", "country": "Puerto Rico", "commodity": "pharmaceutical manufacturing", "date": "2026-02-20", "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm"}, {"id": "FM-b7da58b503", "company": "Bristol-Myers Squibb", "ticker": "BMY", "country": "Ireland", "commodity": "biologics/pharmaceutical manufacturing", "date": "2026-02-11", "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"}, {"id": "FM-510de96876", "company": "Bristol-Myers Squibb", "ticker": "BMY", "country": "Ireland", "commodity": "biologics/pharmaceutical manufacturing", "date": "2026-02-11", "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"}, {"id": "FM-e950c24063", "company": "Eli Lilly", "ticker": "LLY", "country": "Puerto Rico", "commodity": "active pharmaceutical ingredients", "date": "2026-02-12", "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"}, {"id": "FM-051b01435e", "company": "Eli Lilly", "ticker": "LLY", "country": "Ireland", "commodity": "active pharmaceutical ingredients", "date": "2026-02-12", "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"}, {"id": "FM-2a2445d519", "company": "Eli Lilly", "ticker": "LLY", "country": "Germany", "commodity": "pharmaceutical manufacturing", "date": "2026-02-12", "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"}, {"id": "FM-7c912cc22d", "company": "Eli Lilly", "ticker": "LLY", "country": "China", "commodity": "supply chain components", "date": "2026-02-12", "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"}, {"id": "FM-98553e30ef", "company": "Eli Lilly", "ticker": "LLY", "country": "Puerto Rico", "commodity": "pharmaceutical products", "date": "2026-02-12", "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"}, {"id": "FM-e4f6149f20", "company": "Pfizer", "ticker": "PFE", "country": "India", "commodity": "pharmaceutical manufacturing", "date": "2026-02-26", "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm"}, {"id": "FM-335dacb678", "company": "Pfizer", "ticker": "PFE", "country": "India", "commodity": "R&D operations", "date": "2026-02-26", "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm"}, {"id": "FM-817f8fc512", "company": "Teva Pharmaceutical", "ticker": "TEVA", "country": "India", "commodity": "generic drugs", "date": "2026-02-03", "source_url": "https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm"}, {"id": "FM-dd7b200f0c", "company": "Teva Pharmaceutical", "ticker": "TEVA", "country": "India", "commodity": "active pharmaceutical ingredients", "date": "2026-02-03", "source_url": "https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm"}, {"id": "FM-e4ffea9bfe", "company": "Viatris", "ticker": "VTRS", "country": "India", "commodity": "generic drugs", "date": "2026-02-26", "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"}, {"id": "FM-b1284fcb15", "company": "Viatris", "ticker": "VTRS", "country": "Ireland", "commodity": "active pharmaceutical ingredients", "date": "2026-02-26", "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"}, {"id": "FM-26ad0f317f", "company": "Viatris", "ticker": "VTRS", "country": "Puerto Rico", "commodity": "active pharmaceutical ingredients", "date": "2026-02-26", "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"}, {"id": "FM-620d179e26", "company": "Viatris", "ticker": "VTRS", "country": "China", "commodity": "active pharmaceutical ingredients", "date": "2026-02-26", "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"}], "links": [{"id": "GL-c7fa5690f2", "event_id": "PE-c8158dc8a3", "mention_id": "FM-6973f850d0", "shared_country": "Ireland"}, {"id": "GL-ee9af549e5", "event_id": "PE-c8158dc8a3", "mention_id": "FM-a5e14acda5", "shared_country": "Germany"}, {"id": "GL-233c5e4230", "event_id": "PE-c8158dc8a3", "mention_id": "FM-b7da58b503", "shared_country": "Ireland"}, {"id": "GL-d649520021", "event_id": "PE-c8158dc8a3", "mention_id": "FM-051b01435e", "shared_country": "Ireland"}, {"id": "GL-c61f6935b6", "event_id": "PE-c8158dc8a3", "mention_id": "FM-2a2445d519", "shared_country": "Germany"}, {"id": "GL-314d7003a5", "event_id": "PE-c8158dc8a3", "mention_id": "FM-b1284fcb15", "shared_country": "Ireland"}, {"id": "GL-80905a9565", "event_id": "PE-7c5a675c4e", "mention_id": "FM-a5e14acda5", "shared_country": "Germany"}, {"id": "GL-a69ca849ac", "event_id": "PE-7c5a675c4e", "mention_id": "FM-2a2445d519", "shared_country": "Germany"}]}</script>
@@ -567,9 +880,10 @@
   var mentionsById = {};
   DATA.mentions.forEach(function (m) { mentionsById[m.id] = m; });
 
-  var state = { detail: "detailed", timeRange: "all", focus: null };
+  var state = { detail: "detailed", timeRange: "all", focus: null, sort: "recent" };
+  var TIME_LABELS = { all: "All time", "90": "Last 90 days", "30": "Last 30 days", ytd: "Since 2026-01-01" };
 
-  // ---------- checkbox persistence (unchanged from v1) ----------
+  // ---------- checkbox persistence ----------
   document.querySelectorAll(".approve-checkbox").forEach(function (box) {
     var key = "scs-approved-" + box.dataset.alertId;
     try { box.checked = localStorage.getItem(key) === "1"; } catch (e) {}
@@ -808,7 +1122,7 @@
     if (state.focus) highlight(state.focus);
   }
 
-  // ---------- card filtering (Alert Cards + Gap section) ----------
+  // ---------- card filtering (Alert Cards, Gap-by-company, Opportunities) ----------
   function focusMatches(el) {
     if (!state.focus) return true;
     var parts = state.focus.split(":");
@@ -834,22 +1148,84 @@
     }
   }
 
+  function setText(id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  function updateStats() {
+    var inRangeEvents = DATA.events.filter(function (e) { return withinRange(e.date, state.timeRange); }).length;
+    var inRangeMentions = DATA.mentions.filter(function (m) { return withinRange(m.date, state.timeRange); }).length;
+    setText("stat-policy-events", inRangeEvents);
+    setText("stat-filing-mentions", inRangeMentions);
+    setText("stat-graph-links", visibleLinks().length);
+    setText("stat-alert-cards", document.querySelectorAll('.card[data-kind="alert"]:not(.hidden-by-filter)').length);
+    setText("stat-gap-signals", document.querySelectorAll('.card[data-kind="gap"]:not(.hidden-by-filter)').length);
+    setText("stat-opportunities", document.querySelectorAll('.card[data-kind="opportunity"]:not(.hidden-by-filter)').length);
+    setText("range-label", TIME_LABELS[state.timeRange] || "All time");
+  }
+
   function applyCardFilters() {
-    var anyAlertVisible = false, anyGapVisible = false;
+    var anyAlertVisible = false;
     document.querySelectorAll('.card[data-kind="alert"]').forEach(function (card) {
       var visible = withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
       card.classList.toggle("hidden-by-filter", !visible);
       if (visible) anyAlertVisible = true;
     });
-    document.querySelectorAll('.card[data-kind="gap"]').forEach(function (card) {
-      var visible = withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
-      card.classList.toggle("hidden-by-filter", !visible);
-      if (visible) anyGapVisible = true;
-    });
     document.getElementById("alert-no-match").classList.toggle("visible", !anyAlertVisible && document.querySelectorAll('.card[data-kind="alert"]').length > 0);
+
+    // Gap cards (grouped by company) and Opportunity cards (grouped by
+    // country) both live inside ".company-group" <details> — filter every
+    // card inside each group by ITS OWN data-kind, then hide any group left
+    // with nothing visible. A group only ever contains one kind, but the
+    // filter pass itself has to consider both since the selector is shared.
+    var anyGapVisible = false, anyOppVisible = false;
+    document.querySelectorAll(".company-group").forEach(function (group) {
+      var groupHasVisible = false;
+      group.querySelectorAll('.card[data-kind="gap"], .card[data-kind="opportunity"]').forEach(function (card) {
+        var visible = withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
+        card.classList.toggle("hidden-by-filter", !visible);
+        if (visible) {
+          groupHasVisible = true;
+          if (card.dataset.kind === "gap") anyGapVisible = true; else anyOppVisible = true;
+        }
+      });
+      group.classList.toggle("hidden-by-filter", !groupHasVisible);
+    });
     document.getElementById("gap-no-match").classList.toggle("visible", !anyGapVisible && document.querySelectorAll('.card[data-kind="gap"]').length > 0);
+    document.getElementById("opportunity-no-match").classList.toggle("visible", !anyOppVisible && document.querySelectorAll('.card[data-kind="opportunity"]').length > 0);
+
     updateFilterChip();
+    updateStats();
   }
+
+  // ---------- sort (Alert Cards) ----------
+  function sortAlertCards() {
+    var container = document.getElementById("alert-cards-list");
+    if (!container) return;
+    var cards = Array.prototype.slice.call(container.querySelectorAll('.card[data-kind="alert"]'));
+    cards.sort(function (a, b) {
+      var da = a.dataset.date || "", db = b.dataset.date || "";
+      return state.sort === "recent" ? db.localeCompare(da) : da.localeCompare(db);
+    });
+    cards.forEach(function (c) { container.appendChild(c); }); // appendChild on an existing node MOVES it
+  }
+
+  // ---------- stat tile -> jump to section ----------
+  function openAncestorDetails(el) {
+    while (el) {
+      if (el.tagName === "DETAILS") el.open = true;
+      el = el.parentElement;
+    }
+  }
+  document.querySelectorAll(".stat[data-target]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var target = document.getElementById(el.dataset.target);
+      if (!target) return;
+      openAncestorDetails(target);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
 
   // ---------- wiring ----------
   document.getElementById("btn-detailed").addEventListener("click", function () {
@@ -874,12 +1250,17 @@
     renderGraph();
     applyCardFilters();
   });
+  document.getElementById("sort-select").addEventListener("change", function () {
+    state.sort = this.value;
+    sortAlertCards();
+  });
   // Segment dropdown: only "pharma" is implemented this round, so it's a
   // no-op — present so the control surface is ready as more segments ship.
   document.getElementById("segment-select").addEventListener("change", function () {});
 
   renderGraph();
   applyCardFilters();
+  sortAlertCards();
 })();
 </script>
 
