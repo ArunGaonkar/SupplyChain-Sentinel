@@ -9,6 +9,15 @@
     "confidence": 0.6
   },
   {
+    "id": "GL-ee9af549e5",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-a5e14acda5",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
     "id": "GL-233c5e4230",
     "policy_event_id": "PE-c8158dc8a3",
     "filing_mention_id": "FM-b7da58b503",
@@ -22,6 +31,15 @@
     "policy_event_id": "PE-c8158dc8a3",
     "filing_mention_id": "FM-051b01435e",
     "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-c61f6935b6",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-2a2445d519",
+    "shared_country": "Germany",
     "shared_commodity": null,
     "hop_count": 2,
     "confidence": 0.6

@@ -1,9 +1,17 @@
-"""Phase 5 — static dashboard.
+"""Phase 5 — static dashboard (v2).
 
-Renders Alert Cards + one dependency-tree SVG to a single static HTML file
-via Jinja2. No backend framework, no JS build step — open dist/index.html
-directly in a browser. Zero network calls: reads only the JSON artifacts
-already produced in data/ by earlier phases.
+Renders Alert Cards + a Gap/Opportunity view + an interactive dependency
+graph to a single static HTML file via Jinja2. No backend framework, no JS
+build step, no external JS/CSS dependencies — open dist/index.html directly
+in a browser. Zero network calls: reads only the JSON artifacts already
+produced in data/ by earlier phases.
+
+The dependency graph is rendered CLIENT-SIDE (vanilla JS, embedded graph
+data as JSON) rather than baked into static SVG, because it needs to
+re-layout dynamically: a time-range filter changes which nodes/edges are
+visible, and a detail-level toggle changes the column structure itself
+(Catalyst -> Country -> Company vs. the fuller Catalyst -> Policy Scope ->
+Country -> Company). See templates/dashboard.html.jinja for the renderer.
 
 The per-alert checkbox is a stand-in for the human-approval principle (state
 kept client-side in localStorage, no server) — a full approval workflow
@@ -36,94 +44,12 @@ def _load(name: str) -> list[dict]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _build_dependency_svg(events: list[dict], mentions: list[dict], links: list[dict]) -> str:
-    """A 3-column diagram: Policy Events -> shared Country -> Companies,
-    built for exactly the entities that appear in at least one graph link
-    (no SVG/JS library — plain computed <svg> markup, so it renders with
-    zero external dependencies)."""
-    events_by_id = {e["id"]: e for e in events}
-    mentions_by_id = {m["id"]: m for m in mentions}
-
-    linked_event_ids, countries, companies = [], [], []
-    edges_ec, edges_cc = [], []  # event->country, country->company
-    for link in links:
-        event = events_by_id[link["policy_event_id"]]
-        mention = mentions_by_id[link["filing_mention_id"]]
-        country = link["shared_country"] or mention["mentioned_country"]
-
-        if event["id"] not in linked_event_ids:
-            linked_event_ids.append(event["id"])
-        if country not in countries:
-            countries.append(country)
-        if mention["ticker"] not in companies:
-            companies.append(mention["ticker"])
-
-        edge1 = (event["id"], country)
-        if edge1 not in edges_ec:
-            edges_ec.append(edge1)
-        edge2 = (country, mention["ticker"])
-        if edge2 not in edges_cc:
-            edges_cc.append(edge2)
-
-    if not linked_event_ids:
-        return ""
-
-    col_x = {"event": 40, "country": 380, "company": 700}
-    row_h = 70
-    top_pad = 40
-    width = 900
-    height = top_pad * 2 + row_h * max(len(linked_event_ids), len(countries), len(companies), 1)
-
-    def y_for(items: list, key) -> float:
-        idx = items.index(key)
-        return top_pad + row_h * idx + row_h / 2
-
-    svg_parts = [
-        f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
-        f'font-family="Inter, system-ui, sans-serif" font-size="13">'
-    ]
-
-    # edges first (so nodes draw on top)
-    for src, dst in edges_ec:
-        y1, y2 = y_for(linked_event_ids, src), y_for(countries, dst)
-        svg_parts.append(
-            f'<path d="M{col_x["event"]+220},{y1} C{col_x["country"]-60},{y1} '
-            f'{col_x["event"]+260},{y2} {col_x["country"]},{y2}" '
-            f'stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/>'
-        )
-    for src, dst in edges_cc:
-        y1, y2 = y_for(countries, src), y_for(companies, dst)
-        svg_parts.append(
-            f'<path d="M{col_x["country"]+110},{y1} C{col_x["company"]-60},{y1} '
-            f'{col_x["country"]+150},{y2} {col_x["company"]},{y2}" '
-            f'stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/>'
-        )
-
-    def node(x, y, label, sub, fill, text_fill="#0f172a"):
-        w = 220
-        h = 44
-        parts = [
-            f'<rect x="{x}" y="{y - h/2:.1f}" width="{w}" height="{h}" rx="8" '
-            f'fill="{fill}" stroke="#cbd5e1"/>',
-            f'<text x="{x + 12}" y="{y - 3:.1f}" fill="{text_fill}" font-weight="600">{label}</text>',
-        ]
-        if sub:
-            parts.append(f'<text x="{x + 12}" y="{y + 14:.1f}" fill="#475569" font-size="11">{sub}</text>')
-        return "".join(parts)
-
-    for eid in linked_event_ids:
-        e = events_by_id[eid]
-        y = y_for(linked_event_ids, eid)
-        svg_parts.append(node(col_x["event"], y, e["country"], e["affected_product"][:28], "#eff6ff"))
-    for c in countries:
-        y = y_for(countries, c)
-        svg_parts.append(node(col_x["country"], y, c, "shared country", "#f0fdf4"))
-    for tkr in companies:
-        y = y_for(companies, tkr)
-        svg_parts.append(node(col_x["company"], y, tkr, "10-K filer", "#fef3c7"))
-
-    svg_parts.append("</svg>")
-    return "".join(svg_parts)
+def _iso_date(yyyymmdd: str) -> str:
+    """'20260409' -> '2026-04-09' (also passes through already-ISO dates)."""
+    s = (yyyymmdd or "").replace("-", "")
+    if len(s) == 8:
+        return f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
+    return yyyymmdd or ""
 
 
 def build_dashboard() -> Path:
@@ -132,32 +58,94 @@ def build_dashboard() -> Path:
     links = _load("graph_links.json")
     cards = _load("alert_cards.json")
 
-    cards_sorted = sorted(cards, key=lambda c: SEVERITY_ORDER.get(c["severity"], 3))
     events_by_id = {e["id"]: e for e in events}
     mentions_by_id = {m["id"]: m for m in mentions}
+    links_by_id = {link["id"]: link for link in links}
 
+    cards_sorted = sorted(cards, key=lambda c: SEVERITY_ORDER.get(c["severity"], 3))
     enriched_cards = []
     for card in cards_sorted:
+        event = events_by_id.get(card["policy_event_id"], {})
+        mention = mentions_by_id.get(card["filing_mention_id"], {})
+        link = links_by_id.get(card["graph_link_id"], {})
         enriched_cards.append(
             {
                 **card,
-                "policy_event": events_by_id.get(card["policy_event_id"], {}),
-                "filing_mention": mentions_by_id.get(card["filing_mention_id"], {}),
+                "policy_event": event,
+                "filing_mention": mention,
+                "date_iso": _iso_date(event.get("date", "")),
+                # The specific resolved country for THIS link — not
+                # event["country"], which can be a bloc ("European Union")
+                # for a policy event matched against several member states.
+                "shared_country": link.get("shared_country") or mention.get("mentioned_country", ""),
             }
         )
 
-    dependency_svg = _build_dependency_svg(events, mentions, links)
+    # Gap/Opportunity view: FilingMentions with NO matching PolicyEvent this
+    # run — a real, disclosed dependency the company itself named, but with
+    # nothing on the policy side to confirm it against yet. See
+    # CHANGELOG.md Phase 6 (eval-08 / Lilly-China) for why this is a
+    # genuine, honest system limitation worth surfacing rather than hiding.
+    linked_mention_ids = {link["filing_mention_id"] for link in links}
+    gap_mentions = [
+        {
+            **m,
+            "country": m["mentioned_country"],
+            "commodity": m["mentioned_commodity"],
+            "date_iso": _iso_date(m.get("filing_date", "")),
+        }
+        for m in mentions
+        if m["id"] not in linked_mention_ids
+    ]
+
+    graph_data = {
+        "events": [
+            {
+                "id": e["id"],
+                "headline": e["headline"],
+                "country": e["country"],
+                "commodity": e["affected_product"],
+                "date": _iso_date(e["date"]),
+                "severity": e["severity"],
+                "source_url": e["source_url"],
+            }
+            for e in events
+        ],
+        "mentions": [
+            {
+                "id": m["id"],
+                "company": m["company"],
+                "ticker": m["ticker"],
+                "country": m["mentioned_country"],
+                "commodity": m["mentioned_commodity"],
+                "date": _iso_date(m["filing_date"]),
+                "source_url": m["source_url"],
+            }
+            for m in mentions
+        ],
+        "links": [
+            {
+                "id": link["id"],
+                "event_id": link["policy_event_id"],
+                "mention_id": link["filing_mention_id"],
+                "shared_country": link["shared_country"],
+            }
+            for link in links
+        ],
+    }
 
     env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
     template = env.get_template("dashboard.html.jinja")
     html = template.render(
         cards=enriched_cards,
-        dependency_svg=dependency_svg,
+        gap_mentions=gap_mentions,
+        graph_data_json=json.dumps(graph_data),
         stats={
             "policy_events": len(events),
             "filing_mentions": len(mentions),
             "graph_links": len(links),
             "alert_cards": len(cards),
+            "gap_mentions": len(gap_mentions),
         },
     )
 

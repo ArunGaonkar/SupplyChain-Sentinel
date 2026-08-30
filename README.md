@@ -113,9 +113,10 @@ required for the agent/LLM steps themselves).
   side) is a stand-in for the human-approval principle: these Alert Cards only
   inform a human decision-maker and never take action themselves, so a full
   approval workflow is a natural next step, not required to prove the concept.
-- **Gap/Opportunity view and a what-if tariff simulator** — not built; see the
-  "hot take" in CHANGELOG.md for a related real finding (eval-08) that a
-  Gap view would have made more visible.
+- **A what-if tariff simulator** — not built.
+- ~~Gap/Opportunity view~~ — built post-submission (dashboard now has a Gap
+  section listing disclosed dependencies with no matching policy event, e.g.
+  Lilly's China-API admission from eval-08); see CHANGELOG.md.
 
 ## Repo layout
 

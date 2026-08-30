@@ -44,9 +44,17 @@ tariff or trade policy (e.g. an antidumping case about soybean meal). Your job:
    restriction, trade agreement, or regulatory change affecting pharmaceutical
    products, active pharmaceutical ingredients (API), or medical devices.
 3. For each item that IS relevant, extract one structured PolicyEvent:
+   - headline: a short (<=45 char) human-readable catalyst label a non-expert
+     reader would recognize at a glance, e.g. "US-EU Tariff Cut on Generic
+     Drugs" or "Section 301 Germany Pricing Probe" — name the actual
+     mechanism/framework if the text names one (e.g. "Section 232", "Section
+     301", "US-EU framework"), not just the country + policy_type restated
    - country: the country whose policy/trade action this is (use one of the
      seed countries if it clearly matches: {countries}; otherwise use the
-     actual country named)
+     actual country named). IMPORTANT: if the source text describes a
+     bloc-wide action (e.g. "products of the European Union") WITHOUT naming
+     one specific member state, use "European Union" — do NOT guess or
+     invent a specific member country that isn't actually named in the text
    - policy_type: one of {policy_types}
    - affected_product: the specific pharma product/commodity affected,
      preferring one of {commodities} if it clearly matches, else short free text
@@ -56,7 +64,7 @@ tariff or trade policy (e.g. an antidumping case about soybean meal). Your job:
    - snippet: a short verbatim quote (<=200 chars) from the item's title/snippet
      that supports your extraction
 
-Return ONLY a JSON array of objects with keys: country, policy_type,
+Return ONLY a JSON array of objects with keys: headline, country, policy_type,
 affected_product, severity, snippet, source_index (the integer index of the
 input item this came from). Do not include markdown fences or commentary.
 If NO items in the batch are relevant, return an empty array []."""
@@ -122,6 +130,7 @@ def run_policy_agent(force_refresh: bool = False) -> list[PolicyEvent]:
             try:
                 event = PolicyEvent(
                     id=_make_id(src_item["url"]),
+                    headline=obj.get("headline", f"{obj['country']} {obj['policy_type']}")[:60],
                     country=obj["country"],
                     policy_type=obj["policy_type"],
                     affected_product=obj["affected_product"],

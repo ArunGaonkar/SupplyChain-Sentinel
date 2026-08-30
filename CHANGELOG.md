@@ -4,6 +4,72 @@ One entry per phase/iteration: what was tried, the evidence, and the
 decision/learning. Includes things tried and removed, per the hackathon's own
 rules for this document.
 
+## Post-submission — Dashboard v2 (catalyst graph, Gap view, interactivity, filters)
+
+Requested after initial submission: a clearer graph, a Gap/Opportunity view
+(previously explicitly out of scope), and dashboard controls.
+
+**Bug found and fixed (the important one):** adding a `headline` field to
+`PolicyEvent` required re-running the Policy Agent, which surfaced a real
+extraction bug, not just LLM non-determinism. The Ireland-linked policy
+notice's actual text only ever says "products of the European Union" — it
+never names Ireland, or any specific member state, anywhere. The *first*
+agent run had labeled it `country: "Ireland"`; re-running it (before the fix
+below) relabeled the same document `country: "Germany"`. Both were the model
+guessing a plausible-sounding member state because the schema only allows
+one `country` per event — neither guess is actually grounded in the source
+text. Caught by re-fetching the raw notice and confirming neither country is
+named. Fixed two ways: (1) the Policy Agent's prompt now instructs it to
+record `"European Union"` rather than invent a member state when the source
+text is bloc-wide and doesn't name one; (2) `src/graph.py` gained an
+`EU_MEMBERS` set so a `"European Union"` policy event still correctly
+matches a `FilingMention` naming any specific member country (Ireland,
+Germany, ...), resolving `GraphLink.shared_country` to that specific country
+rather than the literal string "European Union". Net effect: Germany is now
+correctly shown fed by **two** distinct, real catalysts (the EU tariff
+framework AND the separate Section 301 Germany pricing probe) instead of one
+— which is also a more informative answer to "why does the graph only show
+two countries, aren't there other dependencies" than any UI change alone
+would have been. Link count went from 6 to 8.
+
+**Decision:** every `PolicyEvent` now carries a short LLM-generated
+`headline` (e.g. "US-EU Framework Tariff Cut on Generic Drugs") instead of
+citations reading as `"Ireland — tariff_decrease"`. Used as the graph's
+leftmost "catalyst" node label and as the Alert Card citation text — same
+fix, two places, because the underlying problem (policy source not
+identified in a way a non-expert recognizes) was the same in both.
+
+**Decision:** the dependency graph moved from server-rendered static SVG to
+client-side JS rendering `data-*`-driven from an embedded JSON blob, because
+a time-range filter and a detail-level toggle both change which nodes exist
+and how the graph should re-layout — trying to pre-bake every combination as
+static SVG doesn't scale, and re-deriving layout in JS on every state change
+is the same amount of code either way.
+
+**Bug found and fixed (interactivity):** the first hover/click-highlight
+implementation did a plain BFS over the whole graph from the clicked node.
+For a company node this correctly reached its country and catalyst nodes —
+but ALSO reached every *other* company sharing that same country hub (e.g.
+clicking ABBV would highlight BMY, LLY, VTRS too, since they're all in the
+same connected component through the shared "Ireland" node). Fixed by
+tagging every rendered edge with the specific underlying `GraphLink` id(s)
+that produced it, and highlighting only edges/nodes reachable through edges
+that share a link id with the clicked node — so clicking a company traces
+that company's own path back to its catalyst(s) without lighting up
+unrelated siblings that merely pass through the same country.
+
+**Added, not previously built:** a Gap/Opportunity section (the "hot take"
+future-work item from the original CHANGELOG entry) listing FilingMentions
+with no matching PolicyEvent — 12 of them, including Lilly's own
+China-API-dependency admission from eval-08. Time-range dropdown (presets:
+All time / Last 90 days / Last 30 days / Since 2026-01-01), defaulting to
+All time specifically because a hard floor at 2026-01-01 would silently hide
+the Ireland tariff event (dated 2025-09-25) that drives most of the Alert
+Cards — that's correct, intentional filtering behavior when a user picks it,
+not something that should happen by default. Segment dropdown with only
+"Pharma" enabled (Textile/Semiconductor shown disabled) as a stub for future
+segments, per the original scope decision to not build those out.
+
 ## Phase 0 — Scaffolding + data snapshot
 
 **Tried:** GDELT DOC 2.0 API directly, as specified.

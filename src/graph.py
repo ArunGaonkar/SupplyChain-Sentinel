@@ -29,6 +29,22 @@ COUNTRY_ALIASES = {
     "uk": "united kingdom",
 }
 
+# Some Federal Register notices describe a bloc-wide action ("products of the
+# European Union") without naming one specific member state — the Policy
+# Agent is instructed to record "European Union" rather than guess a member
+# country in that case (see src/agents/policy_agent.py). A FilingMention
+# naming any of these specific member states should still match that event.
+# The UK and Switzerland are deliberately excluded — they are not EU members,
+# and both already appear in our data as their own separate, specifically-
+# named policy events, so folding them in here would create false matches.
+EU_MEMBERS = {
+    "austria", "belgium", "bulgaria", "croatia", "cyprus", "czech republic",
+    "denmark", "estonia", "finland", "france", "germany", "greece", "hungary",
+    "ireland", "italy", "latvia", "lithuania", "luxembourg", "malta",
+    "netherlands", "poland", "portugal", "romania", "slovakia", "slovenia",
+    "spain", "sweden",
+}
+
 # Commodities are free text guided toward config/segments/pharma.yaml's list
 # by both agents' prompts, but wording still varies ("API" vs "active
 # pharmaceutical ingredients"), so a small synonym map catches the common
@@ -68,9 +84,12 @@ def build_graph(events: list[PolicyEvent], mentions: list[FilingMention]) -> lis
     # "we manufacture in Ireland"), which would otherwise produce near-duplicate alert cards for one company.
     for event in events:
         event_country = _norm_country(event.country)
+        event_is_eu_bloc = event_country == "european union"
         for mention in mentions:
             mention_country = _norm_country(mention.mentioned_country)
-            country_match = event_country == mention_country
+            direct_match = event_country == mention_country
+            eu_bloc_match = event_is_eu_bloc and mention_country in EU_MEMBERS
+            country_match = direct_match or eu_bloc_match
             commodity_match = _commodity_match(event.affected_product, mention.mentioned_commodity)
 
             if country_match and commodity_match:
@@ -85,12 +104,18 @@ def build_graph(events: list[PolicyEvent], mentions: list[FilingMention]) -> lis
                 continue
             seen_pairs.add(dedup_key)
 
+            # For an EU-bloc event, the meaningful "shared" country is the
+            # specific member state the filing actually names (e.g. "Ireland"),
+            # not the literal string "European Union" — that's what a reader
+            # (and the graph diagram) needs to see.
+            resolved_country = mention.mentioned_country if eu_bloc_match else event.country
+
             links.append(
                 GraphLink(
                     id=_link_id(event.id, mention.id),
                     policy_event_id=event.id,
                     filing_mention_id=mention.id,
-                    shared_country=event.country if country_match else None,
+                    shared_country=resolved_country if country_match else None,
                     shared_commodity=event.affected_product if commodity_match else None,
                     hop_count=hop_count,
                     confidence=confidence,

@@ -1,6 +1,7 @@
 [
   {
     "id": "PE-a918f9ca30",
+    "headline": "Section 232 Pharma Onshoring Tariff Relief",
     "country": "United States",
     "policy_type": "tariff_decrease",
     "affected_product": "active pharmaceutical ingredients",
@@ -11,6 +12,7 @@
   },
   {
     "id": "PE-bffc7d308c",
+    "headline": "Section 232 Pharma Import Tariff Action",
     "country": "United States",
     "policy_type": "tariff_increase",
     "affected_product": "active pharmaceutical ingredients",
@@ -21,76 +23,84 @@
   },
   {
     "id": "PE-1cceec5593",
+    "headline": "Marijuana Drug Rescheduling Import Permits",
     "country": "United States",
-    "policy_type": "import_restriction",
-    "affected_product": "generic drugs",
+    "policy_type": "regulatory_change",
+    "affected_product": "marijuana-based drug products",
     "date": "20260428",
     "source_url": "https://www.federalregister.gov/documents/2026/04/28/2026-08176/schedules-of-controlled-substances-rescheduling-of-food-and-drug-administration-approved-products",
-    "snippet": "this final rule adds such drugs to the list of substances that may only be imported or exported pursuant to a permit.",
-    "severity": "medium"
+    "snippet": "this final rule also adds such drugs to the list of substances that may only be imported or exported pursuant to a permit",
+    "severity": "low"
   },
   {
     "id": "PE-798fb587e1",
+    "headline": "US-Switzerland Tariff Cut on Generic Drugs",
     "country": "Switzerland",
     "policy_type": "tariff_decrease",
     "affected_product": "generic drugs",
     "date": "20251218",
     "source_url": "https://www.federalregister.gov/documents/2025/12/18/2025-23316/implementing-certain-tariff-related-elements-of-the-framework-for-a-united",
-    "snippet": "adjust tariffs on certain articles that are products of Switzerland or Liechtenstein, including... generic pharmaceuticals and their ingredients and chemical precursors",
+    "snippet": "adjust tariffs on certain articles that are products of Switzerland or Liechtenstein, including ... generic pharmaceuticals and their ingredients and chemical precursors",
     "severity": "high"
   },
   {
     "id": "PE-c8158dc8a3",
-    "country": "Ireland",
+    "headline": "US-EU Framework Tariff Cut on Generic Drugs",
+    "country": "European Union",
     "policy_type": "tariff_decrease",
     "affected_product": "generic drugs",
     "date": "20250925",
     "source_url": "https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal",
-    "snippet": "adjust tariffs on certain articles that are products of the European Union, including... generic pharmaceuticals and their ingredients and chemical precursors",
+    "snippet": "adjust tariffs on certain articles that are products of the European Union, including ... generic pharmaceuticals and their ingredients and chemical precursors",
     "severity": "high"
   },
   {
     "id": "PE-f1e23590d2",
+    "headline": "Section 232 Probe on Pharma Imports",
     "country": "United States",
-    "policy_type": "regulatory_change",
+    "policy_type": "import_restriction",
     "affected_product": "active pharmaceutical ingredients",
     "date": "20250416",
     "source_url": "https://www.federalregister.gov/documents/2025/04/16/2025-06587/notice-of-request-for-public-comments-on-section-232-national-security-investigation-of-imports-of",
-    "snippet": "investigation to determine the effects on the national security of imports of pharmaceuticals and pharmaceutical ingredients, including... active pharmaceutical ingredients",
-    "severity": "high"
+    "snippet": "investigation to determine the effects on the national security of imports of pharmaceuticals and pharmaceutical ingredients ... under section 232 of the Trade Expansion Act of 1962",
+    "severity": "medium"
   },
   {
     "id": "PE-55ef7b32f4",
+    "headline": "US Strategic API Reserve Plan",
     "country": "United States",
     "policy_type": "regulatory_change",
     "affected_product": "active pharmaceutical ingredients",
     "date": "20250819",
     "source_url": "https://www.federalregister.gov/documents/2025/08/19/2025-15823/ensuring-american-pharmaceutical-supply-chain-resilience-by-filling-the-strategic-active",
     "snippet": "Ensuring American Pharmaceutical Supply Chain Resilience by Filling the Strategic Active Pharmaceutical Ingredients Reserve",
-    "severity": "medium"
+    "severity": "high"
   },
   {
     "id": "PE-08d18c8e54",
+    "headline": "Medicare 'Made in America' Medical Supplies Rule",
     "country": "United States",
-    "policy_type": "import_restriction",
+    "policy_type": "regulatory_change",
     "affected_product": "medical devices",
     "date": "20260129",
     "source_url": "https://www.federalregister.gov/documents/2026/01/29/2026-01730/medicare-program-ensuring-safety-through-domestic-security-with-made-in-america-personal-protective",
-    "snippet": "Made in America Personal Protective Equipment (PPE) and Essential Medicine Procurement by Medicare Participating Hospitals",
+    "snippet": "foster a more resilient supply chain for American-made personal protective equipment and essential medicines to secure our nation's health and safety",
     "severity": "medium"
   },
   {
     "id": "PE-83b2be3624",
+    "headline": "FDA Onshoring Drug Manufacturing Framework",
     "country": "United States",
     "policy_type": "regulatory_change",
     "affected_product": "active pharmaceutical ingredients",
     "date": "20250808",
     "source_url": "https://www.federalregister.gov/documents/2025/08/08/2025-15083/onshoring-manufacturing-of-drugs-and-biological-products-public-meeting-request-for-comments",
-    "snippet": "accelerating the establishment of new pharmaceutical manufacturing facilities in the United States... including active pharmaceutical ingredients (APIs)",
+    "snippet": "accelerating the establishment of new pharmaceutical manufacturing facilities in the United States",
     "severity": "medium"
   },
   {
     "id": "PE-bb25871d52",
+    "headline": "DEA Export Quota Rules for Controlled Substances",
     "country": "United States",
     "policy_type": "export_restriction",
     "affected_product": "active pharmaceutical ingredients",
@@ -101,9 +111,10 @@
   },
   {
     "id": "PE-cd03449cd1",
+    "headline": "US Zeroes Out UK Pharma Tariffs",
     "country": "United Kingdom",
     "policy_type": "tariff_decrease",
-    "affected_product": "active pharmaceutical ingredients",
+    "affected_product": "patented pharmaceuticals and active pharmaceutical ingredients",
     "date": "20260804",
     "source_url": "https://www.federalregister.gov/documents/2026/08/04/2026-15799/notice-of-reduction-of-tariffs-on-patented-pharmaceuticals-and-pharmaceutical-ingredients-for",
     "snippet": "revises the tariff rate on patented pharmaceuticals and associated pharmaceutical ingredients that are products of the United Kingdom from 10 percent to zero percent",
@@ -111,6 +122,7 @@
   },
   {
     "id": "PE-7c5a675c4e",
+    "headline": "Section 301 Germany Drug Pricing Probe",
     "country": "Germany",
     "policy_type": "regulatory_change",
     "affected_product": "innovative pharmaceutical products",

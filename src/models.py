@@ -10,6 +10,7 @@ class PolicyEvent(BaseModel):
     """A single policy/news event extracted by the Policy Agent from GDELT."""
 
     id: str
+    headline: str  # short human-readable catalyst label, e.g. "US-EU Tariff Cut on Generic Drugs"
     country: str
     policy_type: str  # e.g. "tariff_increase", "export_restriction", "trade_agreement"
     affected_product: str  # e.g. "active pharmaceutical ingredients"

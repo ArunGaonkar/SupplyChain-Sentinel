@@ -78,10 +78,16 @@ python -m eval.run_eval             # Phase 6  — baseline vs. advanced eval
 - `data/filing_mentions.json` — ~18 structured FilingMentions (from 8
   companies' 10-Ks; 2 of the 8 companies correctly yield zero mentions
   because their cached excerpts were too generic to support a real claim).
-- `data/graph_links.json` — ~6 links (all via shared country at this data
-  scope: Ireland and Germany).
-- `data/alert_cards.json` — 6 Alert Cards, each citing both a policy source
+- `data/graph_links.json` — ~8 links (all via shared country at this data
+  scope: Ireland and Germany — Germany is fed by two distinct policy
+  catalysts, an EU-wide tariff framework and a Germany-specific Section 301
+  probe, resolved via `EU_MEMBERS` bloc matching in `src/graph.py`).
+- `data/alert_cards.json` — 8 Alert Cards, each citing both a policy source
   URL and a filing source URL.
+- `dist/index.html` also includes a Gap/Opportunity section (FilingMentions
+  with no matching PolicyEvent — ~12 at this data scope) and an interactive,
+  client-side-rendered dependency graph (hover/click to trace a company's
+  path back to its catalyst; time-range and detail-level controls).
 - `dist/index.html` — the dashboard.
 - `eval/eval_results.json` + console table — baseline ~25% vs. advanced 100%
   accuracy on the 8 golden cases (baseline's exact number can vary a few

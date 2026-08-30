@@ -51,10 +51,14 @@ def _normalize_country(c: str | None) -> str | None:
 def _advanced_caught(case: dict, alert_cards: list[dict], events_by_id: dict, mentions_by_id: dict) -> tuple[bool, str]:
     for card in alert_cards:
         mention = mentions_by_id.get(card["filing_mention_id"], {})
-        event = events_by_id.get(card["policy_event_id"], {})
+        # Matched against the FilingMention's own mentioned_country, not the
+        # PolicyEvent's — a policy event can be bloc-wide ("European Union"),
+        # resolved against a specific member state on the filing side (see
+        # src/graph.py EU_MEMBERS), so the mention is the ground truth for
+        # "does this ticker+country combination have a confirmed link."
         if mention.get("ticker") != case["ticker"]:
             continue
-        card_country = _normalize_country(event.get("country"))
+        card_country = _normalize_country(mention.get("mentioned_country"))
         case_country = _normalize_country(case.get("country"))
         if case_country is None:
             continue  # eval-07: any card for this ticker at all would be the thing to flag

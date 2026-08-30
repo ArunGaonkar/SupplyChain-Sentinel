@@ -25,7 +25,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "Ireland Tariff Cut on Generic Drugs Eases Cost Pressure for BMY's Irish Manufacturing",
+      "advanced_evidence": "US-EU Tariff Cut on Generics Touches BMY's Irish Manufacturing Footprint",
       "advanced_beat_baseline": true
     },
     {
@@ -39,7 +39,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "Ireland Tariff Cut on Generics Aligns with Eli Lilly's Irish API Operations",
+      "advanced_evidence": "EU Tariff Cut on Generics/APIs Could Ease Cost Pressure on Lilly's Ireland Manufacturing",
       "advanced_beat_baseline": true
     },
     {
@@ -53,7 +53,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "US-EU Tariff Cut on Generics Eases Cost Pressure for Viatris' Irish Operations",
+      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Could Ease Cost Pressure for Viatris' Irish API Operations",
       "advanced_beat_baseline": true
     },
     {
@@ -67,7 +67,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "Section 301 Probe into Germany's Drug Pricing Could Pressure Lilly's German Manufacturing Investment",
+      "advanced_evidence": "EU Tariff Cut on Generic Drugs Lowers Cost Pressure on Lilly's German Manufacturing Footprint",
       "advanced_beat_baseline": true
     },
     {
@@ -81,7 +81,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "Section 301 Probe into Germany's Drug Pricing Could Pressure AbbVie's Ludwigshafen Operations",
+      "advanced_evidence": "EU generic drug tariff cut aligns with AbbVie's German manufacturing footprint",
       "advanced_beat_baseline": true
     },
     {

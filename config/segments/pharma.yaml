@@ -22,6 +22,10 @@ countries:
   - Puerto Rico
   - Mexico
   - United States
+  - European Union   # a bloc, not a single country — some policy notices name
+                      # "the European Union" without naming a specific member
+                      # state; src/graph.py matches this against any EU member
+                      # country appearing in a FilingMention (see EU_MEMBERS)
 
 companies:
   - name: Pfizer
