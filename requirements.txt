@@ -1,0 +1,7 @@
+anthropic>=1.2.0
+pydantic>=2.0
+pyyaml>=6.0
+jinja2>=3.1
+requests>=2.32
+beautifulsoup4>=4.12
+lxml>=5.0

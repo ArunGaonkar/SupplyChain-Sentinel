@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+**/__pycache__/
+.env
+data/baseline_output.json.bak
+*.log
+.DS_Store

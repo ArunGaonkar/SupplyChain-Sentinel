@@ -1,0 +1,72 @@
+# SupplyChain Sentinel — segment config: pharma
+# Only "pharma" is implemented for this build; other segments are config stubs
+# (see config/segments/README.md) to show the architecture generalizes.
+segment: pharma
+description: >
+  Pharmaceutical supply chain — active pharmaceutical ingredients (API),
+  generics, and finished-dose manufacturing dependencies between countries
+  and US-listed drugmakers.
+
+entity_types:
+  - country
+  - company
+  - commodity
+  - policy_type
+
+countries:
+  - India
+  - China
+  - Ireland
+  - Switzerland
+  - Germany
+  - Puerto Rico
+  - Mexico
+  - United States
+
+companies:
+  - name: Pfizer
+    ticker: PFE
+  - name: Eli Lilly
+    ticker: LLY
+  - name: Merck
+    ticker: MRK
+  - name: Johnson & Johnson
+    ticker: JNJ
+  - name: Viatris
+    ticker: VTRS
+  - name: Teva Pharmaceutical
+    ticker: TEVA
+  - name: Bristol-Myers Squibb
+    ticker: BMY
+  - name: AbbVie
+    ticker: ABBV
+
+commodities:
+  - active pharmaceutical ingredients
+  - generic drugs
+  - insulin
+  - vaccines
+  - medical devices
+
+policy_types:
+  - tariff_increase
+  - tariff_decrease
+  - export_restriction
+  - import_restriction
+  - trade_agreement
+  - regulatory_change
+
+# GDELT query terms used by src/connectors/gdelt.py
+gdelt_query_terms:
+  - pharmaceutical tariff
+  - API import tariff
+  - drug export restriction
+  - pharmaceutical supply chain policy
+  - generic drug tariff
+
+# SEC EDGAR full-text search terms used by src/connectors/edgar.py
+edgar_query_terms:
+  - tariff
+  - supply chain
+  - active pharmaceutical ingredient
+  - import restriction

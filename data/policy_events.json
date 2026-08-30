@@ -1,0 +1,122 @@
+[
+  {
+    "id": "PE-a918f9ca30",
+    "country": "United States",
+    "policy_type": "tariff_decrease",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20260513",
+    "source_url": "https://www.federalregister.gov/documents/2026/05/13/2026-09489/procedures-to-apply-for-company-specific-onshoring-agreements-to-obtain-tariff-adjustments-for",
+    "snippet": "Companies that enter into such agreements are eligible for a reduced Section 232 duty rate for imports of their pharmaceutical products and associated ingredients.",
+    "severity": "high"
+  },
+  {
+    "id": "PE-bffc7d308c",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20260409",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06956/adjusting-imports-of-pharmaceuticals-and-pharmaceutical-ingredients-into-the-united-states",
+    "snippet": "Adjusting Imports of Pharmaceuticals and Pharmaceutical Ingredients Into the United States",
+    "severity": "high"
+  },
+  {
+    "id": "PE-1cceec5593",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "generic drugs",
+    "date": "20260428",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/28/2026-08176/schedules-of-controlled-substances-rescheduling-of-food-and-drug-administration-approved-products",
+    "snippet": "this final rule adds such drugs to the list of substances that may only be imported or exported pursuant to a permit.",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-798fb587e1",
+    "country": "Switzerland",
+    "policy_type": "tariff_decrease",
+    "affected_product": "generic drugs",
+    "date": "20251218",
+    "source_url": "https://www.federalregister.gov/documents/2025/12/18/2025-23316/implementing-certain-tariff-related-elements-of-the-framework-for-a-united",
+    "snippet": "adjust tariffs on certain articles that are products of Switzerland or Liechtenstein, including... generic pharmaceuticals and their ingredients and chemical precursors",
+    "severity": "high"
+  },
+  {
+    "id": "PE-c8158dc8a3",
+    "country": "Ireland",
+    "policy_type": "tariff_decrease",
+    "affected_product": "generic drugs",
+    "date": "20250925",
+    "source_url": "https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal",
+    "snippet": "adjust tariffs on certain articles that are products of the European Union, including... generic pharmaceuticals and their ingredients and chemical precursors",
+    "severity": "high"
+  },
+  {
+    "id": "PE-f1e23590d2",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20250416",
+    "source_url": "https://www.federalregister.gov/documents/2025/04/16/2025-06587/notice-of-request-for-public-comments-on-section-232-national-security-investigation-of-imports-of",
+    "snippet": "investigation to determine the effects on the national security of imports of pharmaceuticals and pharmaceutical ingredients, including... active pharmaceutical ingredients",
+    "severity": "high"
+  },
+  {
+    "id": "PE-55ef7b32f4",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20250819",
+    "source_url": "https://www.federalregister.gov/documents/2025/08/19/2025-15823/ensuring-american-pharmaceutical-supply-chain-resilience-by-filling-the-strategic-active",
+    "snippet": "Ensuring American Pharmaceutical Supply Chain Resilience by Filling the Strategic Active Pharmaceutical Ingredients Reserve",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-08d18c8e54",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "medical devices",
+    "date": "20260129",
+    "source_url": "https://www.federalregister.gov/documents/2026/01/29/2026-01730/medicare-program-ensuring-safety-through-domestic-security-with-made-in-america-personal-protective",
+    "snippet": "Made in America Personal Protective Equipment (PPE) and Essential Medicine Procurement by Medicare Participating Hospitals",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-83b2be3624",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20250808",
+    "source_url": "https://www.federalregister.gov/documents/2025/08/08/2025-15083/onshoring-manufacturing-of-drugs-and-biological-products-public-meeting-request-for-comments",
+    "snippet": "accelerating the establishment of new pharmaceutical manufacturing facilities in the United States... including active pharmaceutical ingredients (APIs)",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-bb25871d52",
+    "country": "United States",
+    "policy_type": "export_restriction",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20260520",
+    "source_url": "https://www.federalregister.gov/documents/2026/05/20/2026-10128/revision-of-applications-for-manufacturing-and-procurement-quotas",
+    "snippet": "clarify which use-specific subcategories for quotas should be used for controlled substances that will be sold domestically and controlled substances that will be exported",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-cd03449cd1",
+    "country": "United Kingdom",
+    "policy_type": "tariff_decrease",
+    "affected_product": "active pharmaceutical ingredients",
+    "date": "20260804",
+    "source_url": "https://www.federalregister.gov/documents/2026/08/04/2026-15799/notice-of-reduction-of-tariffs-on-patented-pharmaceuticals-and-pharmaceutical-ingredients-for",
+    "snippet": "revises the tariff rate on patented pharmaceuticals and associated pharmaceutical ingredients that are products of the United Kingdom from 10 percent to zero percent",
+    "severity": "high"
+  },
+  {
+    "id": "PE-7c5a675c4e",
+    "country": "Germany",
+    "policy_type": "regulatory_change",
+    "affected_product": "innovative pharmaceutical products",
+    "date": "20260624",
+    "source_url": "https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent",
+    "snippet": "initiated an investigation pursuant to the Trade Act of 1974...with respect to Germany's persistent underpayment for innovative pharmaceutical products",
+    "severity": "medium"
+  }
+]

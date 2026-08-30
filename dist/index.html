@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SupplyChain Sentinel — Pharma Alert Cards</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --high: #dc2626;
+    --high-bg: #fef2f2;
+    --medium: #d97706;
+    --medium-bg: #fffbeb;
+    --low: #16a34a;
+    --low-bg: #f0fdf4;
+    --accent: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    padding: 32px 24px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 26px; }
+  header p { margin: 0; color: #cbd5e1; max-width: 780px; }
+  .stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .stat { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 16px; min-width: 120px; }
+  .stat .n { font-size: 22px; font-weight: 700; }
+  .stat .l { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 18px; margin-bottom: 12px; }
+  .diagram-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    overflow-x: auto;
+  }
+  .diagram-wrap svg { display: block; min-width: 900px; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left-width: 5px;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .card.high { border-left-color: var(--high); }
+  .card.medium { border-left-color: var(--medium); }
+  .card.low { border-left-color: var(--low); }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .card-head h3 { margin: 0; font-size: 16px; flex: 1; }
+  .badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.high { background: var(--high-bg); color: var(--high); }
+  .badge.medium { background: var(--medium-bg); color: var(--medium); }
+  .badge.low { background: var(--low-bg); color: var(--low); }
+
+  .card p.explanation { color: #334155; margin: 12px 0; font-size: 14px; }
+
+  .sources { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .sources a {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    background: #eff6ff;
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+  .sources a:hover { text-decoration: underline; }
+
+  .approve {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px dashed var(--border);
+    padding-top: 12px;
+  }
+  .approve input { width: 16px; height: 16px; }
+
+  .empty { color: var(--muted); font-style: italic; }
+
+  footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SupplyChain Sentinel</h1>
+  <p>Pharma trade &amp; tariff causality — cited, explainable Alert Cards connecting policy/news events to SEC filing disclosures via a shared entity graph.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">12</div><div class="l">Policy Events</div></div>
+    <div class="stat"><div class="n">18</div><div class="l">Filing Mentions</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">Graph Links</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">Alert Cards</div></div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>Dependency graph</h2>
+    <div class="diagram-wrap">
+      
+        <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="13"><path d="M260,75.0 C320,75.0 300,75.0 380,75.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M260,145.0 C320,145.0 300,145.0 380,145.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M490,75.0 C640,75.0 530,75.0 700,75.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M490,75.0 C640,75.0 530,145.0 700,145.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M490,75.0 C640,75.0 530,215.0 700,215.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M490,75.0 C640,75.0 530,285.0 700,285.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M490,145.0 C640,145.0 530,75.0 700,75.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><path d="M490,145.0 C640,145.0 530,215.0 700,215.0" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.7"/><rect x="40" y="53.0" width="220" height="44" rx="8" fill="#eff6ff" stroke="#cbd5e1"/><text x="52" y="72.0" fill="#0f172a" font-weight="600">Ireland</text><text x="52" y="89.0" fill="#475569" font-size="11">generic drugs</text><rect x="40" y="123.0" width="220" height="44" rx="8" fill="#eff6ff" stroke="#cbd5e1"/><text x="52" y="142.0" fill="#0f172a" font-weight="600">Germany</text><text x="52" y="159.0" fill="#475569" font-size="11">innovative pharmaceutical pr</text><rect x="380" y="53.0" width="220" height="44" rx="8" fill="#f0fdf4" stroke="#cbd5e1"/><text x="392" y="72.0" fill="#0f172a" font-weight="600">Ireland</text><text x="392" y="89.0" fill="#475569" font-size="11">shared country</text><rect x="380" y="123.0" width="220" height="44" rx="8" fill="#f0fdf4" stroke="#cbd5e1"/><text x="392" y="142.0" fill="#0f172a" font-weight="600">Germany</text><text x="392" y="159.0" fill="#475569" font-size="11">shared country</text><rect x="700" y="53.0" width="220" height="44" rx="8" fill="#fef3c7" stroke="#cbd5e1"/><text x="712" y="72.0" fill="#0f172a" font-weight="600">ABBV</text><text x="712" y="89.0" fill="#475569" font-size="11">10-K filer</text><rect x="700" y="123.0" width="220" height="44" rx="8" fill="#fef3c7" stroke="#cbd5e1"/><text x="712" y="142.0" fill="#0f172a" font-weight="600">BMY</text><text x="712" y="159.0" fill="#475569" font-size="11">10-K filer</text><rect x="700" y="193.0" width="220" height="44" rx="8" fill="#fef3c7" stroke="#cbd5e1"/><text x="712" y="212.0" fill="#0f172a" font-weight="600">LLY</text><text x="712" y="229.0" fill="#475569" font-size="11">10-K filer</text><rect x="700" y="263.0" width="220" height="44" rx="8" fill="#fef3c7" stroke="#cbd5e1"/><text x="712" y="282.0" fill="#0f172a" font-weight="600">VTRS</text><text x="712" y="299.0" fill="#475569" font-size="11">10-K filer</text></svg>
+      
+    </div>
+  </section>
+
+  <section>
+    <h2>Alert Cards</h2>
+    
+    
+      <div class="card medium">
+        <div class="card-head">
+          <h3>US-EU Tariff Cut on Generic Drugs Eases Pressure on AbbVie&#39;s Irish Manufacturing Hub</h3>
+          <span class="badge medium">medium</span>
+        </div>
+        <p class="explanation">The Federal Register notice describes a US-EU reciprocal framework that adjusts tariffs on EU-origin products, explicitly including generic pharmaceuticals and their ingredients and chemical precursors, per the policy source. AbbVie&#39;s 10-K discloses multiple manufacturing sites in Ireland—Clonshaugh, Cork, Sligo, and Westport—showing the company has significant production infrastructure physically located in the EU country directly named in the tariff action. While the filing text lists these sites generically without specifying which are generics-focused, the sheer concentration of Irish manufacturing footprint means any US tariff change on EU-origin pharmaceutical products is directly relevant to AbbVie&#39;s supply chain and cost structure. Because this is a tariff decrease rather than increase, the direct impact should be a modest tailwind (lower import costs on Ireland-sourced product) rather than a risk, but the high policy severity combined with AbbVie&#39;s clear geographic exposure to Ireland warrants monitoring for follow-on effects, such as how the framework treats biologics versus generics differently.</p>
+        <div class="sources">
+          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: Ireland — tariff_decrease</a>
+          <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-c7fa5690f2">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    
+      <div class="card medium">
+        <div class="card-head">
+          <h3>Ireland Tariff Cut on Generic Drugs Eases Cost Pressure for BMY&#39;s Irish Manufacturing</h3>
+          <span class="badge medium">medium</span>
+        </div>
+        <p class="explanation">Per the Federal Register notice, the U.S. is adjusting tariffs on EU-origin products—including generic pharmaceuticals and their ingredients and chemical precursors—as part of the US-EU reciprocal tariff framework, with this specific change being a decrease. As Bristol-Myers Squibb&#39;s 10-K discloses, the company maintains significant manufacturing operations in Ireland, among other countries. While BMY&#39;s filing does not specify that its Irish operations are dedicated to generics, any tariff relief on pharmaceutical products and their precursors originating from Ireland could reduce input or trade costs tied to its Irish manufacturing footprint. Because the filing confirms a direct operational presence in the exact country named in the policy change, this pairing is a plausible but not fully specific match—BMY&#39;s disclosure covers general manufacturing rather than generics-specific exposure, warranting a medium severity rating despite the policy&#39;s own high severity assessment.</p>
+        <div class="sources">
+          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: Ireland — tariff_decrease</a>
+          <a href="https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm" target="_blank" rel="noopener">Filing source: Bristol-Myers Squibb 10-K</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-233c5e4230">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    
+      <div class="card medium">
+        <div class="card-head">
+          <h3>Ireland Tariff Cut on Generics Aligns with Eli Lilly&#39;s Irish API Operations</h3>
+          <span class="badge medium">medium</span>
+        </div>
+        <p class="explanation">The U.S. Federal Register notice (effective 2025-09-25) implements a tariff decrease under the US-EU reciprocal trade framework on EU-origin generic pharmaceuticals and their ingredients and chemical precursors, explicitly covering products from Ireland. Eli Lilly&#39;s 10-K discloses that its active ingredient manufacturing and finishing operations—including formulation, filling, device manufacturing, and packaging—take place at sites in Ireland, among other locations. While Lilly is primarily a branded pharmaceutical company rather than a generics manufacturer, its Irish API and finishing footprint means it is directly exposed to any tariff adjustments applied to pharmaceutical ingredients and chemical precursors moving between the EU and the U.S. A tariff decrease is generally a favorable development, potentially lowering input costs or cross-border friction for products and ingredients sourced from Lilly&#39;s Irish facilities. Severity is rated medium because the policy change itself is high-impact (a significant U.S.-EU trade framework action), but the direct product-category match (generics vs. Lilly&#39;s branded focus) introduces some uncertainty about the precise financial benefit to Lilly, even though the geographic and operational overlap in Ireland is clear and well-documented in the filing.</p>
+        <div class="sources">
+          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: Ireland — tariff_decrease</a>
+          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-d649520021">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    
+      <div class="card medium">
+        <div class="card-head">
+          <h3>US-EU Tariff Cut on Generics Eases Cost Pressure for Viatris&#39; Irish Operations</h3>
+          <span class="badge medium">medium</span>
+        </div>
+        <p class="explanation">Per the Federal Register notice, the US is adjusting (decreasing) tariffs on EU-origin products including generic pharmaceuticals and their ingredients and chemical precursors, under the US-EU reciprocal tariff framework. As Viatris&#39; 10-K discloses, the company operates significant manufacturing, packaging, warehousing and distribution activities in several EU countries, including Ireland, alongside other global sites. Since Ireland is explicitly named in both the policy snippet&#39;s scope and Viatris&#39; own disclosed manufacturing footprint, this tariff decrease directly touches a jurisdiction where Viatris has real operational exposure. A lower tariff on generics and their inputs from the EU could reduce import costs tied to Viatris&#39; Irish-based production, a modest but concrete tailwind given the direct geographic and product overlap. Severity is rated medium: while the policy itself is high-impact for the broader generics trade lane, the filing only confirms a general operational presence in Ireland rather than a specific, quantified reliance on Irish-sourced API for US-bound products.</p>
+        <div class="sources">
+          <a href="https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal" target="_blank" rel="noopener">Policy source: Ireland — tariff_decrease</a>
+          <a href="https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm" target="_blank" rel="noopener">Filing source: Viatris 10-K</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-314d7003a5">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    
+      <div class="card medium">
+        <div class="card-head">
+          <h3>Section 301 Probe into Germany&#39;s Drug Pricing Could Pressure AbbVie&#39;s Ludwigshafen Operations</h3>
+          <span class="badge medium">medium</span>
+        </div>
+        <p class="explanation">The Federal Register notice shows the U.S. has initiated a Section 301 investigation into Germany&#39;s persistent underpayment for innovative pharmaceutical products, a move that could lead to trade friction, retaliatory tariffs, or pricing-related actions affecting German drug manufacturing and trade. AbbVie&#39;s 10-K discloses a manufacturing presence in Ludwigshafen, Germany, meaning the company has direct operational exposure to whatever regulatory or trade consequences emerge from this probe. While the filing does not quantify the scale of this dependency, the geographic overlap between the investigation&#39;s target country and AbbVie&#39;s disclosed manufacturing footprint is a concrete link a portfolio manager should track, particularly if the investigation escalates toward tariffs or pricing mandates that could affect German-based pharmaceutical production or exports.</p>
+        <div class="sources">
+          <a href="https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent" target="_blank" rel="noopener">Policy source: Germany — regulatory_change</a>
+          <a href="https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm" target="_blank" rel="noopener">Filing source: AbbVie 10-K</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-80905a9565">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    
+      <div class="card medium">
+        <div class="card-head">
+          <h3>Section 301 Probe into Germany&#39;s Drug Pricing Could Pressure Lilly&#39;s German Manufacturing Investment</h3>
+          <span class="badge medium">medium</span>
+        </div>
+        <p class="explanation">The U.S. Trade Representative has initiated a Section 301 investigation into Germany&#39;s persistent underpayment for innovative pharmaceutical products, per the Federal Register notice. This regulatory action signals potential trade friction or retaliatory measures tied to Germany&#39;s pharma pricing practices. Eli Lilly&#39;s 10-K discloses that Germany is one of the countries where the company is actively investing to increase manufacturing capacity, alongside sites in the U.S., Ireland, and the Netherlands. While the filing does not specify the scale of the German investment, any escalation from this investigation—such as tariffs, pricing mandates, or trade restrictions—could directly affect the economics of Lilly&#39;s German manufacturing footprint. The medium severity reflects that this is an early-stage investigation rather than a finalized policy, but the direct overlap between the named country and Lilly&#39;s disclosed capacity expansion there warrants monitoring for downstream impacts on cost structure or supply chain strategy.</p>
+        <div class="sources">
+          <a href="https://www.federalregister.gov/documents/2026/06/24/2026-12671/initiation-of-section-301-investigation-hearing-and-request-for-public-comments-germanys-persistent" target="_blank" rel="noopener">Policy source: Germany — regulatory_change</a>
+          <a href="https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm" target="_blank" rel="noopener">Filing source: Eli Lilly 10-K</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="AC-a69ca849ac">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    
+  </section>
+</main>
+
+<footer>
+  Built with a two-agent pipeline (Policy Agent + Filing Agent) + causal graph merge, coded with Claude Code.
+  See <a href="../CHANGELOG.md">CHANGELOG.md</a> for the baseline-vs-advanced comparison and <a href="../REPRODUCTION.md">REPRODUCTION.md</a> to rerun from cached data.
+</footer>
+
+<script>
+(function () {
+  var boxes = document.querySelectorAll(".approve-checkbox");
+  boxes.forEach(function (box) {
+    var key = "scs-approved-" + box.dataset.alertId;
+    try {
+      box.checked = localStorage.getItem(key) === "1";
+    } catch (e) {}
+    box.addEventListener("change", function () {
+      try {
+        localStorage.setItem(key, box.checked ? "1" : "0");
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

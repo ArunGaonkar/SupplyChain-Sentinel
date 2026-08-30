@@ -1,0 +1,56 @@
+[
+  {
+    "id": "GL-c7fa5690f2",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-6973f850d0",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-233c5e4230",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-b7da58b503",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-d649520021",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-051b01435e",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-314d7003a5",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-b1284fcb15",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-80905a9565",
+    "policy_event_id": "PE-7c5a675c4e",
+    "filing_mention_id": "FM-a5e14acda5",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-a69ca849ac",
+    "policy_event_id": "PE-7c5a675c4e",
+    "filing_mention_id": "FM-2a2445d519",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  }
+]

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SupplyChain Sentinel — Pharma Alert Cards</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --high: #dc2626;
+    --high-bg: #fef2f2;
+    --medium: #d97706;
+    --medium-bg: #fffbeb;
+    --low: #16a34a;
+    --low-bg: #f0fdf4;
+    --accent: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    padding: 32px 24px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 26px; }
+  header p { margin: 0; color: #cbd5e1; max-width: 780px; }
+  .stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .stat { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 16px; min-width: 120px; }
+  .stat .n { font-size: 22px; font-weight: 700; }
+  .stat .l { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 18px; margin-bottom: 12px; }
+  .diagram-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    overflow-x: auto;
+  }
+  .diagram-wrap svg { display: block; min-width: 900px; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left-width: 5px;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .card.high { border-left-color: var(--high); }
+  .card.medium { border-left-color: var(--medium); }
+  .card.low { border-left-color: var(--low); }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .card-head h3 { margin: 0; font-size: 16px; flex: 1; }
+  .badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.high { background: var(--high-bg); color: var(--high); }
+  .badge.medium { background: var(--medium-bg); color: var(--medium); }
+  .badge.low { background: var(--low-bg); color: var(--low); }
+
+  .card p.explanation { color: #334155; margin: 12px 0; font-size: 14px; }
+
+  .sources { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .sources a {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    background: #eff6ff;
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+  .sources a:hover { text-decoration: underline; }
+
+  .approve {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px dashed var(--border);
+    padding-top: 12px;
+  }
+  .approve input { width: 16px; height: 16px; }
+
+  .empty { color: var(--muted); font-style: italic; }
+
+  footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SupplyChain Sentinel</h1>
+  <p>Pharma trade &amp; tariff causality — cited, explainable Alert Cards connecting policy/news events to SEC filing disclosures via a shared entity graph.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">{{ stats.policy_events }}</div><div class="l">Policy Events</div></div>
+    <div class="stat"><div class="n">{{ stats.filing_mentions }}</div><div class="l">Filing Mentions</div></div>
+    <div class="stat"><div class="n">{{ stats.graph_links }}</div><div class="l">Graph Links</div></div>
+    <div class="stat"><div class="n">{{ stats.alert_cards }}</div><div class="l">Alert Cards</div></div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>Dependency graph</h2>
+    <div class="diagram-wrap">
+      {% if dependency_svg %}
+        {{ dependency_svg | safe }}
+      {% else %}
+        <p class="empty">No graph links to visualize yet — run src/graph.py.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section>
+    <h2>Alert Cards</h2>
+    {% if not cards %}
+      <p class="empty">No alerts yet — run src/alerts.py.</p>
+    {% endif %}
+    {% for card in cards %}
+      <div class="card {{ card.severity }}">
+        <div class="card-head">
+          <h3>{{ card.title }}</h3>
+          <span class="badge {{ card.severity }}">{{ card.severity }}</span>
+        </div>
+        <p class="explanation">{{ card.explanation }}</p>
+        <div class="sources">
+          <a href="{{ card.policy_source_url }}" target="_blank" rel="noopener">Policy source: {{ card.policy_event.country }} — {{ card.policy_event.policy_type }}</a>
+          <a href="{{ card.filing_source_url }}" target="_blank" rel="noopener">Filing source: {{ card.filing_mention.company }} {{ card.filing_mention.filing_type }}</a>
+        </div>
+        <label class="approve">
+          <input type="checkbox" class="approve-checkbox" data-alert-id="{{ card.id }}">
+          Reviewed by analyst (stored locally in this browser only — a stand-in for a full human-approval workflow; see README)
+        </label>
+      </div>
+    {% endfor %}
+  </section>
+</main>
+
+<footer>
+  Built with a two-agent pipeline (Policy Agent + Filing Agent) + causal graph merge, coded with Claude Code.
+  See <a href="../CHANGELOG.md">CHANGELOG.md</a> for the baseline-vs-advanced comparison and <a href="../REPRODUCTION.md">REPRODUCTION.md</a> to rerun from cached data.
+</footer>
+
+<script>
+(function () {
+  var boxes = document.querySelectorAll(".approve-checkbox");
+  boxes.forEach(function (box) {
+    var key = "scs-approved-" + box.dataset.alertId;
+    try {
+      box.checked = localStorage.getItem(key) === "1";
+    } catch (e) {}
+    box.addEventListener("change", function () {
+      try {
+        localStorage.setItem(key, box.checked ? "1" : "0");
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
