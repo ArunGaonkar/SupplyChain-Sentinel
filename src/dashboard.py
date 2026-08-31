@@ -58,7 +58,7 @@ SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
 # Every segment config/segments/<name>.yaml can define; only the ones with
 # actual pipeline output on disk (checked below) end up in the dashboard.
 # Order here is display order in the Segment dropdown.
-KNOWN_SEGMENTS = ["pharma", "semiconductor", "textile"]
+KNOWN_SEGMENTS = ["pharma", "semiconductor", "textile", "automotive", "steel_aluminum"]
 
 
 def _load(path: Path) -> list[dict]:
@@ -84,6 +84,26 @@ def _build_segment(segment: str) -> dict:
     links = _load(seg_dir / "graph_links.json")
     cards = _load(seg_dir / "alert_cards.json")
 
+    # IDs (PE-xxxx / FM-xxxx / GL-xxxx) are hashed from source_url and are
+    # only unique WITHIN a segment. A broad, genuinely cross-industry
+    # government notice (e.g. a multi-sector USMCA or reciprocal-tariff
+    # order) legitimately gets pulled by more than one segment's search
+    # terms, landing the identical id in both — confirmed to happen for real
+    # between pharma/automotive and textile/automotive/steel_aluminum in
+    # this run. Since every segment's data is merged into ONE client-side
+    # `eventsById`/`mentionsById` map for the dashboard, an unprefixed id
+    # from segment A silently overwrites segment B's entry with the same id,
+    # which then makes segment B's own graph links resolve to the WRONG
+    # segment when filtered — caught because pharma's link count on the live
+    # dashboard read 4 instead of 12. Every id that crosses into the
+    # client-side JSON (graph_data, and the data-event-id/data-mention-id
+    # attributes the JS focus-filter matches against) is segment-prefixed
+    # here to make it actually unique; ids used only for this function's own
+    # internal per-segment lookups (events_by_id etc.) stay unprefixed since
+    # they're scoped to one segment's own data and never collide.
+    def gid(raw_id: str) -> str:
+        return f"{segment}:{raw_id}"
+
     events_by_id = {e["id"]: e for e in events}
     mentions_by_id = {m["id"]: m for m in mentions}
     links_by_id = {link["id"]: link for link in links}
@@ -105,6 +125,11 @@ def _build_segment(segment: str) -> dict:
                 # event["country"], which can be a bloc ("European Union")
                 # for a policy event matched against several member states.
                 "shared_country": link.get("shared_country") or mention.get("mentioned_country", ""),
+                # Segment-prefixed — must match graph_events[].id / DATA.events
+                # ids below for the graph's click-to-filter-cards feature to
+                # resolve to the right card (see gid() note above).
+                "graph_event_id": gid(card["policy_event_id"]),
+                "graph_mention_id": gid(card["filing_mention_id"]),
             }
         )
 
@@ -137,7 +162,7 @@ def _build_segment(segment: str) -> dict:
     # filing doesn't have a company to group by yet.
     linked_event_ids = {link["policy_event_id"] for link in links}
     opportunity_events = [
-        {**e, "segment": segment, "date_iso": _iso_date(e.get("date", ""))}
+        {**e, "segment": segment, "date_iso": _iso_date(e.get("date", "")), "graph_event_id": gid(e["id"])}
         for e in events
         if e["id"] not in linked_event_ids
     ]
@@ -151,7 +176,7 @@ def _build_segment(segment: str) -> dict:
 
     graph_events = [
         {
-            "id": e["id"],
+            "id": gid(e["id"]),
             "headline": e["headline"],
             "country": e["country"],
             "commodity": e["affected_product"],
@@ -164,7 +189,7 @@ def _build_segment(segment: str) -> dict:
     ]
     graph_mentions = [
         {
-            "id": m["id"],
+            "id": gid(m["id"]),
             "company": m["company"],
             "ticker": m["ticker"],
             "country": m["mentioned_country"],
@@ -177,9 +202,9 @@ def _build_segment(segment: str) -> dict:
     ]
     graph_links = [
         {
-            "id": link["id"],
-            "event_id": link["policy_event_id"],
-            "mention_id": link["filing_mention_id"],
+            "id": gid(link["id"]),
+            "event_id": gid(link["policy_event_id"]),
+            "mention_id": gid(link["filing_mention_id"]),
             "shared_country": link["shared_country"],
             "segment": segment,
         }

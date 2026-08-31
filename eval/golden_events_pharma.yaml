@@ -1,15 +1,19 @@
 # Hand-labeled golden test cases for the pharma segment.
 #
-# These were written by hand-reviewing the cached raw data in data/cache/
-# (both policy_raw/ and filings_raw/) BEFORE looking at what the advanced
-# pipeline produced, then confirmed against the pipeline's actual output —
-# not copied from data/alert_cards.json. Six are real, verifiable
-# country-dependency pairs (a policy action on country X, and a company
-# whose own 10-K discloses operations in X). Two are deliberate true-negative
-# cases: a company whose filing language was too generic to support a real
-# claim, and a company whose filing DOES name a dependency country but for
-# which no matching policy event exists in this run's data pull (a known,
-# documented data-coverage gap, not a pipeline failure) — see CHANGELOG.md.
+# Rewritten after a real EDGAR connector fix (see CHANGELOG.md "Semiconductor
+# segment" — three of 16 company pulls across both segments, including
+# pharma's MRK, had landed on an SEC filing EXHIBIT instead of the actual
+# 10-K body). Re-pulling MRK's real 10-K surfaced genuine new dependencies
+# that invalidated the previous version's MRK true-negative case, so this
+# set was re-derived the same way as before: hand-reviewing the cached raw
+# data in data/pharma/cache/ BEFORE looking at what the advanced pipeline
+# produced, then confirmed against its actual output — not copied from
+# data/pharma/alert_cards.json.
+#
+# Eight are real, verifiable country-dependency pairs. Two are deliberate
+# true-negative cases: companies whose filings DO name a real dependency
+# country for which no matching policy event exists in this run's data pull
+# (a known, documented data-coverage gap, not a pipeline failure).
 #
 # expect_link: true  -> the pipeline SHOULD surface this company<->country
 #                        connection (recall test)
@@ -23,10 +27,10 @@ cases:
     country: Ireland
     expect_link: true
     rationale: >
-      Federal Register notice reduces US tariffs on EU-origin generic
-      pharmaceuticals and ingredients (covering Ireland). AbbVie's FY2025
-      10-K discloses manufacturing sites in Ireland (Clonshaugh, Cork,
-      Sligo, Westport).
+      Federal Register notice (2025-09-25) implements the US-EU tariff
+      framework, cutting tariffs on EU-origin generic pharmaceuticals and
+      ingredients. AbbVie's 10-K discloses manufacturing sites in Ireland
+      (Clonshaugh, Cork, Sligo, Westport).
 
   - id: eval-02
     company: Bristol-Myers Squibb
@@ -34,8 +38,9 @@ cases:
     country: Ireland
     expect_link: true
     rationale: >
-      Same Ireland tariff notice. BMY's 10-K discloses significant
-      manufacturing operations in Ireland (biologics/cell therapy).
+      Same US-EU tariff framework notice. BMY's 10-K discloses significant
+      manufacturing operations in "the U.S., Puerto Rico, the Netherlands,
+      Ireland and Switzerland."
 
   - id: eval-03
     company: Eli Lilly
@@ -43,8 +48,8 @@ cases:
     country: Ireland
     expect_link: true
     rationale: >
-      Same Ireland tariff notice. Lilly's 10-K discloses active
-      ingredient manufacturing and finishing operations at sites in
+      Same US-EU tariff framework notice. Lilly's 10-K discloses active
+      ingredient manufacturing and finishing operations at sites including
       Ireland.
 
   - id: eval-04
@@ -53,19 +58,20 @@ cases:
     country: Ireland
     expect_link: true
     rationale: >
-      Same Ireland tariff notice. Viatris's 10-K discloses manufacturing,
-      packaging, warehousing and distribution activities in EU countries
-      including Ireland.
+      Same US-EU tariff framework notice. Viatris's 10-K discloses
+      manufacturing, packaging, warehousing and distribution activities in
+      EU countries including Ireland.
 
   - id: eval-05
-    company: Eli Lilly
-    ticker: LLY
-    country: Germany
+    company: Pfizer
+    ticker: PFE
+    country: Ireland
     expect_link: true
     rationale: >
-      Federal Register notice: USTR Section 301 investigation into
-      Germany's pharmaceutical pricing practices. Lilly's 10-K discloses
-      an active German manufacturing capacity investment.
+      Same US-EU tariff framework notice. Pfizer's 10-K discloses Pfizer
+      Global Supply had responsibility for 36 manufacturing plants
+      including in Ireland (among Belgium, Germany, India, Italy, Japan,
+      Singapore).
 
   - id: eval-06
     company: AbbVie
@@ -73,37 +79,58 @@ cases:
     country: Germany
     expect_link: true
     rationale: >
-      Same Section 301 Germany investigation. AbbVie's 10-K discloses a
-      manufacturing presence in Ludwigshafen, Germany.
+      Same US-EU tariff framework notice (EU bloc match resolved to
+      Germany — see EU_MEMBERS in src/graph.py). AbbVie's 10-K discloses a
+      manufacturing site in Ludwigshafen, Germany. A second, more specific
+      catalyst also independently applies here: a Federal Register notice
+      on a USTR Section 301 investigation into Germany's pharmaceutical
+      pricing practices.
 
   - id: eval-07
-    company: Merck
-    ticker: MRK
-    country: null
-    expect_link: false
+    company: Bristol-Myers Squibb
+    ticker: BMY
+    country: Switzerland
+    expect_link: true
     rationale: >
-      TRUE-NEGATIVE (precision test). Merck's cached 10-K excerpts around
-      "tariffs" and country-name mentions were generic risk-factor
-      boilerplate / incidental mentions with no stated sourcing or
-      manufacturing dependency specific enough to support a real claim.
-      The Filing Agent correctly extracted zero FilingMentions for MRK.
-      A good pipeline should NOT invent a company<->country link here.
+      Federal Register notice (2025-12-18) adjusts US tariffs on products
+      of Switzerland/Liechtenstein, including generic pharmaceuticals and
+      their ingredients. BMY's 10-K discloses manufacturing operations
+      including Switzerland (same disclosure sentence as eval-02/Ireland).
 
   - id: eval-08
-    company: Eli Lilly
-    ticker: LLY
+    company: Merck
+    ticker: MRK
+    country: Switzerland
+    expect_link: true
+    rationale: >
+      Same US-Switzerland tariff notice. Merck's 10-K discloses principal
+      research facilities outside the U.S. located in "the United Kingdom,
+      Switzerland and China."
+
+  - id: eval-09
+    company: Johnson & Johnson
+    ticker: JNJ
     country: China
     expect_link: false
     rationale: >
-      DATA-COVERAGE GAP (not a filtering failure). Lilly's own 10-K
-      explicitly states "we...depend on China-based suppliers for
-      portions of our supply chain" (FilingMention exists). But the
-      cached policy pull has NO China-specific PolicyEvent this run: the
-      actual full text of the Section 232 pharma investigation notice
-      (federalregister.gov 2025-06587) is genuinely country-agnostic and
-      never names China, and our search terms didn't surface a
-      China-specific pharma tariff notice from Federal Register. So no
-      graph link CAN exist yet, correctly. See CHANGELOG.md Phase 6 for
-      why this is flagged as a real system limitation rather than papered
-      over: full Federal Register notice bodies (not just title+abstract)
-      would be needed to close this gap.
+      DATA-COVERAGE GAP (precision test), not a filtering failure. J&J's
+      10-K discloses real China exposure for medical devices ("China
+      volume-based procurement across all platforms"). But this run's
+      pharma policy pull contains no China-specific PolicyEvent — every
+      event resolved to United States, United Kingdom, Germany,
+      Switzerland, or European Union as country (checked directly against
+      data/pharma/policy_events.json). No graph link CAN exist yet,
+      correctly.
+
+  - id: eval-10
+    company: Teva Pharmaceutical
+    ticker: TEVA
+    country: India
+    expect_link: false
+    rationale: >
+      Same DATA-COVERAGE GAP pattern as eval-09. Teva's 10-K discloses "the
+      vast majority of our production capacity of our manufacturing sites
+      is located in North America, Europe, Latin America, India and
+      Israel" — a real India manufacturing dependency. This run's pharma
+      policy pull has no India-specific PolicyEvent, so no link can exist
+      yet, correctly.

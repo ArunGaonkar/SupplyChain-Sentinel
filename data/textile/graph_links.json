@@ -1,0 +1,74 @@
+[
+  {
+    "id": "GL-61c0b7529a",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-385890fb88",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-23099e48a5",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-dbab5b16cb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-27b213ac05",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-6a3b5167a3",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-454a6ed3d5",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-63891b373f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-26f108afa8",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-ccd71e7755",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-786de15e86",
+    "policy_event_id": "PE-9e34d365d6",
+    "filing_mention_id": "FM-c4f5db764a",
+    "shared_country": "Bangladesh",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-b171b1104d",
+    "policy_event_id": "PE-9e34d365d6",
+    "filing_mention_id": "FM-ba7dc89a6a",
+    "shared_country": "Bangladesh",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-30f7df93d4",
+    "policy_event_id": "PE-9e34d365d6",
+    "filing_mention_id": "FM-c1a2fba6ab",
+    "shared_country": "Bangladesh",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  }
+]

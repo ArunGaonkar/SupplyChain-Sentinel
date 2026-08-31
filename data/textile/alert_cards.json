@@ -1,0 +1,90 @@
+[
+  {
+    "id": "AC-61c0b7529a",
+    "title": "Section 301 Probe Targets China Textile Capacity; Columbia Sourcing Exposure Flagged",
+    "severity": "medium",
+    "explanation": "The Federal Register notice announces Section 301 investigations into structural excess capacity in economies including China, specifically citing textiles and fabric as an affected product category. Columbia Sportswear's 10-K already discloses meaningful reliance on China-based manufacturing, noting that finished goods manufacturers in China produced approximately 10% of its products (with Vietnam, another named economy in the same investigation, producing about 80%). While China is not the dominant sourcing country for Columbia per the filing, its inclusion in both the policy action and the company's disclosed supply chain means any resulting tariff increases on textiles from China could directly raise input costs or force sourcing shifts for a portion of Columbia's production. The medium severity reflects that this is an investigation stage rather than an enacted tariff, but the direct overlap between the named country/product in the policy source and Columbia's own risk disclosure warrants monitoring for escalation.",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-385890fb88",
+    "graph_link_id": "GL-61c0b7529a",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05214/initiation-of-section-301-investigations-acts-policies-and-practices-of-certain-economies-relating",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+  },
+  {
+    "id": "AC-23099e48a5",
+    "title": "Section 301 Probe Targets China Overcapacity; Crocs' HEYDUDE Ties to China Production",
+    "severity": "medium",
+    "explanation": "The Federal Register notice describes newly initiated Section 301 investigations into structural excess capacity in several economies, explicitly naming China, as a precursor to potential tariff action on textiles and fabric. Crocs' 10-K discloses that prior to 2025, the majority of its HEYDUDE Brand production was based in China, indicating a direct historical manufacturing dependency on the country under scrutiny. While Crocs' filing suggests this concentration existed 'prior to 2025' (implying some diversification may already be underway), any resulting tariff increase from the investigation could still affect residual China-based production costs or transition timelines for HEYDUDE. Given the investigation is still in its early, exploratory phase per the policy source, and the filing text hints at reduced current reliance, this is flagged as medium severity rather than high.",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-dbab5b16cb",
+    "graph_link_id": "GL-23099e48a5",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05214/initiation-of-section-301-investigations-acts-policies-and-practices-of-certain-economies-relating",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+  },
+  {
+    "id": "AC-27b213ac05",
+    "title": "China Section 301 Textile Probe Could Hit Levi's China-Linked Cotton Supply Chain",
+    "severity": "medium",
+    "explanation": "The Federal Register notice announces Section 301 investigations targeting economies\u2014including China\u2014flagged for structural excess capacity in textiles and fabric, which could lead to new tariffs or trade restrictions on Chinese textile-related imports. Levi Strauss's 10-K already identifies this exact exposure, disclosing that risks affecting 'the sourcing and availability of raw materials, including cotton, used by our suppliers' and 'the importation of products from China into the United States' could impact its business. Because the policy action and the filed risk both center on China and textile/cotton-related sourcing, any escalation from this investigation into tariffs would directly touch a dependency Levi's has already flagged as material, making this a pairing worth monitoring rather than an abstract macro risk.",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-6a3b5167a3",
+    "graph_link_id": "GL-27b213ac05",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05214/initiation-of-section-301-investigations-acts-policies-and-practices-of-certain-economies-relating",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/94845/000009484526000008/lvis-20251130.htm"
+  },
+  {
+    "id": "AC-454a6ed3d5",
+    "title": "Section 301 Tariff Probe on China Textiles Adds to PVH's Existing China Exposure",
+    "severity": "medium",
+    "explanation": "The Federal Register notice describes the initiation of Section 301 investigations targeting economies with structural excess capacity in textiles and fabric, explicitly naming China among the countries under review. PVH Corp's 10-K already discloses a material China-specific risk unrelated in origin but overlapping in geography: its placement on China's Ministry of Commerce List of Unreliable Entities, which carries the risk of fines or restrictions that could limit PVH's ability to do business in China. While the policy action concerns U.S. tariff exposure on Chinese textile imports and the filing risk concerns Chinese regulatory retaliation against PVH, both point to the same underlying vulnerability: PVH's business is highly exposed to shifting U.S.-China trade and regulatory friction. An escalation in tariffs per the Section 301 investigation could coincide with or amplify Beijing's willingness to use tools like the Unreliable Entities List against U.S. apparel companies, compounding PVH's disclosed China-related operational risk. This is a medium-severity signal because the tariff action is still at the investigation stage, but the direct overlap in country and sector (textiles/apparel) with PVH's already-flagged China dependency warrants monitoring.",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-63891b373f",
+    "graph_link_id": "GL-454a6ed3d5",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05214/initiation-of-section-301-investigations-acts-policies-and-practices-of-certain-economies-relating",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/78239/000007823926000021/pvh-20260201.htm"
+  },
+  {
+    "id": "AC-26f108afa8",
+    "title": "Section 301 Probe Targets China Textiles, but VFC's Exposure Looks Minimal",
+    "severity": "low",
+    "explanation": "The Federal Register notice describes new Section 301 investigations into structural excess capacity in economies including China, covering textiles and fabric, per the policy source. This raises the risk of future tariff action on Chinese-origin apparel and textile goods. However, as VF Corporation's 10-K discloses, less than 2% of its total U.S. products are sourced through China, indicating the company has already diversified away from heavy China dependence. While the policy signals a medium-severity trade risk for the broader apparel sector, VFC's own disclosed exposure suggests the direct financial impact from this specific investigation would likely be limited, warranting only low-priority monitoring.",
+    "policy_event_id": "PE-ca5806737d",
+    "filing_mention_id": "FM-ccd71e7755",
+    "graph_link_id": "GL-26f108afa8",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05214/initiation-of-section-301-investigations-acts-policies-and-practices-of-certain-economies-relating",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/103379/000010337926000030/vfc-20260328.htm"
+  },
+  {
+    "id": "AC-786de15e86",
+    "title": "CBP Ruling on Bangladesh-Origin Goods Highlights Columbia's Sourcing Exposure",
+    "severity": "low",
+    "explanation": "U.S. Customs and Border Protection issued a final determination confirming Bangladesh as the country of origin for certain textile goods (surgical towels), per the Federal Register notice. This type of country-of-origin ruling can affect how customs duties, labeling, and trade-agreement eligibility are applied to Bangladesh-manufactured textile products entering the U.S. As Columbia Sportswear's 10-K discloses, the company relies heavily on Bangladesh, where finished goods manufacturers produce approximately 30% of its products, making it Columbia's second-largest sourcing country after Vietnam. While this specific CBP determination concerns a narrow product category and carries low severity on its own, it underscores the broader regulatory environment governing Bangladesh-origin textile and apparel goods that Columbia depends on at meaningful scale. Any expansion of similar origin or customs scrutiny to apparel categories could have outsized relevance given Columbia's concentrated reliance on Bangladeshi manufacturing.",
+    "policy_event_id": "PE-9e34d365d6",
+    "filing_mention_id": "FM-c4f5db764a",
+    "graph_link_id": "GL-786de15e86",
+    "policy_source_url": "https://www.federalregister.gov/documents/2024/10/15/2024-23652/notice-of-issuance-of-final-determination-concerning-surgical-towels",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+  },
+  {
+    "id": "AC-b171b1104d",
+    "title": "CBP Bangladesh Origin Ruling Highlights Levi's Tariff Exposure in Region",
+    "severity": "low",
+    "explanation": "CBP's final determination, per the Federal Register notice, formally classifies surgical towels as originating from Bangladesh \u2014 a signal that U.S. customs is actively scrutinizing country-of-origin rules tied to Bangladeshi-made textile goods. While the specific product (surgical towels) differs from apparel, the underlying regulatory mechanism is the same one that governs classification and tariff treatment for goods sourced from Bangladesh. This matters for Levi Strauss because, as Levi's 10-K discloses, many of its products are produced in countries including Bangladesh, Pakistan, Cambodia and Vietnam, which have already been subject to U.S. reciprocal tariffs. Any tightening or clarification of origin determinations for Bangladesh-made textile goods raises the risk that similar customs scrutiny could extend to apparel sourcing, reinforcing the tariff exposure Levi's already flags as a known risk. Given the narrow scope of the CBP ruling (a single product category) and the low severity assessed by the Policy Agent, the direct financial impact on Levi appears limited for now, but it underscores an existing, disclosed vulnerability in Levi's Bangladesh supply chain that warrants continued monitoring as trade policy evolves.",
+    "policy_event_id": "PE-9e34d365d6",
+    "filing_mention_id": "FM-ba7dc89a6a",
+    "graph_link_id": "GL-b171b1104d",
+    "policy_source_url": "https://www.federalregister.gov/documents/2024/10/15/2024-23652/notice-of-issuance-of-final-determination-concerning-surgical-towels",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/94845/000009484526000008/lvis-20251130.htm"
+  },
+  {
+    "id": "AC-30f7df93d4",
+    "title": "CBP Origin Ruling on Bangladesh Textiles Highlights VF Corp's Sourcing Concentration",
+    "severity": "low",
+    "explanation": "U.S. Customs and Border Protection issued a final determination establishing Bangladesh as the country of origin for surgical towels, a regulatory action affecting how textiles and fabric from Bangladesh are classified and treated under U.S. trade rules, per the Federal Register notice. While this specific ruling concerns surgical towels rather than apparel broadly, it underscores that Bangladesh-origin textile products are subject to active CBP scrutiny on origin determinations. VF Corporation's 10-K discloses that Bangladesh is one of its top four sourcing markets, alongside Vietnam, Cambodia and Indonesia, together comprising the bulk of the approximately 85% of U.S.-bound products sourced from Southeast Asia and Central/South America. Any tightening of origin-verification standards or customs treatment for Bangladesh-origin textile goods could ripple into VF's apparel sourcing operations given this disclosed geographic concentration. The severity is assessed as low because the policy action is narrow in scope (a single-product origin ruling) rather than a broad tariff or trade restriction, but it still merits monitoring given VF's material reliance on Bangladesh as a sourcing hub.",
+    "policy_event_id": "PE-9e34d365d6",
+    "filing_mention_id": "FM-c1a2fba6ab",
+    "graph_link_id": "GL-30f7df93d4",
+    "policy_source_url": "https://www.federalregister.gov/documents/2024/10/15/2024-23652/notice-of-issuance-of-final-determination-concerning-surgical-towels",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/103379/000010337926000030/vfc-20260328.htm"
+  }
+]

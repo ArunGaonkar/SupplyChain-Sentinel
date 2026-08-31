@@ -4,6 +4,110 @@ One entry per phase/iteration: what was tried, the evidence, and the
 decision/learning. Includes things tried and removed, per the hackathon's own
 rules for this document.
 
+## Post-submission — Semiconductor golden eval set; three more segments; nav UI
+
+Requested: a hand-labeled golden eval set for semiconductor; three more
+segments (textile, automotive, steel/aluminum); a "move to top" button and a
+side nav for jumping between dashboard sections.
+
+**A real EDGAR connector bug, found while designing the semiconductor golden
+set, not while building a new segment:** cross-checking the baseline
+judge's evidence for an "Intel has no country link" test case surfaced that
+the baseline had actually cited something real — a Federal Register notice
+naming "Intel Semiconductor (Dalian)" by name. Investigating why the
+*advanced* pipeline hadn't found anything comparable led to Intel's cached
+filing excerpt: `.../a12282024ex22.htm` — Exhibit 22 of the 10-K submission
+(a CHIPS Act funding-agreement schedule), not the actual 10-K body. EDGAR's
+full-text search matches any document in a filing submission, and
+`_search_best_filing` was taking `hits[0]` regardless of which document that
+was. Checked all 16 company pulls across both segments at the time: 3 had
+this exact problem (pharma's MRK, semiconductor's INTC and MU). Fixed by
+preferring hits where `file_type` matches the requested form, falling back
+to an exhibit only if literally nothing else exists. Re-pulled all three
+companies' real 10-Ks and reran both segments end to end: pharma's link
+count went 8 → 12, semiconductor's 7 unique company/country pairs → 7 (same
+count, but INTC and MU are now *correctly* included instead of absent, and
+MRK gained a real Switzerland link it didn't have before). Both golden sets
+were re-derived from scratch against this corrected data rather than
+patched, the same discipline as the original pharma set: hand-review the
+cache first, confirm against pipeline output second, never copy from
+`alert_cards.json` directly.
+
+**A second, unrelated intermittent bug, caught by the same re-derivation
+churn:** both `policy_agent.py` and `filing_agent.py` occasionally got back
+a completely empty response from the API (not an exception — a call that
+completes with zero text content). It surfaced repeatedly enough across
+these reruns (pharma's ABBV losing all 3 mentions on one run, then recovering
+on retry; two separate steel_aluminum policy batches in a row) that manual
+retries stopped being a reasonable response. Added a one-retry-on-empty
+wrapper directly in `src/llm.py`'s `call_llm`, since every occurrence so far
+has recovered on a second identical call.
+
+**Segment results:** semiconductor's golden set (9 cases, 7 positive + 2
+gap negatives): 100% advanced vs. ~60-67% baseline (varies a few points
+run-to-run — the baseline side of `eval/run_eval.py` is judged by a fresh
+LLM call each run, not cached, so its score is expected to move slightly;
+the advanced pipeline's score doesn't, since it's read directly from the
+structured graph), 3-4 cases advanced caught that baseline missed, 0
+regressions either way. A smaller baseline gap than pharma's own 100%/10% —
+China chip export controls are famous enough that a single-prompt baseline
+gets some of the "obvious" cases right too — but the advanced pipeline still
+never misses anything the baseline got right, and correctly abstains on
+both Taiwan/TSMC gap cases the same way baseline does.
+Textile, automotive, and steel/aluminum were all built with the same recipe
+(config → GDELT/Federal Register pull → EDGAR pull → Policy Agent → Filing
+Agent → graph → alerts); no golden sets were built for those three (out of
+scope for this round — see README).
+
+**A data-pull lesson, not a code bug, from textile specifically:** the
+first-pass query terms ("textile tariff", "apparel import tariff", etc.)
+surfaced almost no policy events outside China, even though Vietnam and
+Bangladesh are the dominant real sourcing countries in every seed company's
+own 10-K. Testing more specific terms directly against the Federal Register
+API before committing ("Vietnam tariff apparel", "reciprocal tariff
+Vietnam") surfaced the real April 2025 reciprocal-tariff proclamation and a
+real Vietnam-specific Section 301 investigation that the generic terms had
+missed entirely. Applied the same direct-testing step to automotive and
+steel/aluminum's query terms before pulling, rather than after finding the
+same gap three more times.
+
+**A third real bug — cross-segment ID collisions — found once all five
+segments' data landed in the same dashboard:** spot-checking the live
+dashboard after building textile/automotive/steel_aluminum, pharma's
+"Graph Links" tile read 4 instead of the actual 12, while automotive's read
+21 instead of 13. `PolicyEvent`/`FilingMention`/`GraphLink` ids are hashed
+from `source_url` and unique only *within* one segment's own pull — but a
+genuinely cross-industry government notice (a multi-sector USMCA
+implementation order, a broad reciprocal-tariff proclamation) legitimately
+gets pulled by more than one segment's search terms, landing the identical
+id in both. Confirmed by directly diffing `source_url` across all five
+segments' `policy_events.json`: 4 real collisions, e.g. the same USMCA
+notice hashing to the same id in both `textile` and `automotive`. Since the
+dashboard merges every segment's events/mentions/links into one client-side
+`eventsById`/`mentionsById` map (keyed by that bare id) for the interactive
+graph, one segment's entry was silently overwriting another's — which then
+made the *other* segment's own graph links resolve to the wrong segment
+when filtered, exactly matching the observed under- and over-counts. Fixed
+by segment-prefixing every id that crosses into the client-side JSON and
+the corresponding `data-event-id`/`data-mention-id` card attributes
+(`src/dashboard.py`'s new `gid()` helper) — ids used only for lookups
+internal to one segment's own data (`events_by_id` etc.) stay unprefixed,
+since those never had a collision risk to begin with.
+
+**Dashboard nav:** a fixed side nav (Dependency Graph / Alert Cards / Gaps /
+Opportunities), highlighting whichever section is currently in view via
+`IntersectionObserver`, and a "back to top" button that fades in after
+scrolling. The side nav's links are real `<a href="#id">` anchors rather
+than JS-driven `scrollIntoView` calls (like the stat tiles use) — an anchor
+click handled with `scrollIntoView({behavior:"smooth"})` turned out to
+silently not animate in some cases (auto-expanding the target `<details>`
+correctly every time, per `openAncestorDetails`, but never actually
+scrolling), while the browser's own native hash-navigation always works
+reliably. Switched to letting the native navigation do the scrolling,
+smoothed globally via `scroll-behavior: smooth` on `<html>` — the standard
+mechanism for a real link — rather than fighting it with `preventDefault()`
+and a manual scroll call.
+
 ## Post-submission — Semiconductor segment (real second segment, not a stub)
 
 Requested: expand from pharma-only to also cover semiconductors, and retry

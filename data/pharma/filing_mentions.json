@@ -1,100 +1,122 @@
 [
   {
-    "id": "FM-2e6b950188",
+    "id": "FM-af4670c1af",
     "company": "AbbVie",
     "ticker": "ABBV",
     "filing_type": "10-K",
     "filing_date": "2026-02-20",
     "mentioned_country": "Ireland",
-    "mentioned_commodity": "pharmaceutical products",
+    "mentioned_commodity": "biologics manufacturing",
     "risk_text": "AbbVie's significant manufacturing sites are in the following locations: ... Clonshaugh, Ireland ... Cork, Ireland ... Sligo, Ireland ... Westport, Ireland*",
     "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm"
   },
   {
-    "id": "FM-d8df88386a",
+    "id": "FM-0cea6bc854",
     "company": "AbbVie",
     "ticker": "ABBV",
     "filing_type": "10-K",
     "filing_date": "2026-02-20",
     "mentioned_country": "Puerto Rico",
-    "mentioned_commodity": "pharmaceutical products",
-    "risk_text": "AbbVie's significant manufacturing sites are in the following locations: United States Outside the United States Abbott Park, Illinois* Campoverde di Aprilia, Italy Barceloneta, Puerto Rico",
+    "mentioned_commodity": "biologics manufacturing",
+    "risk_text": "AbbVie's significant manufacturing sites are in the following locations: ... Barceloneta, Puerto Rico Clonshaugh, Ireland",
     "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm"
   },
   {
-    "id": "FM-c0a53477ea",
+    "id": "FM-4131b09d55",
     "company": "AbbVie",
     "ticker": "ABBV",
     "filing_type": "10-K",
     "filing_date": "2026-02-20",
     "mentioned_country": "Germany",
-    "mentioned_commodity": "pharmaceutical products",
-    "risk_text": "Ludwigshafen, Germany Irvine, California Pringy, France North Chicago, Illinois Singapore*",
+    "mentioned_commodity": "biologics manufacturing",
+    "risk_text": "Dublin, California* Ludwigshafen, Germany Irvine, California",
     "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000008/abbv-20251231.htm"
   },
   {
-    "id": "FM-676ea7d362",
+    "id": "FM-bac7b2f669",
     "company": "Bristol-Myers Squibb",
     "ticker": "BMY",
     "filing_type": "10-K",
     "filing_date": "2026-02-11",
     "mentioned_country": "Puerto Rico",
-    "mentioned_commodity": "generic drugs",
+    "mentioned_commodity": "pharmaceutical manufacturing",
     "risk_text": "We have significant manufacturing operations in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland.",
     "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
   },
   {
-    "id": "FM-7709ff24f9",
+    "id": "FM-ce8bf28d82",
     "company": "Bristol-Myers Squibb",
     "ticker": "BMY",
     "filing_type": "10-K",
     "filing_date": "2026-02-11",
     "mentioned_country": "Ireland",
-    "mentioned_commodity": "generic drugs",
+    "mentioned_commodity": "pharmaceutical manufacturing",
     "risk_text": "We have significant manufacturing operations in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland.",
     "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
   },
   {
-    "id": "FM-44ae0da3fb",
+    "id": "FM-833c0d1ff1",
     "company": "Bristol-Myers Squibb",
     "ticker": "BMY",
     "filing_type": "10-K",
     "filing_date": "2026-02-11",
     "mentioned_country": "Switzerland",
-    "mentioned_commodity": "generic drugs",
+    "mentioned_commodity": "pharmaceutical manufacturing",
     "risk_text": "We have significant manufacturing operations in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland.",
     "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
   },
   {
-    "id": "FM-de5e5e2383",
+    "id": "FM-e187821102",
+    "company": "Bristol-Myers Squibb",
+    "ticker": "BMY",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-11",
+    "mentioned_country": "Netherlands",
+    "mentioned_commodity": "pharmaceutical manufacturing",
+    "risk_text": "We have significant manufacturing operations in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
+  },
+  {
+    "id": "FM-4807ff8174",
     "company": "Bristol-Myers Squibb",
     "ticker": "BMY",
     "filing_type": "10-K",
     "filing_date": "2026-02-11",
     "mentioned_country": "Puerto Rico",
-    "mentioned_commodity": "biologics, cell therapy and pharmaceutical manufacturing",
+    "mentioned_commodity": "biologics and cell therapy manufacturing",
     "risk_text": "Our significant biologics, cell therapy and pharmaceutical manufacturing facilities are located in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland and require significant ongoing capital investment",
     "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
   },
   {
-    "id": "FM-08f90f3448",
+    "id": "FM-17643a7bac",
     "company": "Bristol-Myers Squibb",
     "ticker": "BMY",
     "filing_type": "10-K",
     "filing_date": "2026-02-11",
     "mentioned_country": "Ireland",
-    "mentioned_commodity": "biologics, cell therapy and pharmaceutical manufacturing",
+    "mentioned_commodity": "biologics and cell therapy manufacturing",
     "risk_text": "Our significant biologics, cell therapy and pharmaceutical manufacturing facilities are located in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland and require significant ongoing capital investment",
     "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
   },
   {
-    "id": "FM-71ab86c1cb",
+    "id": "FM-ea1607beab",
     "company": "Bristol-Myers Squibb",
     "ticker": "BMY",
     "filing_type": "10-K",
     "filing_date": "2026-02-11",
     "mentioned_country": "Switzerland",
-    "mentioned_commodity": "biologics, cell therapy and pharmaceutical manufacturing",
+    "mentioned_commodity": "biologics and cell therapy manufacturing",
+    "risk_text": "Our significant biologics, cell therapy and pharmaceutical manufacturing facilities are located in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland and require significant ongoing capital investment",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
+  },
+  {
+    "id": "FM-e3d5e450e3",
+    "company": "Bristol-Myers Squibb",
+    "ticker": "BMY",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-11",
+    "mentioned_country": "Netherlands",
+    "mentioned_commodity": "biologics and cell therapy manufacturing",
     "risk_text": "Our significant biologics, cell therapy and pharmaceutical manufacturing facilities are located in the U.S., Puerto Rico, the Netherlands, Ireland and Switzerland and require significant ongoing capital investment",
     "source_url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm"
   },
@@ -143,17 +165,6 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
   },
   {
-    "id": "FM-c4092cf3b5",
-    "company": "Eli Lilly",
-    "ticker": "LLY",
-    "filing_type": "10-K",
-    "filing_date": "2026-02-12",
-    "mentioned_country": "Germany",
-    "mentioned_commodity": "generic drugs",
-    "risk_text": "Investments to increase our manufacturing capacity include new sites in North Carolina, Wisconsin, Indiana, Virginia, Texas, Alabama, Pennsylvania, Ireland, Germany, and the Netherlands.",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
-  },
-  {
     "id": "FM-5277d2bad3",
     "company": "Eli Lilly",
     "ticker": "LLY",
@@ -174,6 +185,39 @@
     "mentioned_commodity": "insulin",
     "risk_text": "We manufacture and distribute our products through facilities in the United States (U.S.), including Puerto Rico, and in Europe and Asia.",
     "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
+  },
+  {
+    "id": "FM-c546e2b4ad",
+    "company": "Merck",
+    "ticker": "MRK",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-24",
+    "mentioned_country": "Switzerland",
+    "mentioned_commodity": "generic drugs",
+    "risk_text": "Principal research facilities outside the U.S. are located in the United Kingdom, Switzerland and China.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000031015826000063/mrk-20251231.htm"
+  },
+  {
+    "id": "FM-efd94e98d8",
+    "company": "Merck",
+    "ticker": "MRK",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-24",
+    "mentioned_country": "China",
+    "mentioned_commodity": "generic drugs",
+    "risk_text": "Principal research facilities outside the U.S. are located in the United Kingdom, Switzerland and China.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000031015826000063/mrk-20251231.htm"
+  },
+  {
+    "id": "FM-e2023a31d4",
+    "company": "Merck",
+    "ticker": "MRK",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-24",
+    "mentioned_country": "Puerto Rico",
+    "mentioned_commodity": "generic drugs",
+    "risk_text": "The Company also has production facilities for human health products at five locations in the U.S. and Puerto Rico.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000031015826000063/mrk-20251231.htm"
   },
   {
     "id": "FM-35e6495845",
@@ -220,28 +264,6 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm"
   },
   {
-    "id": "FM-dd7b200f0c",
-    "company": "Teva Pharmaceutical",
-    "ticker": "TEVA",
-    "filing_type": "10-K",
-    "filing_date": "2026-02-03",
-    "mentioned_country": "India",
-    "mentioned_commodity": "active pharmaceutical ingredients",
-    "risk_text": "policy is to maintain multiple supply sources for APIs to appropriately mitigate risk in our supply chain to the extent possible... we have closed or divested a significant number of manufacturing plants in the United States, Europe, Israel, Japan and India",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm"
-  },
-  {
-    "id": "FM-d33d2e2247",
-    "company": "Teva Pharmaceutical",
-    "ticker": "TEVA",
-    "filing_type": "10-K",
-    "filing_date": "2026-02-03",
-    "mentioned_country": "China",
-    "mentioned_commodity": "generic drugs",
-    "risk_text": "In February 2024, we announced a strategic partnership for the marketing and distribution of AUSTEDO in China with Jiangsu Nhwa Hexin Pharmaceutical Marketing Co., Ltd.",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/818686/000119312526034532/d93612d10k.htm"
-  },
-  {
     "id": "FM-e4ffea9bfe",
     "company": "Viatris",
     "ticker": "VTRS",
@@ -253,12 +275,45 @@
     "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"
   },
   {
+    "id": "FM-c13c232dae",
+    "company": "Viatris",
+    "ticker": "VTRS",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-26",
+    "mentioned_country": "India",
+    "mentioned_commodity": "active pharmaceutical ingredients",
+    "risk_text": "The Company\u2019s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"
+  },
+  {
+    "id": "FM-620d179e26",
+    "company": "Viatris",
+    "ticker": "VTRS",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-26",
+    "mentioned_country": "China",
+    "mentioned_commodity": "active pharmaceutical ingredients",
+    "risk_text": "The Company\u2019s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"
+  },
+  {
     "id": "FM-b1284fcb15",
     "company": "Viatris",
     "ticker": "VTRS",
     "filing_type": "10-K",
     "filing_date": "2026-02-26",
     "mentioned_country": "Ireland",
+    "mentioned_commodity": "active pharmaceutical ingredients",
+    "risk_text": "The Company\u2019s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland.",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"
+  },
+  {
+    "id": "FM-26ad0f317f",
+    "company": "Viatris",
+    "ticker": "VTRS",
+    "filing_type": "10-K",
+    "filing_date": "2026-02-26",
+    "mentioned_country": "Puerto Rico",
     "mentioned_commodity": "active pharmaceutical ingredients",
     "risk_text": "The Company\u2019s significant manufacturing, packaging, warehousing and distribution activities are located primarily in the U.S., Puerto Rico, Singapore, India, Australia, China, and certain EU countries, including Ireland.",
     "source_url": "https://www.sec.gov/Archives/edgar/data/1792044/000179204426000013/vtrs-20251231.htm"

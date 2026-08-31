@@ -1,0 +1,99 @@
+{
+  "agent": "filing_agent",
+  "call_id": "automotive_LEA",
+  "timestamp": "2026-08-31T06:03:56.191626+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a automotive supply-chain intelligence pipeline.\nSegment scope: Automotive and auto parts supply chain \u2014 vehicle assembly, parts sourcing, and EV battery/electronics dependencies between countries and US-listed automakers and suppliers, dominated in 2025-2026 by Section 232 tariffs on imported vehicles and auto parts.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (automobiles, auto parts, vehicle electronics, tires, EV batteries), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Mexico, Canada, China, Japan, South Korea, Germany, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    automobiles, auto parts, vehicle electronics, tires, EV batteries if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Lear Corporation (LEA), 10-K filed 2026-02-13\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') tive producing region in the world. Our sales are driven by the number of vehicles produced by the automotive manufacturers and our content per vehicle. Since 2020, the global economy, as well as the automotive industry, have been influenced directly and indirectly by macroeconomic events resulting in unfavorable conditions, including increases in tariffs, a customer cybersecurity incident, shortages of semiconductor chips and other components, elevated inflation levels on commodities and labor, higher interest rates, and labor and energy shortages in certain markets. Certain of these factors, among others, continue to impact consumer demand. Our strategy to mitigate these impacts encompasses our\n\n[1] (matched keyword: 'tariff') lities and equipment to reduce future expenditures, and streamline administrative functions. Due to the interconnectedness of the global economy, policy changes in one area of the world can have an immediate and material impact on markets around the world. Since his inauguration in January 2025, U.S. President Donald J. Trump has announced various tariffs that impact industries around the world, including the automotive industry. As of the date of this Report, many of the tariffs announced, implemented or threatened by the current U.S. administration apply to (a) the countries in which we do business or from which we purchase, either directly or indirectly, materials or components, including China\n\n[2] (matched keyword: 'Mexico') that impact industries around the world, including the automotive industry. As of the date of this Report, many of the tariffs announced, implemented or threatened by the current U.S. administration apply to (a) the countries in which we do business or from which we purchase, either directly or indirectly, materials or components, including China, Mexico and Canada, and (b) the materials or components that we purchase, either directly or indirectly, or produce, including steel, aluminum and automobile parts, among others, and therefore could adversely impact our business by increasing our operating costs, requiring us to incur significant costs to transition to alternative suppliers if our mitigat\n\n[3] (matched keyword: 'Germany') ent technologies designed to automate the testing and validation of seat components and complete seats. \u2022 In April 2023, we acquired I.G. Bauerhin (\"IGB\"), a privately held supplier of automotive seat heating, ventilation and active cooling, steering wheel heating, seat sensors and electronic control modules, headquartered in Grundau-Rothenbergen, Germany, for approximately $175 million. Our acquisition furthers our comprehensive strategy to develop and integrate a complete portfolio of thermal comfort systems for automotive seating. IGB provides active cooling, as well as additional scale to our seat heating and ventilation capabilities and complements the lumbar and massage capabilities obtained\n\n[4] (matched keyword: 'Mexico') ed by the age of the vehicle fleet and related scrappage rates, labor relations issues, unforeseen operational disruptions, labor shortages, fuel prices, regulatory requirements, government initiatives and incentives, trade agreements, tariffs and other non-tariff trade barriers (including recent U.S. tariffs imposed or threatened to be imposed on Mexico, Canada and China, as well as other countries and any retaliatory actions taken by such countries), the availability and cost of raw materials and critical components, logistics issues, cybersecurity incidents, and the availability and cost of credit, as well as vehicle affordability and consumer preferences regarding vehicle powertrains (includin\n\n[5] (matched keyword: 'Germany') Low-voltage connection systems are used on all light duty vehicles and high-voltage connection systems are used on vehicles with electrified powertrains. Our connection systems are produced using highly automated processes, including stamping, injection molding and automated assembly processes. Our connection systems are currently manufactured in Germany, the Czech Republic, Morocco, China and the United States. Key material inputs to our connection systems business include metals, such as copper and aluminum, and various resins. High voltage battery connection systems consist of stamped and molded components and assemblies that provide connections between battery cells, from the battery pack to t\n\n[6] (matched keyword: 'Mexico') w and insulated wire, which is automatically cut to length and terminated during the manufacturing process. Individual circuits are assembled together, inserted into connectors and wrapped or taped to form wire harness assemblies. The assembly process is labor intensive, and as a result, production is generally performed in low-cost labor sites in Mexico, Honduras, Brazil, Eastern Europe, Africa, China and the Philippines. Connection systems include terminals and connectors, high-voltage battery connection systems and engineered components that join wire harnesses together at their respective end points or connect electronic devices to wire harnesses. Connection systems can vary significantly in s\n\n[7] (matched keyword: 'Canada') d services requires a work environment that prioritizes safety and fosters collaboration, inclusion and respect for our employees worldwide. Oversight of this strategy rests with our Board and its People and Compensation Committee. As of December 31, 2025 and 2024, our global employment levels were approximately: Region 2025 2024 United States and Canada 9,800 10,400 Mexico 48,600 51,900 Central and South America 21,000 23,500 Europe and Africa 62,900 64,500 Asia 22,000 23,400 Total 164,300 173,700 16 Table of Contents Our compensation and benefits strategy is designed to attract and retain top talent, foster a productive work environment and align employee interests with those of our stakeholders\n\n[8] (matched keyword: 'United States') lear-20251231 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM (Mark One) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(D) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended . TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(D) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from to . Commission file number: (Exact name o\n\n[9] (matched keyword: 'supply chain') ously evaluate this portfolio, aligning it with industry trends while balancing risk-adjusted returns, which allows us to offer value-added solutions to our customers. \u2022 Seating \u2014 Our Seating segment consists of the design, development, engineering and manufacture of complete seat systems and key seat components. Our capabilities in operations and supply chain management enable synchronized assembly and just-in-time delivery of complex complete seat systems at high volumes to our customers. As the most vertically integrated global seat supplier, our key seat component product offerings include seat trim covers; surface materials such as leather and fabric; seat mechanisms; seat cushioning; headrests; an",
+  "raw_response": "```json\n[\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"many of the tariffs announced, implemented or threatened by the current U.S. administration apply to (a) the countries in which we do business or from which we purchase, either directly or indirectly, materials or components, including China, Mexico and Canada\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"including China, Mexico and Canada, and (b) the materials or components that we purchase, either directly or indirectly, or produce, including steel, aluminum and automobile parts\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Canada\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"including China, Mexico and Canada, and (b) the materials or components that we purchase, either directly or indirectly, or produce, including steel, aluminum and automobile parts\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"recent U.S. tariffs imposed or threatened to be imposed on Mexico, Canada and China, as well as other countries and any retaliatory actions taken by such countries\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Germany\",\n    \"mentioned_commodity\": \"vehicle electronics\",\n    \"risk_text\": \"Our connection systems are currently manufactured in Germany, the Czech Republic, Morocco, China and the United States.\",\n    \"excerpt_index\": 5\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"vehicle electronics\",\n    \"risk_text\": \"Our connection systems are currently manufactured in Germany, the Czech Republic, Morocco, China and the United States.\",\n    \"excerpt_index\": 5\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"production is generally performed in low-cost labor sites in Mexico, Honduras, Brazil, Eastern Europe, Africa, China and the Philippines\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"production is generally performed in low-cost labor sites in Mexico, Honduras, Brazil, Eastern Europe, Africa, China and the Philippines\",\n    \"excerpt_index\": 6\n  }\n]\n```",
+  "parsed_output": [
+    {
+      "id": "FM-51bae5e052",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "China",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "many of the tariffs announced, implemented or threatened by the current U.S. administration apply to (a) the countries in which we do business or from which we purchase, either directly or indirectly, materials or components, including China, Mexico and Canada",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-6c7ec0efc6",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "including China, Mexico and Canada, and (b) the materials or components that we purchase, either directly or indirectly, or produce, including steel, aluminum and automobile parts",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-5fa5e00660",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "Canada",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "including China, Mexico and Canada, and (b) the materials or components that we purchase, either directly or indirectly, or produce, including steel, aluminum and automobile parts",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-51416269d4",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "recent U.S. tariffs imposed or threatened to be imposed on Mexico, Canada and China, as well as other countries and any retaliatory actions taken by such countries",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-7208f3600c",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "Germany",
+      "mentioned_commodity": "vehicle electronics",
+      "risk_text": "Our connection systems are currently manufactured in Germany, the Czech Republic, Morocco, China and the United States.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-6f44756a3f",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "China",
+      "mentioned_commodity": "vehicle electronics",
+      "risk_text": "Our connection systems are currently manufactured in Germany, the Czech Republic, Morocco, China and the United States.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-0bf1ca3810",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "production is generally performed in low-cost labor sites in Mexico, Honduras, Brazil, Eastern Europe, Africa, China and the Philippines",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    },
+    {
+      "id": "FM-e3df9df636",
+      "company": "Lear Corporation",
+      "ticker": "LEA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-13",
+      "mentioned_country": "China",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "production is generally performed in low-cost labor sites in Mexico, Honduras, Brazil, Eastern Europe, Africa, China and the Philippines",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+    }
+  ]
+}

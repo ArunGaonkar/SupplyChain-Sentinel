@@ -73,8 +73,23 @@ def _search_best_filing(
     this segment's causal thesis — "tariffs" for pharma, but "export
     control" matters at least as much for semiconductors), preferring
     recent filings; falls back to the other configured query terms, then to
-    all-time, if nothing recent matches."""
+    all-time, if nothing recent matches.
+
+    A `forms=10-K` search over a company's full accession history matches
+    ANY document filed as part of a 10-K submission, including exhibits
+    (equity-plan terms, subsidiary guarantor lists, financing agreements) —
+    those can outscore the actual 10-K body on a narrow term match and get
+    returned as hits[0], which is a real, silent quality bug (three of our
+    16 company pulls hit this before it was caught: MRK, INTC, MU each
+    landed on an exhibit with zero operational content instead of the real
+    10-K). Each hit's `_source.file_type` distinguishes them ("10-K" for the
+    primary document vs. "EX-10.24" etc. for exhibits) — hits matching the
+    requested form are preferred; if a search only turns up exhibit hits, an
+    exhibit is used rather than treating the whole company as having no
+    hits, but only as a last resort.
+    """
     all_terms = priority_terms + [t for t in other_terms if t not in priority_terms]
+    fallback: Optional[dict] = None
     for date_range in (("2023-01-01", "2026-12-31"), (None, None)):
         for term in all_terms:
             params = {"q": term, "ciks": cik, "forms": forms}
@@ -87,9 +102,14 @@ def _search_best_filing(
             except (requests.RequestException, ValueError):
                 hits = []
             time.sleep(0.3)
-            if hits:
-                return hits[0]
-    return None
+            for hit in hits:
+                if hit["_source"].get("file_type") == forms:
+                    return hit
+            if hits and fallback is None:
+                fallback = hits[0]  # keep the best exhibit-only hit as a last resort
+        if fallback is not None:
+            break
+    return fallback
 
 
 def _fetch_filing_text(cik_no_zeros: str, accession_no_dashes: str, filename: str) -> str:

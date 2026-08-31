@@ -1,10 +1,110 @@
 {
   "agent": "filing_agent",
   "call_id": "semiconductor_MU",
-  "timestamp": "2026-08-31T04:49:58.029536+00:00",
+  "timestamp": "2026-08-31T05:27:42.983219+00:00",
   "model": "claude-sonnet-5",
   "system_prompt": "You are the Filing Agent in a semiconductor supply-chain intelligence pipeline.\nSegment scope: Semiconductor supply chain \u2014 chip design, fabrication (foundry), memory, lithography/fab equipment, and packaging/testing dependencies between countries and US-listed chip companies, dominated in 2025-2026 by US-China export-control policy rather than tariffs specifically.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (advanced logic chips, memory chips, lithography equipment, wafers, chip packaging and testing), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Taiwan, South Korea, China, Japan, Netherlands, Malaysia, Singapore, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    advanced logic chips, memory chips, lithography equipment, wafers, chip packaging and testing if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
-  "user_prompt": "Company: Micron Technology (MU), 10-K filed 2025-10-03\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'export control') ion 10.2. Authorization; No Conflict 9 Section 10.3. Compliance with Laws 9 Section 10.4. Legality; Validity; Enforceability 10 Section 10.5. Real Property 10 Section 10.6. Financial Statements 11 Section 10.7. Adequate Project Funding 11 Section 10.8. Federal Requirements 1 1 Section 10.9. Foreign Entity of Concern; Prohibited Persons; Sanctions; Export Controls; Anti-Corruption; Anti-Money Laundering Laws 12 Section 10.10. Insolvency Proceedings 13 Section 10.11. Full Disclosure 1 3 Section 10.12. No Immunity 1 3 Section 10.13. No Federal Debt Delinquency 1 3 Section 10.14. No Debarment 1 3 Section 10.15. Information Technology; Cyber Security 1 3 Section 10.16. Acknowledgement Regarding Use of Data 1 4\n\n[1] (matched keyword: 'export control') (g) all applicable federal labor and employment laws, including Title VII of the Civil Rights Act of 1964 (42 U.S.C. \u00a7 2000e et seq .), the Fair Labor Standards Act (29 U.S.C. \u00a7 203), the Occupational Safety and Health Act (29 U.S.C. \u00a7 653) and the National Labor Relations Act (29 U.S.C. \u00a7 151 et seq .) in all material respects; (h) all applicable Export Control Laws in all respects, except for any actual or potential violations that involve only unintentional minor, technical infractions, which either (i) were voluntarily self-disclosed to BIS within sixty (60) days of a Recipient Party or Qualified Transferee becoming aware of the violation, and, within sixty (60) days of disclosure resulted in the issu\n\n[2] (matched keyword: 'United States') ENDED AND RESTATED GUARANTEE AND EQUITY CONTRIBUTION AGREEMENT This AMENDED AND RESTATED GUARANTEE AND EQUITY CONTRIBUTION AGREEMENT (this \u201c Agreement \u201d) is entered into as of June 11, 2025, by and between Micron Technology, Inc., a corporation organized and existing under the laws of Delaware, as the guarantor (the \u201c Sponsor Guarantor \u201d), and the UNITED STATES DEPARTMENT OF COMMERCE (the \u201c Department \u201d and together with the Sponsor Guarantor, the \u201c Parties \u201d and each a \u201c Party \u201d), an agency of the United States of America, acting by and through the Secretary of Commerce (or appropriate authorized representative thereof). RECITALS WHEREAS , the Department has entered into (a) that certain direct funding\n\n[3] (matched keyword: 'United States') . (b) Notwithstanding anything to the contrary herein or in any other Financing Document, the maximum liability of the Sponsor Guarantor under this Agreement shall not exceed an amount equal to the largest amount that would not render the Sponsor Guarantor\u2019s obligations hereunder subject to avoidance under Section 548 of the Bankruptcy Code of the United States or any equivalent provision of any other bankruptcy, insolvency, reorganization, receivership, moratorium or other Applicable Laws affecting creditors\u2019 rights generally. Article 3 GUARANTEED OBLIGATIONS NOT WAIVED The Sponsor Guarantor waives presentment to, demand of, payment from and protest to any Recipient of any of the Guaranteed Obligations,",
-  "raw_response": "[]",
-  "parsed_output": []
+  "user_prompt": "Company: Micron Technology (MU), 10-K filed 2025-10-03\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') actions to align our NAND business supply growth and technology node cadence with our projections of the demand environment; the impact of the Cyberspace Administration of China (\u201cCAC\u201d) decision; capital spending in 2026; the potential impact of business, economic, political, legal, and regulatory developments upon our global operations, including tariffs and trade regulations; and the sufficiency of our cash and investments. Our actual results could differ materially from our historical results and those discussed in the forward-looking statements. Factors that could cause actual results to differ materially include, but are not limited to, those identified in Part I, Item 1A. Risk Factors. 6 Tab\n\n[1] (matched keyword: 'export restriction') may benefit from increased manufacturing scale and a stronger product portfolio. Alternatively, new entrants into the memory and storage market could have a significant adverse impact on our competitive position. We operate in different jurisdictions than our competitors and may be impacted by unfavorable changes in currency exchange rates, import/export restrictions, and other trade regulations, including tariffs. In addition, governments have provided, and may continue to provide, significant assistance, financial or otherwise, to some of our competitors or to new entrants and may intervene in support of national industries and/or competitors. As a result, we face the threat of increasing competition and DR\n\n[2] (matched keyword: 'Taiwan') work on the most advanced memory technology. Centers of excellence bring expertise together in one location, providing an efficient support structure for end-to-end manufacturing, with quicker cycle times, in partnership with teams, such as R&D, product development, human resources, procurement, and supply chain. For our locations in Singapore and Taiwan, this is also a combination of bringing fabrication and back-end manufacturing together. We continue to make significant investments to develop proprietary product and process technology, which generally increases bit density per wafer and reduces per-bit manufacturing costs of each generation of product. We continue to introduce new generations o\n\n[3] (matched keyword: 'China') May 2024 2041 Notes 3.366% Senior Notes due November 2041 2026 Notes 4.975% Senior Notes due February 2026, repaid February 2025 2051 Notes 3.477% Senior Notes due November 2051 2026 Term Loan A Senior Term Loan A due November 2026, repaid January 2025 AI Artificial intelligence 2027 Notes 4.185% Senior Notes due February 2027, repaid May 2025 CAC China\u2019s Cyberspace Administration 2027 Term Loan A Senior Term Loan A due November 2027, repaid January 2025 CHIPS Act U.S. CHIPS and Science Act of 2022 2028 Notes 5.375% Senior Notes due April 2028 DDR Double data rate DRAM 2029 A Notes 5.327% Senior Notes due February 2029 EBITDA Earnings before interest, taxes, depreciation, and amortization 2029 B\n\n[4] (matched keyword: 'Japan') uct life cycles and a decline in average selling prices of our products. If competitors are more successful at developing or implementing new product or process technology, their products could have cost or performance advantages. 12 Table of Contents Manufacturing We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India and also utilize subcontractors to perform certain manufacturing processes. Our products are manufactured on 300mm wafers in facilities that generally operate 24 hours per day, seven days per week. Semiconductor manufacturing is capital intensive, requiring large investments in sophisticated facilitie\n\n[5] (matched keyword: 'Japan') volution of our semiconductor product offerings is necessary to meet expected customer requirements for memory and storage products and solutions. Our process, design, firmware, controller, package, and system development efforts occur at multiple locations across the world. Our R&D centers are located in Boise, Idaho; San Jose, California; India; Japan; Taiwan; Singapore; China; Italy; Mexico; Germany; Malaysia; and other sites in the United States. R&D expenses vary primarily with the number of development and pre-qualification wafers processed and end-product solutions developed, personnel costs, and the cost of advanced equipment dedicated to new product and process development, such as inves\n\n[6] (matched keyword: 'China') ne in support of national industries and/or competitors. As a result, we face the threat of increasing competition and DRAM and NAND oversupply due to significant investment in the semiconductor industry, including by the Chinese government and various state-owned or affiliated entities, such as CXMT and YMTC. In addition, the May 2023 decision by China\u2019s Cyberspace Administration (the \u201cCAC\u201d) that critical information infrastructure operators in China may not purchase Micron products had an adverse impact on our ability to compete effectively in China and elsewhere. We intend to advance our process technology to increase bit output per wafer, improve yields, and increase wafer supply. In addition\n\n[7] (matched keyword: 'Japan') usiness, results of operations, or financial condition. We face geopolitical and other risks associated with our international operations that could materially adversely affect our business, results of operations, or financial condition. In addition to our U.S. operations, a substantial portion of our operations are conducted in Taiwan, Singapore, Japan, Malaysia, China, and India, and many of our customers, suppliers, and vendors also operate internationally. In 2025, approximately one-third of our revenue was from sales to customers who have headquarters located outside the United States, while approximately 80% of our revenue in 2025 was from products shipped to customer locations outside the\n\n[8] (matched keyword: 'United States') mu-20250828 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM (Mark One) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from to Commission file number (Exact name of\n\n[9] (matched keyword: 'United States') ramp of certain products; plans to invest in research and development, including the plans to implement EUV lithography; anticipated technological developments; potential change and impact in our effective tax rate; the timing for construction, expansion, and ramping of production for our facilities, including new memory manufacturing fabs in the United States; receipt, timing, and utilization of government incentives and our ability to satisfy conditions attached to these incentives; the payment of future cash dividends; market conditions and profitability in our industry; future demand for our products and factors that may impact such demand, including developments in AI; DRAM bit shipments in future",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"Taiwan\",\n    \"mentioned_commodity\": \"chip packaging and testing\",\n    \"risk_text\": \"For our locations in Singapore and Taiwan, this is also a combination of bringing fabrication and back-end manufacturing together.\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Singapore\",\n    \"mentioned_commodity\": \"chip packaging and testing\",\n    \"risk_text\": \"For our locations in Singapore and Taiwan, this is also a combination of bringing fabrication and back-end manufacturing together.\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Taiwan\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Singapore\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Japan\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Malaysia\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"India\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"memory chips\",\n    \"risk_text\": \"the May 2023 decision by China\\u2019s Cyberspace Administration (the \\u201cCAC\\u201d) that critical information infrastructure operators in China may not purchase Micron products had an adverse impact on our ability to compete effectively in China and elsewhere.\",\n    \"excerpt_index\": 6\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-cc2fbcce1a",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "Taiwan",
+      "mentioned_commodity": "chip packaging and testing",
+      "risk_text": "For our locations in Singapore and Taiwan, this is also a combination of bringing fabrication and back-end manufacturing together.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-dbfba74162",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "Singapore",
+      "mentioned_commodity": "chip packaging and testing",
+      "risk_text": "For our locations in Singapore and Taiwan, this is also a combination of bringing fabrication and back-end manufacturing together.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-5a4800d007",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "Taiwan",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-1e19d8d7ad",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "Singapore",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-e3c9fce4af",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "Japan",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-da53017b3e",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "Malaysia",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-eff91052f0",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "China",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-ab555d9f53",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "India",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "We manufacture our products within our own facilities located in Taiwan, Singapore, Japan, the United States, Malaysia, China, and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    },
+    {
+      "id": "FM-7c4d1802a3",
+      "company": "Micron Technology",
+      "ticker": "MU",
+      "filing_type": "10-K",
+      "filing_date": "2025-10-03",
+      "mentioned_country": "China",
+      "mentioned_commodity": "memory chips",
+      "risk_text": "the May 2023 decision by China\u2019s Cyberspace Administration (the \u201cCAC\u201d) that critical information infrastructure operators in China may not purchase Micron products had an adverse impact on our ability to compete effectively in China and elsewhere.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312525000028/mu-20250828.htm"
+    }
+  ]
 }

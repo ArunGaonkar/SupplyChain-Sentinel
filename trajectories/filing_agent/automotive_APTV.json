@@ -1,0 +1,77 @@
+{
+  "agent": "filing_agent",
+  "call_id": "automotive_APTV",
+  "timestamp": "2026-08-31T06:02:29.449558+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a automotive supply-chain intelligence pipeline.\nSegment scope: Automotive and auto parts supply chain \u2014 vehicle assembly, parts sourcing, and EV battery/electronics dependencies between countries and US-listed automakers and suppliers, dominated in 2025-2026 by Section 232 tariffs on imported vehicles and auto parts.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (automobiles, auto parts, vehicle electronics, tires, EV batteries), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Mexico, Canada, China, Japan, South Korea, Germany, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    automobiles, auto parts, vehicle electronics, tires, EV batteries if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Aptiv (APTV), 10-K filed 2026-02-06\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') other components integral to the Company\u2019s products, including the ongoing semiconductor supply shortage; the Company\u2019s ability to maintain contracts that are critical to its operations; potential changes to beneficial free trade laws and regulations, such as the United States-Mexico-Canada Agreement; the effects of significant increases in trade tariffs, import quotas and other trade restrictions or actions, including retaliatory responses to such actions; changes to tax laws; future significant public health crises; the ability of the Company to integrate and realize the expected benefits of recent transactions; the ability of the Company to attract, motivate and/or retain key executives; the a\n\n[1] (matched keyword: 'tariff') fully compensated, if at all. Global supply chain disruptions have in the past and could in the future lead to interruptions in our production, which could impact our ability to fully meet the vehicle production demands of OEMs at times due to events which are outside our control. For example, as a result of the rapidly evolving trade policies and tariff actions, the uncertainty in the automotive industry has increased, which could adversely affect our business and financial results. We will continue to actively monitor our global supply chain and will seek to aggressively mitigate and minimize the impact of any future disruptions on our business. In addition, we are carrying critical inventory it\n\n[2] (matched keyword: 'China') ed as a key market likely to experience substantial long-term growth. Our ten largest platforms in 2025 were with six different OEMs. In addition, in 2025 our products were found in 18 of the 20 top-selling vehicle models in the United States (\u201cU.S.\u201d), 17 of the 20 top-selling vehicle models in Europe and 20 of the 20 top-selling vehicle models in China. We have established a worldwide design and manufacturing footprint with a regional service model that enables us to efficiently and effectively serve our global customers from best cost countries. This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European marke\n\n[3] (matched keyword: 'South Korea') nd various other tax return positions that might not be sustained upon review by taxing authorities. The Company files tax returns in multiple jurisdictions and is subject to examination by taxing authorities throughout the world due to its complex global footprint. Taxing jurisdictions significant to Aptiv include China, Germany, Ireland, Mexico, South Korea, Switzerland, the U.K. and the U.S. How We Addressed the Matter in Our Audit We obtained an understanding, evaluated the design, and tested the operating effectiveness of controls related to the recognition, measurement and the evaluation of changes in uncertain tax positions. This included testing controls over management\u2019s review of the tax posi\n\n[4] (matched keyword: 'Germany') lop significant intellectual property and design and development expertise to provide advanced technology solutions that meet the demands of our customers. We have a team of approximately 20,700 scientists, engineers and technicians focused on developing leading product solutions for our key markets, located at 11 major technical centers in China, Germany, India, Mexico, Poland, Singapore and the United States. Our total investment in research and development, including engineering, was approximately $1.7 billion, $1.6 billion and $1.8 billion for the years ended December 31, 2025, 2024 and 2023, respectively, which includes approximately $573 million, $535 million and $492 million of co-investment\n\n[5] (matched keyword: 'Canada') review of more cost-competitive jurisdictions and a greater acceleration in manufacturing automation. While management has implemented measures to mitigate the impact of these labor reforms on our cost structure, we cannot predict the ultimate future impact on our business. Existing free trade laws and regulations, such as the United States-Mexico-Canada Agreement, provide certain beneficial duties and tariffs for qualifying imports and exports, subject to compliance with the applicable classification and other requirements. Changes in laws or policies governing the terms of trade, and in particular increased trade restrictions, tariffs, taxes or non-tariff barriers on imports from countries where\n\n[6] (matched keyword: 'China') a regional service model that enables us to efficiently and effectively serve our global customers from best cost countries. This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China. Our global scale and regional service model enables us to engineer globally and execute regionally and to serve the largest OEMs, which are seeking suppliers that can serve them on a 6 Table of Contents worldwide basis. Our footprint also enables us to adapt to the regional design variations the global OEMs require while also serving key growth m\n\n[7] (matched keyword: 'Mexico') salaried employees and 110,000 hourly employees. In addition, we maintain a contingent workforce of approximately 51,000 to accommodate fluctuations in customer demand. We are a global company serving every major worldwide market. As of December 31, 2025 our workforce is distributed as follows: \u2022 50% in North America, with our largest presence in Mexico; \u2022 30% in the Europe, Middle East and Africa region, with our largest presence in Morocco and Serbia; \u2022 15% in the Asia Pacific region, with our largest presence in China and India; and \u2022 5% in South America, with our largest presence in Brazil. As of December 31, 2025, approximately 50% of our total workforce were women, and approximately 25% of\n\n[8] (matched keyword: 'United States') aptv-20251231 Table of Contents UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from to . Commission file number: (Exact name of registra\n\n[9] (matched keyword: 'United States') guarantor under the Credit Agreement (and will act as the \u201cparent entity\u201d thereunder) and the indentures. As a result of the Transaction described above, there were no material changes in Aptiv PLC\u2019s operations or governance. The consolidated financial statements have been prepared in accordance with accounting principles generally accepted in the United States of America (\u201cU.S. GAAP\u201d). References in this Annual Report on Form 10-K, including the exhibits being filed as part of this report, to \u201cAptiv PLC,\u201d \u201cAptiv,\u201d the \u201cCompany,\u201d \u201cwe,\u201d \u201cus\u201d and \u201cour\u201d refers to Old Aptiv (Aptiv PLC before the Transaction in December 2024) and to New Aptiv (Aptiv PLC after the Transaction in December 2024). On January 22,",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China.\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China.\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China.\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"the Asia Pacific market from China. Our global scale and regional service model enables us to engineer globally and execute regionally and to serve the largest OEMs\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"50% in North America, with our largest presence in Mexico\",\n    \"excerpt_index\": 7\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"15% in the Asia Pacific region, with our largest presence in China and India\",\n    \"excerpt_index\": 7\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-09ebf7d59d",
+      "company": "Aptiv",
+      "ticker": "APTV",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-06",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000009/aptv-20251231.htm"
+    },
+    {
+      "id": "FM-4bb43dba8d",
+      "company": "Aptiv",
+      "ticker": "APTV",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000009/aptv-20251231.htm"
+    },
+    {
+      "id": "FM-f5bbaabf69",
+      "company": "Aptiv",
+      "ticker": "APTV",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-06",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "This regional model is structured primarily to service the North American market from Mexico, the South American market from Brazil, the European market from Eastern Europe and North Africa, and the Asia Pacific market from China.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000009/aptv-20251231.htm"
+    },
+    {
+      "id": "FM-f736f3563c",
+      "company": "Aptiv",
+      "ticker": "APTV",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "the Asia Pacific market from China. Our global scale and regional service model enables us to engineer globally and execute regionally and to serve the largest OEMs",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000009/aptv-20251231.htm"
+    },
+    {
+      "id": "FM-d1d422f67c",
+      "company": "Aptiv",
+      "ticker": "APTV",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-06",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "50% in North America, with our largest presence in Mexico",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000009/aptv-20251231.htm"
+    },
+    {
+      "id": "FM-f0a6e92df4",
+      "company": "Aptiv",
+      "ticker": "APTV",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "15% in the Asia Pacific region, with our largest presence in China and India",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1521332/000152133226000009/aptv-20251231.htm"
+    }
+  ]
+}

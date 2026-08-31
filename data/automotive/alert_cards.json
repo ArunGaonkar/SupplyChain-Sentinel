@@ -1,0 +1,145 @@
+[
+  {
+    "id": "AC-109d9030a3",
+    "title": "US-Korea Deal Cuts Auto Tariffs; BorgWarner Has Direct Korea Parts Exposure",
+    "severity": "medium",
+    "explanation": "The Federal Register notice describes a tariff decrease on automobiles and automobile parts under the US-Korea Strategic Trade and Investment Deal, amending the tariff treatment set out in Proclamation 10908. This is a high-severity policy shift specifically targeting the auto parts trade lane with South Korea. BorgWarner's 10-K discloses that approximately 6% of its sourcing originated in South Korea, indicating a direct, quantified dependency on the exact country and commodity category affected by this tariff change. While a tariff decrease is generally a tailwind rather than a risk, it signals that Korea-linked auto parts costs and trade terms are actively being renegotiated at the government level, which could affect BorgWarner's input costs, sourcing strategy, and competitive positioning versus peers with different geographic supply chains. Given the direct overlap between the policy's scope and BorgWarner's disclosed Korea exposure, portfolio managers should monitor how this tariff adjustment flows through to BorgWarner's margins and supplier relationships.",
+    "policy_event_id": "PE-37fc14cdc6",
+    "filing_mention_id": "FM-400e46d470",
+    "graph_link_id": "GL-109d9030a3",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/12/04/2025-21940/implementing-certain-tariff-related-elements-of-the-us-korea-strategic-trade-and-investment-deal",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+  },
+  {
+    "id": "AC-0a61acc17a",
+    "title": "US-Korea Tariff Cut on Autos Directly Touches GM's South Korea Manufacturing Base",
+    "severity": "high",
+    "explanation": "The Federal Register notice implements a tariff decrease on automobiles and automobile parts under the US-Korea strategic trade deal (Proclamation 10908, as amended), a change the Policy Agent rates as high severity. GM's 10-K confirms this is directly relevant to its operations, disclosing that South Korea is one of its major manufacturing and assembly locations within the GMI segment. Because GM already discloses South Korea as a core production hub, any shift in US tariff treatment of automobiles tied to that country has a direct bearing on GM's cost structure, competitive positioning, and cross-border vehicle flows. The pairing is a strong match: the policy event targets the exact product (automobiles) and country (South Korea) that GM's own risk disclosure identifies as a key manufacturing base, making this a high-priority alert for portfolio managers tracking GM's exposure to US-Korea trade policy.",
+    "policy_event_id": "PE-37fc14cdc6",
+    "filing_mention_id": "FM-593172dbaf",
+    "graph_link_id": "GL-0a61acc17a",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/12/04/2025-21940/implementing-certain-tariff-related-elements-of-the-us-korea-strategic-trade-and-investment-deal",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/gm-20251231.htm"
+  },
+  {
+    "id": "AC-322078bf61",
+    "title": "Japan Auto Tariff Cut Directly Touches Adient's Japan Manufacturing Footprint",
+    "severity": "medium",
+    "explanation": "The U.S.-Japan agreement, per the Federal Register notice, adjusts (decreases) duties on Japanese automobiles and automobile parts previously imposed under Proclamation 10908, a change the Policy Agent rates high severity given its broad scope over Japan-origin auto trade. As Adient's 10-K discloses, the company operates manufacturing and other facilities in Japan (listed among its country-by-country facility counts alongside the U.S., Mexico, Germany, and others), confirming Adient has real operational exposure to Japan as an auto parts supply-chain node. While the filing does not quantify revenue or cost impact from Japan specifically, the fact that Adient maintains a physical presence there means any tariff-related cost changes on Japanese automobiles/auto parts could affect input costs, intercompany shipments, or competitive dynamics for Adient's Japan-based operations. Because the policy is a decrease (easing) rather than a new restriction, the immediate risk is lower, but portfolio managers should watch for second-order effects on regional sourcing decisions and margin shifts tied to this Japan-U.S. auto tariff realignment.",
+    "policy_event_id": "PE-8b6751e8be",
+    "filing_mention_id": "FM-1e12c72e6d",
+    "graph_link_id": "GL-322078bf61",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/09/16/2025-17908/implementing-certain-tariff-related-elements-of-the-united-states-japan-agreement",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1670541/000167054125000152/adnt-20250930.htm"
+  },
+  {
+    "id": "AC-819e95c6a5",
+    "title": "US-Japan Tariff Cut on Autos/Parts Eases Cost Pressure for BorgWarner's Japan JV",
+    "severity": "medium",
+    "explanation": "The Federal Register notice implements tariff-related elements of the US-Japan agreement, reducing duties on Japanese automobiles and automobile parts that had been subject to Proclamation 10908. This is a high-severity policy shift given autos/parts were previously targeted for tariff increases. BorgWarner's 10-K discloses a direct exposure to this exact product-country pairing: its NSK-Warner K.K. joint venture, which manufactures transmission components, is 50% owned and based in Japan/China alongside partner NSK Ltd. Since NSK-Warner's transmission components fall squarely under the automobile parts category covered by the tariff change, a decrease in duties on Japanese auto parts could lower input or production costs tied to this joint venture, modestly benefiting BorgWarner's cost structure or competitive positioning in this segment. The match between the policy's product scope and BorgWarner's disclosed Japan-based parts operation is direct, though the JV is only partially owned and represents one of several international manufacturing relationships, warranting a medium severity rating.",
+    "policy_event_id": "PE-8b6751e8be",
+    "filing_mention_id": "FM-f1c48a771d",
+    "graph_link_id": "GL-819e95c6a5",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/09/16/2025-17908/implementing-certain-tariff-related-elements-of-the-united-states-japan-agreement",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+  },
+  {
+    "id": "AC-bb13617742",
+    "title": "US-EU Reciprocal Tariff Deal Cuts Auto Duties, Easing Pressure on Adient's Germany Operations",
+    "severity": "medium",
+    "explanation": "Per the Federal Register notice on implementing the US-EU framework agreement, automobiles and automobile parts covered under Proclamation 10908 are subject to a tariff decrease as part of the reciprocal tariff arrangement between the US and EU. This is a high-severity policy shift because it directly alters the cost structure for auto parts trade flows between the two economies. As Adient's 10-K discloses, the company maintains a notable manufacturing and facility footprint in Germany, listed among its key country-level operational exposures alongside the US, Mexico, and other manufacturing hubs. Since Adient is a major auto parts supplier with EU-based (specifically German) operations feeding into transatlantic automotive supply chains, a reduction in tariffs on automobiles and automobile parts under this US-EU framework could ease cost pressures or alter competitive dynamics for Adient's cross-border parts flows. While the filing does not quantify direct tariff exposure, the geographic alignment between the policy's scope (EU automobiles/parts) and Adient's disclosed German presence makes this a relevant, if not fully quantified, linkage for investors tracking margin and supply-chain cost impacts.",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-0ac645d9a7",
+    "graph_link_id": "GL-bb13617742",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1670541/000167054125000152/adnt-20250930.htm"
+  },
+  {
+    "id": "AC-e8fb90fb42",
+    "title": "EU-US Auto Tariff Cut Eases Cost Pressure on Lear's German Electronics Output",
+    "severity": "medium",
+    "explanation": "The Federal Register notice implementing the US-EU framework agreement lowers tariff-related elements on automobiles and automobile parts under Proclamation 10908, a high-severity policy shift given the scale of transatlantic auto trade. Lear Corporation's 10-K discloses that its connection systems (vehicle electronics) are manufactured in Germany, among other countries, making the company's European auto parts supply chain directly exposed to changes in US-EU auto tariff treatment. While this is a tariff decrease rather than an increase, it still signals active regulatory change in the exact trade lane\u2014automobiles and auto parts between the EU and US\u2014that underpins Lear's German manufacturing footprint. This matters for investors because shifts in reciprocal tariff terms can affect the cost competitiveness and margin profile of Lear's Germany-based electronics production as it flows into US-bound vehicles, even though the immediate effect here is tariff relief rather than new cost burden.",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-7208f3600c",
+    "graph_link_id": "GL-e8fb90fb42",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+  },
+  {
+    "id": "AC-1a62569ff2",
+    "title": "US-EU Tariff Cut on Autos Could Reshape Tesla's Germany Cost Calculus",
+    "severity": "medium",
+    "explanation": "The Federal Register notice describes a US-EU reciprocal tariff framework that adjusts (decreases) tariffs on automobiles and automobile parts previously subject to Proclamation 10908. Tesla's 10-K discloses that its Germany manufacturing facility exists specifically to reduce transportation and manufacturing costs and to limit exposure to unfavorable tariffs, alongside its China plant, for serving local markets. Because Tesla explicitly frames its German plant as a tariff-mitigation strategy, a change in US-EU auto tariff terms per the Federal Register document directly touches the cost-benefit logic Tesla lays out in its own risk disclosure. A tariff decrease could reduce the relative advantage of local EU production versus exporting from other regions, altering the calculus Tesla itself flags. Severity is medium: the policy shift is rated high by the Policy Agent, but the filing describes a strategic rationale rather than a quantified financial exposure, so the direct financial impact on Tesla is inferred rather than stated.",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-fae1676508",
+    "graph_link_id": "GL-1a62569ff2",
+    "policy_source_url": "https://www.federalregister.gov/documents/2025/09/25/2025-18660/implementing-certain-tariff-related-elements-of-the-us-eu-framework-on-an-agreement-on-reciprocal",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+  },
+  {
+    "id": "AC-17bdc6f432",
+    "title": "New U.S. tariffs on Canadian motor vehicles could hit BorgWarner's Canada-sourced parts exposure",
+    "severity": "high",
+    "explanation": "The Federal Register notice describes the U.S. imposing additional duties on motor vehicles from Canada to offset alleged discriminatory trade practices, a high-severity policy action per the Federal Register source. BorgWarner's 10-K discloses that approximately 9% of its sourcing originated in Canada, indicating meaningful reliance on Canadian-origin auto parts. While the tariff action targets motor vehicles rather than parts directly, the automotive supply chain linkage means new duties on Canadian trade could raise costs or disrupt sourcing for a company with this level of Canadian exposure, as BorgWarner's own risk disclosure flags. Given the high severity of the policy change and the direct country/sector overlap with BorgWarner's disclosed dependency, this warrants close monitoring for potential cost or margin impact.",
+    "policy_event_id": "PE-f1d93abe88",
+    "filing_mention_id": "FM-8765083c0e",
+    "graph_link_id": "GL-17bdc6f432",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/07/23/2026-14997/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+  },
+  {
+    "id": "AC-e6f19ad0ce",
+    "title": "New U.S. Duties on Canadian Autos Hit a Risk GM Already Flagged",
+    "severity": "high",
+    "explanation": "The Federal Register notice describes new U.S. tariffs imposing additional duties on motor vehicles from Canada, in response to alleged Canadian discrimination against U.S. commerce. This is a high-severity trade action targeting automobiles specifically. GM's 10-K, filed just months earlier, already discloses that new import tariffs on vehicles and parts\u2014including those governed by the U.S.-Mexico-Canada Agreement\u2014are impacting the company and its suppliers. In other words, GM had flagged Canada-linked USMCA auto tariffs as a live risk factor, and this policy event is a direct escalation of exactly that exposure. Because the filing's own risk language names Canada and auto parts/vehicles under USMCA, and the policy event is a new duty increase on Canadian motor vehicles, the match is very direct: investors should treat this as a concrete realization of a risk GM itself called out, likely pressuring input costs and cross-border supply chain economics for GM's North American vehicle production.",
+    "policy_event_id": "PE-f1d93abe88",
+    "filing_mention_id": "FM-ade59b2abf",
+    "graph_link_id": "GL-e6f19ad0ce",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/07/23/2026-14997/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/gm-20251231.htm"
+  },
+  {
+    "id": "AC-46c6595b44",
+    "title": "Canada Auto Tariff Hike Directly Hits Lear's Disclosed Canadian Parts Exposure",
+    "severity": "high",
+    "explanation": "The U.S. government is imposing additional duties on Canadian motor vehicles to offset what it calls Canadian discrimination against U.S. commerce, per the Federal Register notice dated 2026-07-23 \u2014 a high-severity, auto-specific tariff action. Lear Corporation's 10-K (filed 2026-02-13) already discloses Canada as one of the countries, alongside China and Mexico, from which it sources materials and components including automobile parts. Because Lear explicitly flags Canada as a sourcing dependency for auto parts, new duties targeting Canadian motor vehicle trade raise direct cost and supply-chain risk for the company, as Lear's own filing acknowledges this exposure before the policy action. This is a high-severity alert given both the explicit high severity of the tariff measure and the precise overlap between the policy's target (Canadian motor vehicles) and Lear's disclosed risk (Canadian-sourced auto parts).",
+    "policy_event_id": "PE-f1d93abe88",
+    "filing_mention_id": "FM-5fa5e00660",
+    "graph_link_id": "GL-46c6595b44",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/07/23/2026-14997/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+  },
+  {
+    "id": "AC-cb9c7d3154",
+    "title": "Canada Suspends Retaliatory Auto Duties\u2014BorgWarner's Canadian Sourcing Exposure in Focus",
+    "severity": "medium",
+    "explanation": "The Federal Register notice describes a temporary suspension of additional duties meant to offset Canadian discrimination against U.S. commerce, specifically covering motor vehicles, and is flagged as high severity by the Policy Agent. BorgWarner's 10-K discloses that approximately 9% of its sourcing originated in Canada, showing the company has a tangible, quantified exposure to Canadian supply for auto parts. While this policy move is a tariff decrease rather than an increase\u2014generally easing cost pressure rather than adding it\u2014it directly touches the same trade lane (Canada-U.S. automotive trade) that BorgWarner's own risk disclosure highlights as material to its supply chain. This makes it worth monitoring: a reduction in duties could lower input costs or signal further shifts in the bilateral trade relationship, but any reversal or renegotiation of these tariff terms would directly affect the ~9% of BorgWarner's sourcing tied to Canada. Given the moderate but non-trivial size of this exposure and the fact that the policy explicitly targets motor vehicles (the same industry BorgWarner supplies into), this pairing warrants a medium severity rating\u2014material enough to track, but not an acute risk given the tariff is decreasing rather than escalating.",
+    "policy_event_id": "PE-c84329ad7c",
+    "filing_mention_id": "FM-8765083c0e",
+    "graph_link_id": "GL-cb9c7d3154",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/08/24/2026-17294/temporary-suspension-of-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+  },
+  {
+    "id": "AC-6e0240a5a0",
+    "title": "Canada Suspends Retaliatory Auto Tariffs \u2014 Tailwind for GM's Cross-Border Supply Chain",
+    "severity": "medium",
+    "explanation": "The Federal Register notice describes a temporary suspension of additional duties aimed at offsetting Canadian discrimination against U.S. commerce, specifically covering motor vehicles. This is a tariff-decrease event, which reduces cross-border cost pressure rather than adding to it. GM's 10-K explicitly discloses exposure to this exact channel, noting that in 2025 the U.S. and other governments implemented new import tariffs affecting GM and its suppliers on vehicles and parts moving under the U.S.-Mexico-Canada Agreement (USMCA). Because GM's own risk disclosure already flags Canada-linked auto/parts tariffs as a cost and supply-chain risk, this suspension of additional duties directly relieves part of the burden GM itself identified. Given the high severity assigned to the policy change and GM's direct, named dependency on Canada-U.S. auto trade flows, this pairing is material but favorable \u2014 a policy easing that should modestly reduce tariff-related cost risk for GM's North American vehicle and parts network. Severity is set to medium because while the linkage is direct and well-documented in both sources, the event is a cost relief rather than a new risk, and the filing does not quantify the dollar impact.",
+    "policy_event_id": "PE-c84329ad7c",
+    "filing_mention_id": "FM-ade59b2abf",
+    "graph_link_id": "GL-6e0240a5a0",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/08/24/2026-17294/temporary-suspension-of-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/gm-20251231.htm"
+  },
+  {
+    "id": "AC-4900a21bc2",
+    "title": "Canada Suspends Retaliatory Auto Duties \u2014 Tailwind for Lear's Canadian Exposure",
+    "severity": "medium",
+    "explanation": "The Federal Register notice announces a temporary suspension of additional duties aimed at offsetting Canadian discrimination against U.S. motor vehicle commerce, effectively lowering tariff friction on automobiles tied to Canada. Lear Corporation's 10-K explicitly names Canada among the countries where it sources materials or components, including automobile parts, alongside China and Mexico. While the policy targets motor vehicles rather than parts directly, the auto supply chain between the U.S. and Canada is highly integrated, so a reduction in tariff barriers on the vehicle side can ease broader cross-border cost pressures relevant to Lear's Canadian-linked component sourcing. Because the filing confirms Canada is a material node in Lear's supply chain but the policy's direct scope (vehicles, not parts) doesn't perfectly match the disclosed risk (parts/components), this is flagged as a favorable but only moderately direct read-through for portfolio risk monitoring.",
+    "policy_event_id": "PE-c84329ad7c",
+    "filing_mention_id": "FM-5fa5e00660",
+    "graph_link_id": "GL-4900a21bc2",
+    "policy_source_url": "https://www.federalregister.gov/documents/2026/08/24/2026-17294/temporary-suspension-of-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of",
+    "filing_source_url": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000011/lear-20251231.htm"
+  }
+]

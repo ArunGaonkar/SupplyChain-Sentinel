@@ -1,0 +1,77 @@
+{
+  "agent": "filing_agent",
+  "call_id": "automotive_TSLA",
+  "timestamp": "2026-08-31T06:04:06.879516+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a automotive supply-chain intelligence pipeline.\nSegment scope: Automotive and auto parts supply chain \u2014 vehicle assembly, parts sourcing, and EV battery/electronics dependencies between countries and US-listed automakers and suppliers, dominated in 2025-2026 by Section 232 tariffs on imported vehicles and auto parts.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (automobiles, auto parts, vehicle electronics, tires, EV batteries), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Mexico, Canada, China, Japan, South Korea, Germany, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    automobiles, auto parts, vehicle electronics, tires, EV batteries if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Tesla (TSLA), 10-K filed 2026-01-29\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') d battery cells, energy storage components and systems and solar products and components. Internationally, we also have manufacturing facilities in China and Germany, which allows us to increase the affordability of our vehicles for customers in local markets by reducing transportation and manufacturing costs and limiting the impact of unfavorable tariffs. Generally, we continue to expand production capacity at our existing facilities, and strive to increase cost-competitiveness in our significant markets by strategically adding local manufacturing, including through partnerships with suppliers. Supply Chain Our products use parts sourced from thousands of suppliers globally. We have developed clo\n\n[1] (matched keyword: 'tariff') in ECE countries. Additionally, certain national and city laws within each ECE country may impose legal restrictions on the marketing of advanced driver-assistance and autonomous vehicle systems, and may vary significantly on commercial ride-hailing with a fleet of autonomous vehicles, in areas such as licenses, permits, competition prohibitions, tariffs and other transport services obligations. When coupled together, the layers of regulation as well as the fragmentation across each ECE country may hinder or complicate the path and timeline to introducing autonomous vehicles and an autonomous vehicle ride-hailing business in them. Other key markets, including China, continue to develop and establ\n\n[2] (matched keyword: 'Germany') are subject to evolving laws and regulations that could impose substantial costs, legal prohibitions or unfavorable changes upon our operations or products. Our business operations are and will continue to be subject to complex environmental, occupational, health and safety laws and regulations at numerous jurisdictional levels in the U.S., China, Germany and other locations abroad, including laws relating to the use, handling, storage, recycling, disposal and/or human exposure to hazardous materials, product material inputs and post-consumer products and with respect to constructing, expanding and maintaining our facilities and other infrastructure. New, or changes in, environmental and climate ch\n\n[3] (matched keyword: 'China') ive fuel vehicles. Overall, we believe these announcements and vehicle introductions promote the development of the electric vehicle market by highlighting the attractiveness of electric vehicles relative to internal combustion vehicles. Many major automobile manufacturers have electric vehicles available today in major markets including the U.S., China and Europe, and other current and prospective automobile manufacturers are also developing electric vehicles. In addition, several manufacturers offer hybrid vehicles, including plug-in versions. As we seek to become a top provider of autonomous solutions, we also face competition in the fields of AI and robotics. We expect our Robotaxi service to\n\n[4] (matched keyword: 'Germany') e manufacturing facilities. The following table sets forth the location of our primary owned and leased manufacturing facilities. Primary Manufacturing Facilities Location Owned or Leased Gigafactory Texas Austin, Texas Owned Fremont Factory Fremont, California Owned Gigafactory Nevada Sparks, Nevada Owned Gigafactory Berlin-Brandenburg Grunheide, Germany Owned Gigafactory Shanghai Shanghai, China * Megafactory Shanghai Shanghai, China * Gigafactory New York Buffalo, New York Leased Megafactory Lathrop Lathrop, California Leased * We own the building and the land use rights with an initial term of 50 years. The land use rights are treated as operating lease right-of-use assets. ITEM 3. LEGAL PROCEE\n\n[5] (matched keyword: 'China') certainty and social, environmental and economic conditions in numerous jurisdictions, including markets in which we generate significant sales. We have little control over these matters which are inherently unpredictable. Our operations in such jurisdictions, particularly as a company based in the U.S., with additional manufacturing operations in China and Europe, create risks relating to conforming our products to regulatory and safety requirements and charging and other electric infrastructures; organizing local operating entities; establishing, staffing and managing foreign business locations; attracting local customers; navigating U.S. and foreign government taxes, regulations and permit req\n\n[6] (matched keyword: 'China') iffs imposed by other countries on U.S. exports, further increases in U.S. tariffs, and the uncertainties surrounding domestic and foreign tariffs have impacted the pricing for our products, which could adversely impact demand. We cannot predict whether, and to what extent, there may be changes to international trade agreements, such as those with China, or whether, or to what extent, quotas, duties, additional tariffs, export controls or other restrictions will be changed or imposed by the United States or by other countries. Historically, U.S. special tariff actions have increased our costs for vehicles manufactured in the United States and increased costs for those same vehicles when exported\n\n[7] (matched keyword: 'China') rmation related to California residents. Many other U.S. states have enacted their own distinct privacy laws and regulations, which often impose different, overlapping, and sometimes conflicting requirements across multiple jurisdictions. Finally, additional privacy and cybersecurity laws have come into effect in the Asia-Pacific region, including China, and other jurisdictions where Tesla has a market presence. These laws continue to develop and may be inconsistent from jurisdiction to jurisdiction. Complying with emerging and changing requirements may cause us to incur substantial costs and make enhancements to relevant data practices. Noncompliance could result in significant penalties or lega\n\n[8] (matched keyword: 'United States') tsla-20251231 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM (Mark One) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from _________ to _________ Commission File Nu\n\n[9] (matched keyword: 'supply chain') nts within the meaning of the Private Securities Litigation Reform Act of 1995. Forward-looking statements are based on assumptions with respect to the future and management\u2019s current expectations, involve certain risks and uncertainties and are not guarantees. These forward-looking statements include, but are not limited to, statements concerning supply chain constraints, our strategy, competition, future operations and production capacity, future financial position, future revenues, projected costs, profitability, expected cost reductions, capital adequacy, expectations regarding demand and acceptance for our technologies, growth opportunities and trends in the markets in which we operate, prospects a",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"we also have manufacturing facilities in China and Germany, which allows us to increase the affordability of our vehicles for customers in local markets by reducing transportation and manufacturing costs and limiting the impact of unfavorable tariffs.\",\n    \"excerpt_index\": 0\n  },\n  {\n    \"mentioned_country\": \"Germany\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"we also have manufacturing facilities in China and Germany, which allows us to increase the affordability of our vehicles for customers in local markets by reducing transportation and manufacturing costs and limiting the impact of unfavorable tariffs.\",\n    \"excerpt_index\": 0\n  },\n  {\n    \"mentioned_country\": \"Germany\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"Gigafactory Berlin-Brandenburg Grunheide, Germany Owned\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"Gigafactory Shanghai Shanghai, China\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"with additional manufacturing operations in China and Europe, create risks relating to conforming our products to regulatory and safety requirements\",\n    \"excerpt_index\": 5\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"We cannot predict whether, and to what extent, there may be changes to international trade agreements, such as those with China, or whether, or to what extent, quotas, duties, additional tariffs, export controls or other restrictions will be changed or imposed\",\n    \"excerpt_index\": 6\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-18c96ff5f6",
+      "company": "Tesla",
+      "ticker": "TSLA",
+      "filing_type": "10-K",
+      "filing_date": "2026-01-29",
+      "mentioned_country": "China",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "we also have manufacturing facilities in China and Germany, which allows us to increase the affordability of our vehicles for customers in local markets by reducing transportation and manufacturing costs and limiting the impact of unfavorable tariffs.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+    },
+    {
+      "id": "FM-fae1676508",
+      "company": "Tesla",
+      "ticker": "TSLA",
+      "filing_type": "10-K",
+      "filing_date": "2026-01-29",
+      "mentioned_country": "Germany",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "we also have manufacturing facilities in China and Germany, which allows us to increase the affordability of our vehicles for customers in local markets by reducing transportation and manufacturing costs and limiting the impact of unfavorable tariffs.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+    },
+    {
+      "id": "FM-cdf849f85f",
+      "company": "Tesla",
+      "ticker": "TSLA",
+      "filing_type": "10-K",
+      "filing_date": "2026-01-29",
+      "mentioned_country": "Germany",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "Gigafactory Berlin-Brandenburg Grunheide, Germany Owned",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+    },
+    {
+      "id": "FM-5e72d42697",
+      "company": "Tesla",
+      "ticker": "TSLA",
+      "filing_type": "10-K",
+      "filing_date": "2026-01-29",
+      "mentioned_country": "China",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "Gigafactory Shanghai Shanghai, China",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+    },
+    {
+      "id": "FM-4d485197ec",
+      "company": "Tesla",
+      "ticker": "TSLA",
+      "filing_type": "10-K",
+      "filing_date": "2026-01-29",
+      "mentioned_country": "China",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "with additional manufacturing operations in China and Europe, create risks relating to conforming our products to regulatory and safety requirements",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+    },
+    {
+      "id": "FM-edede387c1",
+      "company": "Tesla",
+      "ticker": "TSLA",
+      "filing_type": "10-K",
+      "filing_date": "2026-01-29",
+      "mentioned_country": "China",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "We cannot predict whether, and to what extent, there may be changes to international trade agreements, such as those with China, or whether, or to what extent, quotas, duties, additional tariffs, export controls or other restrictions will be changed or imposed",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm"
+    }
+  ]
+}

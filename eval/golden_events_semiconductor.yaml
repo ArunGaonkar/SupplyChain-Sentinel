@@ -1,0 +1,137 @@
+# Hand-labeled golden test cases for the semiconductor segment.
+#
+# Rewritten after a real EDGAR connector fix (see CHANGELOG.md "Semiconductor
+# segment" — three of 16 company pulls across both segments, including
+# semiconductor's INTC and MU, had landed on an SEC filing EXHIBIT instead of
+# the actual 10-K body). Re-pulling INTC and MU's real 10-Ks surfaced genuine
+# new dependencies that invalidated the previous version's INTC true-negative
+# case, so this set was re-derived the same way as before: hand-reviewing the
+# cached raw data in data/semiconductor/cache/ BEFORE looking at what the
+# advanced pipeline produced, then confirmed against its actual output — not
+# copied from data/semiconductor/alert_cards.json.
+#
+# Seven are real, verifiable country-dependency pairs — all China, which is
+# itself an honest finding: this run's real policy pull is overwhelmingly
+# China-export-control-focused, and all 7 non-Taiwan-concentrated companies
+# do have genuine, disclosed China exposure. Two are deliberate true-negative
+# cases: companies whose filings DO name a real dependency country (Taiwan,
+# via TSMC) for which no matching policy event exists in this run's data pull
+# — a known, documented data-coverage gap, not a pipeline failure.
+#
+# expect_link: true  -> the pipeline SHOULD surface this company<->country
+#                        connection (recall test)
+# expect_link: false -> the pipeline should NOT fabricate this connection
+#                        (precision test)
+
+cases:
+  - id: eval-01
+    company: Applied Materials
+    ticker: AMAT
+    country: China
+    expect_link: true
+    rationale: >
+      Federal Register notice (2025-12-29, "Notice of Action: China's Acts,
+      Policies, and Practices Related to Targeting of the Semiconductor
+      Industry") takes Section 301 tariff action on semiconductors from
+      China. AMAT's 10-K discloses its sales to China customers are subject
+      to US export controls restricting sale of certain technologies there.
+
+  - id: eval-02
+    company: Intel
+    ticker: INTC
+    country: China
+    expect_link: true
+    rationale: >
+      Same Section 301 China semiconductor tariff notice. Intel's 10-K
+      discloses "our key assembly and test facilities were in China, New
+      Mexico, Vietnam and Malaysia" — a real disclosed China manufacturing
+      dependency (only found after fixing the EDGAR connector bug above;
+      the exhibit document it had been pulling before contained none of
+      this).
+
+  - id: eval-03
+    company: Lam Research
+    ticker: LRCX
+    country: China
+    expect_link: true
+    rationale: >
+      Same Section 301 China semiconductor tariff notice. Lam Research's
+      10-K states explicitly: "Our Sales to Customers in China, a
+      Significant Region for Us, Have Been Impacted, and are Likely to be
+      Materially and Adversely Affected by Export License Requirements."
+
+  - id: eval-04
+    company: Micron Technology
+    ticker: MU
+    country: China
+    expect_link: true
+    rationale: >
+      Same Section 301 China semiconductor tariff notice. Micron's 10-K
+      discloses it manufactures products "within our own facilities located
+      in Taiwan, Singapore, Japan, the United States, Malaysia, China, and
+      India" — a real disclosed China manufacturing dependency (also only
+      found after the EDGAR connector fix).
+
+  - id: eval-05
+    company: NVIDIA
+    ticker: NVDA
+    country: China
+    expect_link: true
+    rationale: >
+      Same Section 301 China semiconductor tariff notice. NVIDIA's 10-K
+      discloses it "has been subject to a series of shifting and expanding
+      export control restrictions, impacting our ability to serve customers
+      outside the United States," referencing US government licensing
+      requirements affecting China sales specifically.
+
+  - id: eval-06
+    company: Qualcomm
+    ticker: QCOM
+    country: China
+    expect_link: true
+    rationale: >
+      Same Section 301 China semiconductor tariff notice. Qualcomm's 10-K
+      discloses Chinese tariffs on its integrated circuit products made
+      them more expensive for Chinese customers, and that it derives a
+      significant portion of revenue from Chinese OEMs.
+
+  - id: eval-07
+    company: Texas Instruments
+    ticker: TXN
+    country: China
+    expect_link: true
+    rationale: >
+      Same Section 301 China semiconductor tariff notice. TI's 10-K states
+      revenue from end customers headquartered in China was ~20% of 2025
+      revenue, and revenue from products shipped into China represented
+      about 50% of 2025 revenue.
+
+  - id: eval-08
+    company: NVIDIA
+    ticker: NVDA
+    country: Taiwan
+    expect_link: false
+    rationale: >
+      DATA-COVERAGE GAP (precision test), same pattern as pharma's
+      eval-09/eval-10. NVIDIA's own 10-K explicitly names its TSMC
+      dependency: "We utilize foundries, such as Taiwan Semiconductor
+      Manufacturing Company Limited, or TSMC, ... to produce our
+      semiconductor wafers" (FilingMention exists, confirmed in
+      data/semiconductor/filing_mentions.json). But this run's policy pull
+      contains no Taiwan-specific PolicyEvent — every event resolved to
+      China, United States, or United Arab Emirates as country (checked
+      directly against data/semiconductor/policy_events.json). So no graph
+      link CAN exist yet, correctly — the gap is on the policy-pull side,
+      not a Filing Agent or graph-matching failure.
+
+  - id: eval-09
+    company: Broadcom
+    ticker: AVGO
+    country: Taiwan
+    expect_link: false
+    rationale: >
+      Same DATA-COVERAGE GAP as eval-08. Broadcom's 10-K states "The
+      majority of our front-end wafer manufacturing operations is
+      outsourced to external foundries, including Taiwan Semiconductor
+      Manufacturing Company Limited (TSMC)" — a real, disclosed TSMC
+      dependency with no matching Taiwan PolicyEvent in this run's data.

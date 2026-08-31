@@ -11,7 +11,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "US-EU tariff relief on generics could ease cost pressure at AbbVie's Irish plants",
+      "advanced_evidence": "US-EU Tariff Cut on Generics Highlights AbbVie's Heavy Ireland Manufacturing Base",
       "advanced_beat_baseline": true
     },
     {
@@ -25,7 +25,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Could Affect BMY's Irish Manufacturing Base",
+      "advanced_evidence": "EU Tariff Cut on Generic Drugs Eases Cost Pressure on BMY's Irish Manufacturing",
       "advanced_beat_baseline": true
     },
     {
@@ -39,7 +39,7 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "EU Tariff Cut on Generic Drugs Eases Cost Pressure on Lilly's Irish API Operations",
+      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Eases Cost Pressure on Lilly's Irish API Operations",
       "advanced_beat_baseline": true
     },
     {
@@ -53,21 +53,21 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "US-EU Tariff Cut on Generics Eases Cost Pressure for Viatris' Irish API Operations",
+      "advanced_evidence": "EU Tariff Cut on Generic Drugs Eases Cost Pressure on Viatris' Irish API Operations",
       "advanced_beat_baseline": true
     },
     {
       "id": "eval-05",
-      "company": "Eli Lilly",
-      "ticker": "LLY",
-      "country": "Germany",
+      "company": "Pfizer",
+      "ticker": "PFE",
+      "country": "Ireland",
       "expect_link": true,
       "baseline_caught": false,
       "baseline_correct": false,
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "EU Generic Drug Tariff Cut Intersects with Lilly's German Manufacturing Expansion",
+      "advanced_evidence": "US-EU tariff adjustment on generics could ease cost pressure on Pfizer's Irish manufacturing",
       "advanced_beat_baseline": true
     },
     {
@@ -81,27 +81,41 @@
       "baseline_evidence": "",
       "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Could Ease Cost Pressure on AbbVie's German Operations",
+      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Eases Pressure on AbbVie's German Manufacturing Footprint",
       "advanced_beat_baseline": true
     },
     {
       "id": "eval-07",
-      "company": "Merck",
-      "ticker": "MRK",
-      "country": null,
-      "expect_link": false,
+      "company": "Bristol-Myers Squibb",
+      "ticker": "BMY",
+      "country": "Switzerland",
+      "expect_link": true,
       "baseline_caught": false,
-      "baseline_correct": true,
+      "baseline_correct": false,
       "baseline_evidence": "",
-      "advanced_caught": false,
+      "advanced_caught": true,
       "advanced_correct": true,
-      "advanced_evidence": "",
-      "advanced_beat_baseline": false
+      "advanced_evidence": "Swiss Tariff Cut on Generics Eases Cost Pressure for BMY's Swiss Manufacturing",
+      "advanced_beat_baseline": true
     },
     {
       "id": "eval-08",
-      "company": "Eli Lilly",
-      "ticker": "LLY",
+      "company": "Merck",
+      "ticker": "MRK",
+      "country": "Switzerland",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "Swiss Generic Drug Tariff Cut Could Ease Cost Pressure Tied to Merck's Swiss R&D Base",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-09",
+      "company": "Johnson & Johnson",
+      "ticker": "JNJ",
       "country": "China",
       "expect_link": false,
       "baseline_caught": false,
@@ -111,13 +125,27 @@
       "advanced_correct": true,
       "advanced_evidence": "",
       "advanced_beat_baseline": false
+    },
+    {
+      "id": "eval-10",
+      "company": "Teva Pharmaceutical",
+      "ticker": "TEVA",
+      "country": "India",
+      "expect_link": false,
+      "baseline_caught": true,
+      "baseline_correct": false,
+      "baseline_evidence": "import-reliant generics (Teva, Viatris \u2014 heavy India/Israel/EU exposure)",
+      "advanced_caught": false,
+      "advanced_correct": true,
+      "advanced_evidence": "",
+      "advanced_beat_baseline": true
     }
   ],
   "summary": {
-    "total_cases": 8,
-    "baseline_accuracy": 0.25,
+    "total_cases": 10,
+    "baseline_accuracy": 0.1,
     "advanced_accuracy": 1.0,
-    "cases_advanced_beat_baseline": 6,
+    "cases_advanced_beat_baseline": 9,
     "cases_baseline_beat_advanced": 0
   }
 }

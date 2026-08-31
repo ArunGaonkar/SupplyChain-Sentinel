@@ -1,0 +1,83 @@
+# SupplyChain Sentinel — segment config: textile
+# See config/segments/README.md for which segments have real data vs. are
+# config-only stubs.
+segment: textile
+description: >
+  Textile and apparel supply chain — garment manufacturing, footwear, cotton
+  and fabric sourcing dependencies between countries and US-listed apparel
+  brands/retailers, shaped in 2025-2026 by both Section 301 China tariffs
+  and the elimination of the de minimis import exemption.
+
+entity_types:
+  - country
+  - company
+  - commodity
+  - policy_type
+
+countries:
+  - Bangladesh
+  - Vietnam
+  - China
+  - India
+  - Cambodia
+  - Turkey
+  - Mexico
+  - United States
+
+companies:
+  - name: VF Corporation
+    ticker: VFC
+  - name: Levi Strauss
+    ticker: LEVI
+  - name: Ralph Lauren
+    ticker: RL
+  - name: PVH Corp
+    ticker: PVH
+  - name: Columbia Sportswear
+    ticker: COLM
+  - name: Under Armour
+    ticker: UAA
+  - name: Gap Inc
+    ticker: GAP
+  - name: Crocs
+    ticker: CROX
+
+commodities:
+  - apparel
+  - footwear
+  - cotton
+  - textiles and fabric
+  - cotton yarn
+
+policy_types:
+  - tariff_increase
+  - tariff_decrease
+  - export_restriction
+  - import_restriction
+  - trade_agreement
+  - regulatory_change
+
+# GDELT query terms used by src/connectors/gdelt.py
+gdelt_query_terms:
+  - textile tariff
+  - apparel import tariff
+  - China textile restriction
+  - Vietnam tariff apparel
+  - Bangladesh tariff textile
+  - reciprocal tariff Vietnam
+  - de minimis apparel import
+
+# SEC EDGAR full-text search terms used by src/connectors/edgar.py
+edgar_query_terms:
+  - tariff
+  - supply chain
+  - China
+  - de minimis
+
+# Searched/excerpted first (see src/connectors/edgar.py _search_best_filing) —
+# tariffs (Section 301 China apparel tariffs, and the 2025 elimination of the
+# de minimis exemption) are the dominant real policy lever for this segment.
+edgar_priority_terms:
+  - tariffs
+  - tariff
+  - de minimis

@@ -1,0 +1,79 @@
+# SupplyChain Sentinel — segment config: steel_aluminum
+# See config/segments/README.md for which segments have real data vs. are
+# config-only stubs.
+segment: steel_aluminum
+description: >
+  Steel and aluminum supply chain — raw metal, coil/sheet, and scrap sourcing
+  dependencies between countries and US-listed metals producers, dominated in
+  2025-2026 by Section 232 tariffs (raised to 50%) on imported steel and
+  aluminum.
+
+entity_types:
+  - country
+  - company
+  - commodity
+  - policy_type
+
+countries:
+  - Canada
+  - Mexico
+  - China
+  - Brazil
+  - South Korea
+  - India
+  - United States
+
+companies:
+  - name: Nucor
+    ticker: NUE
+  - name: Steel Dynamics
+    ticker: STLD
+  - name: Cleveland-Cliffs
+    ticker: CLF
+  - name: Alcoa
+    ticker: AA
+  - name: Century Aluminum
+    ticker: CENX
+  - name: Commercial Metals
+    ticker: CMC
+  - name: Reliance
+    ticker: RS
+  - name: Worthington Steel
+    ticker: WS
+
+commodities:
+  - steel
+  - aluminum
+  - steel coil and sheet
+  - aluminum ingots
+  - scrap metal
+
+policy_types:
+  - tariff_increase
+  - tariff_decrease
+  - export_restriction
+  - import_restriction
+  - trade_agreement
+  - regulatory_change
+
+# GDELT query terms used by src/connectors/gdelt.py
+gdelt_query_terms:
+  - Section 232 steel
+  - Canada steel tariff
+  - Mexico aluminum tariff
+  - Brazil steel tariff
+  - India steel tariff
+
+# SEC EDGAR full-text search terms used by src/connectors/edgar.py
+edgar_query_terms:
+  - tariff
+  - supply chain
+  - Section 232
+  - import restriction
+
+# Searched/excerpted first (see src/connectors/edgar.py _search_best_filing) —
+# Section 232 steel/aluminum tariffs are the dominant real 2025-2026 policy
+# lever for this segment.
+edgar_priority_terms:
+  - tariffs
+  - tariff

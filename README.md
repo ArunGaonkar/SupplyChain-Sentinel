@@ -5,20 +5,22 @@ Coded with **[Claude Code](https://claude.com/claude-code)** (Anthropic's CLI co
 [CHANGELOG.md](CHANGELOG.md) for the phase-by-phase build log and
 [trajectories/](trajectories/) for real agent I/O logs captured during the build.
 
-**Segments: pharma and semiconductor** (added post-submission — see
-[CHANGELOG.md](CHANGELOG.md) "Semiconductor segment"). `textile.yaml` remains a
-config stub (see [config/segments/README.md](config/segments/README.md)); the
-dashboard's Segment dropdown switches between whichever segments have real
-pipeline data on disk.
+**Segments: pharma, semiconductor, textile, automotive, and steel/aluminum**
+(the latter four added post-submission — see [CHANGELOG.md](CHANGELOG.md)).
+All five have real pipeline data; the dashboard's Segment dropdown switches
+between whichever segments have data on disk (see
+[config/segments/README.md](config/segments/README.md) for adding another).
 
 ## The problem
 
 **Who this is for:** portfolio managers, business people, and government policy
-analysts tracking the pharmaceutical supply chain.
+analysts tracking a supply chain — pharma originally (the hackathon's required
+segment, and the one with a measured eval below), now also semiconductor,
+textile, automotive, and steel/aluminum.
 
 **The bottleneck:** tariff/policy news, SEC filings, and market signals about
-pharma supply chains are scattered across sources. No one connects *"Country X
-changes an API import tariff"* to *"Company Y's 10-K already flagged this exact
+a supply chain are scattered across sources. No one connects *"Country X
+changes an import tariff"* to *"Company Y's 10-K already flagged this exact
 dependency"* — so causal ripple effects are missed, or found too late, because
 finding them requires reading both a government notice AND a company's risk
 factors and noticing they're about the same country.
@@ -39,34 +41,44 @@ a single-prompt **baseline** to prove the improvement is real, not asserted.
 
 ## Result (measured, not asserted)
 
-Measured on pharma — the segment with a hand-labeled golden set. Semiconductor
-has real pipeline data (see below) but no golden set of its own yet, so
-`run_pipeline.py semiconductor` skips Phase 6 rather than fake a number.
+Measured on pharma and semiconductor — the two segments with a hand-labeled
+golden set. Textile, automotive, and steel/aluminum have real pipeline data
+(see REPRODUCTION.md) but no golden set of their own yet, so
+`run_pipeline.py <segment>` skips Phase 6 for them rather than fake a number.
 
-On 8 hand-labeled golden test cases ([eval/golden_events_pharma.yaml](eval/golden_events_pharma.yaml)),
-run via `python -m eval.run_eval`:
+| | Baseline (single prompt) | Advanced (this pipeline) | golden cases |
+|---|---|---|---|
+| **pharma** ([golden set](eval/golden_events_pharma.yaml)) | 10% (1/10) | **100% (10/10)** | 10 |
+| **semiconductor** ([golden set](eval/golden_events_semiconductor.yaml)) | 67% (6/9) | **100% (9/9)** | 9 |
 
-| | Baseline (single prompt) | Advanced (this pipeline) |
-|---|---|---|
-| Accuracy vs. golden labels | 25% (2/8) | **100% (8/8)** |
-| Cases where it caught a real link the other missed | 0 | **6** |
+Neither run has a single case where the advanced pipeline is wrong and the
+baseline is right — 0 regressions on both. Semiconductor's baseline scores
+higher because US-China chip export controls are famous enough that a
+single-prompt summarizer gets some of the "obvious" cases right on general
+knowledge alone; pharma's tariff-driven country dependencies (Ireland,
+Switzerland, Germany manufacturing sites) are specific enough that it
+doesn't. Either way, the advanced pipeline never misses what baseline
+catches, and correctly declines to fabricate a link in every precision test
+case (a company with a real disclosed dependency, but no matching policy
+event yet — see CHANGELOG.md for why that's a genuine data-coverage gap,
+not a filtering bug).
 
-The baseline never once mentions **Ireland** anywhere in its output — despite
-being given the exact same raw Federal Register notice (US tariff cut on
-EU-origin generics, naming Ireland) and the exact same four companies' 10-K
-excerpts disclosing Irish manufacturing. It's not that the information wasn't
-there; a single unstructured summarization pass just doesn't reliably
-cross-reference two different sources at that level of specificity. The
-advanced pipeline catches all four Ireland links (plus two Germany links) by
+Concretely for pharma: the baseline never once mentions **Ireland** anywhere
+in its output — despite being given the exact same raw Federal Register
+notice (US tariff cut on EU-origin generics, naming Ireland) and the exact
+same companies' 10-K excerpts disclosing Irish manufacturing. It's not that
+the information wasn't there; a single unstructured summarization pass just
+doesn't reliably cross-reference two different sources at that level of
+specificity. The advanced pipeline catches every Ireland link by
 construction, because the graph step explicitly checks for shared
-country/commodity — see [CHANGELOG.md](CHANGELOG.md) for the full breakdown,
-including the two negative (precision) test cases.
+country/commodity — see [CHANGELOG.md](CHANGELOG.md) for the full breakdown
+of both segments' results.
 
 ## Architecture
 
 ```
 GDELT / Federal Register ──┐
-                            ├─> src/connectors/*.py ─> data/cache/*.json (raw, cached)
+                            ├─> src/connectors/*.py ─> data/<segment>/cache/*.json (raw, cached)
 SEC EDGAR ──────────────────┘
                                        │
                     ┌──────────────────┴──────────────────┐
@@ -83,10 +95,11 @@ SEC EDGAR ──────────────────┘
                           src/dashboard.py (Jinja2 -> dist/index.html)
 
 src/baseline.py: ONE direct LLM prompt over the same raw cached text, no
-graph, no forced citations — the comparison point (data/baseline_output.json,
-frozen after Phase 1).
+graph, no forced citations — the comparison point
+(data/<segment>/baseline_output.json, frozen after Phase 1).
 
-eval/run_eval.py: runs both against eval/golden_events_pharma.yaml.
+eval/run_eval.py: runs both against eval/golden_events_<segment>.yaml
+(pharma, semiconductor).
 ```
 
 See [REPRODUCTION.md](REPRODUCTION.md) to run it yourself from the committed
@@ -103,16 +116,16 @@ required for the agent/LLM steps themselves).
   (also free, no key) for real US trade-policy notices. Both code paths are
   implemented — if GDELT is up when you run it, it's used. See CHANGELOG.md.
 - **[SEC EDGAR full-text search](https://efts.sec.gov/LATEST/search-index)**
-  and filing documents — free, no key, real 10-Ks for 8 seed companies per
-  segment (pharma: filed Feb 2026; semiconductor: mixed FY2024-2026).
+  and filing documents — free, no key, real 10-Ks for 8 seed companies in
+  each of the 5 segments (40 filings total, mixed FY2023-2026 depending on
+  each company's most recent relevant filing).
 - No paid or rate-limited sources (X/Twitter, Reddit) are used.
 
 ## What's out of scope (by design, not oversight)
 
-- **Textile segment** — config stub only
-  ([config/segments/README.md](config/segments/README.md)). ~~Semiconductor~~
-  — built post-submission with real data (22 policy events, 32 filing
-  mentions, 35 graph links); see CHANGELOG.md "Semiconductor segment."
+- ~~Textile, semiconductor, automotive, and steel/aluminum segments~~ — all
+  four built post-submission with real data; see CHANGELOG.md. No segment
+  remains a config-only stub in this build.
 - **Market price data (yfinance) and social sentiment** — not pulled.
 - **LangGraph or any orchestration framework** — plain Python (dicts) is
   sufficient at this scope; `src/graph.py` has no hidden state machine.
@@ -129,8 +142,9 @@ required for the agent/LLM steps themselves).
 ## Repo layout
 
 ```
-config/segments/pharma.yaml         entity types, seed countries/companies/commodities
-config/segments/semiconductor.yaml  same shape, semiconductor entities
+config/segments/*.yaml         entity types, seed countries/companies/commodities, one
+                                per segment (pharma, semiconductor, textile, automotive,
+                                steel_aluminum) — all the same shape
 src/models.py                 pydantic schemas (PolicyEvent, FilingMention, GraphLink, AlertCard)
 src/connectors/gdelt.py       policy/news pull (GDELT, falls back to Federal Register) + cache
 src/connectors/edgar.py       SEC filing pull (full-text search + document fetch) + cache
@@ -144,7 +158,8 @@ src/dashboard.py              renders dist/index.html + dist/glossary.html (Jinj
                                dashboard's client-side Segment dropdown
 templates/dashboard.html.jinja  the dashboard template — interactive graph, Alert Cards, Gap/Opportunity
 templates/glossary.html.jinja   term definitions, standalone page
-eval/golden_events_pharma.yaml  8 hand-labeled test cases (pharma only — see README "Result")
+eval/golden_events_*.yaml     hand-labeled test cases, pharma (10) and semiconductor (9) —
+                               see README "Result"
 eval/run_eval.py              baseline vs. advanced comparison
 data/<segment>/cache/         cached raw pulls per segment (committed, for reproducibility)
 data/<segment>/*.json         structured pipeline output per segment

@@ -1,0 +1,233 @@
+[
+  {
+    "id": "PE-2583770a68",
+    "headline": "US CVD Orders on Corrosion-Resistant Steel",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "steel coil and sheet",
+    "date": "20251219",
+    "source_url": "https://www.federalregister.gov/documents/2025/12/19/2025-23430/certain-corrosion-resistant-steel-products-from-brazil-canada-mexico-and-the-socialist-republic-of",
+    "snippet": "Commerce is issuing countervailing duty (CVD) orders on certain corrosion-resistant steel products (CORE) from Brazil, Canada, Mexico, and the Socialist Republic of Vietnam",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-5118cc0998",
+    "headline": "US AD Orders on Corrosion-Resistant Steel",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "steel coil and sheet",
+    "date": "20251219",
+    "source_url": "https://www.federalregister.gov/documents/2025/12/19/2025-23431/corrosion-resistant-steel-products-from-brazil-and-mexico-amended-final-antidumping-duty",
+    "snippet": "Commerce is issuing the antidumping duty (AD) orders on corrosion-resistant steel products (CORE) from Australia, Brazil, Canada, Mexico, the Netherlands...",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-e63d84982d",
+    "headline": "Section 232 Steel/Aluminum Tariff Adjustment",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel and aluminum",
+    "date": "20260423",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/23/2026-07987/procedures-for-submissions-by-certain-steel-and-aluminum-producers-committing-to-new-us-steel-or",
+    "snippet": "authorized the Secretary of Commerce to reduce tariffs owed under Proclamation 9704...and Proclamation 9705...for certain steel and aluminum producers operating production facilities in Canada or Mexico",
+    "severity": "high"
+  },
+  {
+    "id": "PE-500771adc9",
+    "headline": "Canada Corrosion-Resistant Steel AD Duty",
+    "country": "Canada",
+    "policy_type": "import_restriction",
+    "affected_product": "steel coil and sheet",
+    "date": "20250829",
+    "source_url": "https://www.federalregister.gov/documents/2025/08/29/2025-16603/certain-corrosion-resistant-steel-products-from-canada-final-affirmative-determination-of-sales-at",
+    "snippet": "imports of certain corrosion-resistant steel products (CORE) from Canada are being, or are likely to be, sold in the United States at less than fair value",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-e25775082f",
+    "headline": "Canada Steel Preliminary Antidumping Duty",
+    "country": "Canada",
+    "policy_type": "import_restriction",
+    "affected_product": "steel coil and sheet",
+    "date": "20250410",
+    "source_url": "https://www.federalregister.gov/documents/2025/04/10/2025-06135/certain-corrosion-resistant-steel-products-from-canada-preliminary-affirmative-determination-of",
+    "snippet": "Commerce preliminarily determines that certain corrosion-resistant steel products (CORE) from Canada are being...sold...at less than fair value",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-53e23946f5",
+    "headline": "Canada Steel Preliminary Countervailing Duty",
+    "country": "Canada",
+    "policy_type": "import_restriction",
+    "affected_product": "steel coil and sheet",
+    "date": "20250210",
+    "source_url": "https://www.federalregister.gov/documents/2025/02/10/2025-02377/certain-corrosion-resistant-steel-products-from-canada-preliminary-affirmative-countervailing-duty",
+    "snippet": "Commerce preliminarily determines that countervailable subsidies are being provided to producers and exporters of certain corrosion-resistant steel products (CORE) from Canada",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-9c1bc9f165",
+    "headline": "Section 232 Steel/Aluminum Tariff Adjustment",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "steel and aluminum",
+    "date": "20260604",
+    "source_url": "https://www.federalregister.gov/documents/2026/06/04/2026-11314/further-adjusting-the-tariff-regimes-for-imports-of-aluminum-steel-and-copper-into-the-united-states",
+    "snippet": "Further Adjusting the Tariff Regimes for Imports of Aluminum, Steel, and Copper Into the United States",
+    "severity": "high"
+  },
+  {
+    "id": "PE-889f9ae856",
+    "headline": "Section 232 Steel/Aluminum Tariff Adjustment Filing",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20260821",
+    "source_url": "https://www.federalregister.gov/documents/2026/08/21/2026-17155/agency-information-collection-activities-submission-to-the-office-of-management-and-budget-omb-for",
+    "snippet": "Procedures for Submissions by Certain Steel and Aluminum Producers Committing to New U.S. Steel or Aluminum Production To Obtain Tariff Adjustments Under Proclamation 10984",
+    "severity": "low"
+  },
+  {
+    "id": "PE-fcfa6ed214",
+    "headline": "Section 232 Steel/Aluminum Tariff Adjustment Filing",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20260618",
+    "source_url": "https://www.federalregister.gov/documents/2026/06/18/2026-12343/agency-information-collection-activities-submission-to-the-office-of-management-and-budget-omb-for",
+    "snippet": "Procedures for Submissions by Certain Steel and Aluminum Producers Committing to New U.S. Steel or Aluminum Production to Obtain Tariff Adjustments Under Proclamation 10984",
+    "severity": "low"
+  },
+  {
+    "id": "PE-81381b7720",
+    "headline": "Section 232 Aluminum Tariff Strengthening",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "aluminum",
+    "date": "20260723",
+    "source_url": "https://www.federalregister.gov/documents/2026/07/23/2026-14990/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states",
+    "snippet": "Further Strengthening Actions Taken To Adjust Imports of Aluminum Into the United States",
+    "severity": "high"
+  },
+  {
+    "id": "PE-0fdc068289",
+    "headline": "Section 232 Steel, Aluminum & Copper Tariffs",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "steel, aluminum",
+    "date": "20260409",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06960/strengthening-actions-taken-to-adjust-imports-of-aluminum-steel-and-copper-into-the-united-states",
+    "snippet": "Strengthening Actions Taken To Adjust Imports of Aluminum, Steel, and Copper Into the United States",
+    "severity": "high"
+  },
+  {
+    "id": "PE-d34b8e506e",
+    "headline": "Section 232 Steel/Aluminum Derivatives Expansion",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "steel, aluminum",
+    "date": "20250819",
+    "source_url": "https://www.federalregister.gov/documents/2025/08/19/2025-15819/adoption-and-procedures-of-the-section-232-steel-and-aluminum-tariff-inclusions-process",
+    "snippet": "BIS is adding 407 Harmonized Tariff Schedule of the United States (HTSUS) codes to the list of products that will be considered as steel or aluminum derivative products.",
+    "severity": "high"
+  },
+  {
+    "id": "PE-ba77e9e6ff",
+    "headline": "Section 232 Steel & Aluminum Duties Established",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "steel, aluminum",
+    "date": "20250502",
+    "source_url": "https://www.federalregister.gov/documents/2025/05/02/2025-07676/adoption-and-procedures-of-the-section-232-steel-and-aluminum-tariff-inclusions-process",
+    "snippet": "Proclamations 10895 ... and 10896 ... imposing specified rates of duty on imports of aluminum and steel articles and certain derivative steel and aluminum articles",
+    "severity": "high"
+  },
+  {
+    "id": "PE-1fa13c3864",
+    "headline": "Section 232 Inclusions Window Opens",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20250917",
+    "source_url": "https://www.federalregister.gov/documents/2025/09/17/2025-18008/notice-of-the-opening-of-the-inclusions-window-for-the-section-232-steel-and-aluminum-tariff",
+    "snippet": "This notice opens the September 2025 inclusions window for submissions.",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-220a498695",
+    "headline": "Section 232 National Security Import Adjustments",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20251125",
+    "source_url": "https://www.federalregister.gov/documents/2025/11/25/2025-20874/agency-information-collection-activities-submission-to-the-office-of-management-and-budget-omb-for",
+    "snippet": "Inclusions to the Section 232 National Security Adjustments to Imports",
+    "severity": "low"
+  },
+  {
+    "id": "PE-dfc013f2a5",
+    "headline": "Proclamation 11021 Steel/Aluminum/Copper Fix",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20260429",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/29/2026-08297/notice-of-technical-corrections-to-the-harmonized-tariff-schedule-of-the-united-states-for-duties",
+    "snippet": "Strengthening Actions Taken to Adjust Imports of Aluminum, Steel, and Copper Into the United States ... to adjust imports of metal products to address more effectively threats to the national security",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-ad3946a470",
+    "headline": "Section 232 Steel/Aluminum Exclusion Revamp",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20240520",
+    "source_url": "https://www.federalregister.gov/documents/2024/05/20/2024-10725/revisions-of-the-section-232-steel-and-aluminum-tariff-exclusions-process",
+    "snippet": "This final rule revises aspects of the process for requesting exclusions from the duties and quantitative limitations on imports of aluminum and steel",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-2d35932044",
+    "headline": "US-Taiwan Deal Cuts Sec 232 Metal Tariffs",
+    "country": "Taiwan",
+    "policy_type": "tariff_decrease",
+    "affected_product": "steel, aluminum",
+    "date": "20260528",
+    "source_url": "https://www.federalregister.gov/documents/2026/05/28/2026-10571/implementing-certain-tariff-related-elements-of-a-trade-and-security-agreement-between-the-american",
+    "snippet": "the United States will remove derivative Section 232 steel, aluminum, and copper tariffs from aircraft components that are products of Taiwan",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-a73b5cef22",
+    "headline": "Section 232 Steel/Aluminum Exclusion Proposal",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "steel, aluminum",
+    "date": "20230828",
+    "source_url": "https://www.federalregister.gov/documents/2023/08/28/2023-18328/revisions-of-the-section-232-steel-and-aluminum-tariff-exclusions-process",
+    "snippet": "This proposed rule revises aspects of the process for requesting exclusions from the duties and quantitative limitations on imports of aluminum and steel",
+    "severity": "low"
+  },
+  {
+    "id": "PE-eb291d594d",
+    "headline": "Section 232 Adds More Metal Derivatives",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "steel, aluminum, scrap metal",
+    "date": "20260806",
+    "source_url": "https://www.federalregister.gov/documents/2026/08/06/2026-15961/request-for-public-comments-on-the-proposed-implementation-of-duties-on-additional-aluminum-steel",
+    "snippet": "a proposal to include 14 additional derivative articles within the scope of the Section 232 duties on steel, aluminum, and copper",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-8f455bdfe2",
+    "headline": "Section 232 Steel Duties Expanded",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "steel",
+    "date": "20250616",
+    "source_url": "https://www.federalregister.gov/documents/2025/06/16/2025-11067/implementation-of-duties-on-steel-pursuant-to-proclamation-10896-adjusting-imports-of-steel-into-the",
+    "snippet": "the President imposed specified rates of duty on imports of steel... BIS revises Annex 1 to add additional steel derivative products",
+    "severity": "high"
+  }
+]

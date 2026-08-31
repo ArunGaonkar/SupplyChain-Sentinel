@@ -1,0 +1,99 @@
+{
+  "agent": "filing_agent",
+  "call_id": "textile_COLM",
+  "timestamp": "2026-08-31T05:55:19.482045+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a textile supply-chain intelligence pipeline.\nSegment scope: Textile and apparel supply chain \u2014 garment manufacturing, footwear, cotton and fabric sourcing dependencies between countries and US-listed apparel brands/retailers, shaped in 2025-2026 by both Section 301 China tariffs and the elimination of the de minimis import exemption.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (apparel, footwear, cotton, textiles and fabric, cotton yarn), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Bangladesh, Vietnam, China, India, Cambodia, Turkey, Mexico, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    apparel, footwear, cotton, textiles and fabric, cotton yarn if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Columbia Sportswear (COLM), 10-K filed 2026-02-25\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') ents related to our expectations regarding the effectiveness of our investments, future performance or market position, manufacturing locations of our inventory, inventory mix, the continued licensing of certain of our proprietary rights, consumer and customer spending and preferences, the performance of our international businesses, the impact of tariffs imposed pursuant to the International Emergency Economic Powers Act (\"IEEPA\") (the \"incremental tariffs\"), the roll-back of incremental tariffs and any additional actions taken in response to their roll-back, including tariffs imposed pursuant to Section 122 of the Trade Act of 1974 (the \"122 tariffs\"), our ability to recover refunds of increment\n\n[1] (matched keyword: 'tariff') mposed pursuant to the International Emergency Economic Powers Act (\"IEEPA\") (the \"incremental tariffs\"), the roll-back of incremental tariffs and any additional actions taken in response to their roll-back, including tariffs imposed pursuant to Section 122 of the Trade Act of 1974 (the \"122 tariffs\"), our ability to recover refunds of incremental tariff amounts paid, international trade policy and the economic and geopolitical environment, consumer and customer behaviors and expectations and our ability to serve and retain existing, value-oriented consumers while attracting new consumers, product price elasticities resulting from tariff-induced price increases, the effect of our pricing, promotio\n\n[2] (matched keyword: 'Bangladesh') and monitor production at our contract manufacturers' facilities to ensure our products are manufactured to our specifications. In 2025, our apparel, accessories and equipment products for our wholesale and direct-to-consumer (\"DTC\") businesses were manufactured into finished goods in 16 countries. In 2025, finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products. Five of the largest contract finished goods manufacturers account for approximately 30% of our apparel, accessories and equipment production, with the largest manufacturer accounting for approximately 10%. In 2025, our footwear products for our who\n\n[3] (matched keyword: 'China') hed goods manufacturers account for approximately 30% of our apparel, accessories and equipment production, with the largest manufacturer accounting for approximately 10%. In 2025, our footwear products for our wholesale and DTC businesses were manufactured into finished goods in four countries. In 2025, finished goods manufacturers in Vietnam and China produced approximately 80% and 10%, respectively, of these products. Five of the largest contract finished goods manufacturers account for approximately 80% of our footwear production, with the largest manufacturer accounting for approximately 25%, three manufacturers accounting for approximately 15% each and one manufacturer accounting for approx\n\n[4] (matched keyword: 'China') shipped from contract manufacturers to wholesale customer-designated facilities in the U.S. LAAP LAAP provides apparel, accessories and equipment products through our Columbia, Mountain Hardwear and prAna brands and footwear products through our Columbia and SOREL brands. These products are sold by our wholly owned subsidiaries in Japan, Korea and China, and through distributors in other LAAP markets through our LAAP wholesale and DTC distribution channels. We have nearly 400 wholesale customers, including distributors, in LAAP. In 2025, our five largest LAAP wholesale customers accounted for approximately 15% of LAAP net sales. As of December 31, 2025, our LAAP DTC brick-and-mortar distribution\n\n[5] (matched keyword: 'India') Center Owned Geneva, Switzerland Europe Headquarters Leased Strasbourg, France Europe Administrative Operations Owned Cambrai, France Europe Distribution Center Owned Shanghai, China China Headquarters Leased Tokyo, Japan Japan Headquarters Leased Seoul, Korea Korea Headquarters Leased Ho Chi Minh City, Vietnam Liaison Office (2) Leased Bangalore, India Capabilities Center (2) Leased (1) Corporate Headquarters is an approximate 30-acre site, which includes the Columbia and SOREL brands' headquarters and centrally-managed departmental functions, including information technology, certain supply chain functions, finance, human resources and legal. (2) Our Liaison Office and Capabilities Center suppo\n\n[6] (matched keyword: 'Vietnam') and logistics providers' ability to operate, our ability to operate brick-and-mortar stores, our workforce, and our cost of doing business (including the cost of freight and logistics) may be impacted by these events should they occur and laws and regulations that are enacted in response to such events. Our exposure to these risks is heightened in Vietnam, where a significant portion of our contract manufacturing is located, as well as in China, where a large portion of the raw materials used in our products is sourced by our contract manufacturers. Should certain of these events occur in Vietnam or China, they could cause a substantial disruption to our business and have a material adverse effect\n\n[7] (matched keyword: 'China') In 2025, our five largest LAAP wholesale customers accounted for approximately 15% of LAAP net sales. As of December 31, 2025, our LAAP DTC brick-and-mortar distribution channel sold our products in over 305 retail stores. Our LAAP DTC e-commerce business also includes the operation of e-commerce websites for our Columbia brand in Japan, Korea and China, as well as our SOREL and Mountain Hardwear brands in Japan. We distribute LAAP products through third-party logistics companies that operate distribution centers near Tokyo, Seoul, and Shanghai for our Japan, Korea and China businesses, respectively, as well as through third-party logistics companies that operate facilities located near receiving\n\n[8] (matched keyword: 'United States') colm-20251231 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from_______to_______ \u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014 Commission fil\n\n[9] (matched keyword: 'United States') ACTURING AND SOURCING We seek to substantially limit our invested capital and avoid the costs and risks associated with large production facilities and the associated labor forces; therefore, we do not own, operate or manage manufacturing facilities. The vast majority of our finished goods are produced by contract manufacturers located outside the United States (\"U.S.\"). We establish and maintain long-term relationships with key finished good manufacturing partners, but generally do not maintain formal long-term manufacturing volume commitments. The use of contract manufacturers for our finished goods maximizes our flexibility and historically has benefited our product costs. We continually evaluate our",
+  "raw_response": "```json\n[\n  {\"mentioned_country\": \"Vietnam\", \"mentioned_commodity\": \"apparel\", \"risk_text\": \"finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products\", \"excerpt_index\": 2},\n  {\"mentioned_country\": \"Bangladesh\", \"mentioned_commodity\": \"apparel\", \"risk_text\": \"finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products\", \"excerpt_index\": 2},\n  {\"mentioned_country\": \"India\", \"mentioned_commodity\": \"apparel\", \"risk_text\": \"finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products\", \"excerpt_index\": 2},\n  {\"mentioned_country\": \"Indonesia\", \"mentioned_commodity\": \"apparel\", \"risk_text\": \"finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products\", \"excerpt_index\": 2},\n  {\"mentioned_country\": \"Vietnam\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"finished goods manufacturers in Vietnam and China produced approximately 80% and 10%, respectively, of these products\", \"excerpt_index\": 3},\n  {\"mentioned_country\": \"China\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"finished goods manufacturers in Vietnam and China produced approximately 80% and 10%, respectively, of these products\", \"excerpt_index\": 3},\n  {\"mentioned_country\": \"Vietnam\", \"mentioned_commodity\": \"apparel\", \"risk_text\": \"Our exposure to these risks is heightened in Vietnam, where a significant portion of our contract manufacturing is located, as well as in China, where a large portion of the raw materials used in our products is sourced by our contract manufacturers.\", \"excerpt_index\": 6},\n  {\"mentioned_country\": \"China\", \"mentioned_commodity\": \"textiles and fabric\", \"risk_text\": \"in China, where a large portion of the raw materials used in our products is sourced by our contract manufacturers\", \"excerpt_index\": 6}\n]\n```",
+  "parsed_output": [
+    {
+      "id": "FM-62b41ce50f",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "Vietnam",
+      "mentioned_commodity": "apparel",
+      "risk_text": "finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-c4f5db764a",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "Bangladesh",
+      "mentioned_commodity": "apparel",
+      "risk_text": "finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-a960254fac",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "India",
+      "mentioned_commodity": "apparel",
+      "risk_text": "finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-68144e6891",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "Indonesia",
+      "mentioned_commodity": "apparel",
+      "risk_text": "finished goods manufacturers in Vietnam, Bangladesh, Indonesia, and India produced approximately 35%, 30%, 10% and 10%, respectively, of these products",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-feda69ea00",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "Vietnam",
+      "mentioned_commodity": "footwear",
+      "risk_text": "finished goods manufacturers in Vietnam and China produced approximately 80% and 10%, respectively, of these products",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-385890fb88",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "China",
+      "mentioned_commodity": "footwear",
+      "risk_text": "finished goods manufacturers in Vietnam and China produced approximately 80% and 10%, respectively, of these products",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-1c5cfa23df",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "Vietnam",
+      "mentioned_commodity": "apparel",
+      "risk_text": "Our exposure to these risks is heightened in Vietnam, where a significant portion of our contract manufacturing is located, as well as in China, where a large portion of the raw materials used in our products is sourced by our contract manufacturers.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    },
+    {
+      "id": "FM-d50f27dbc5",
+      "company": "Columbia Sportswear",
+      "ticker": "COLM",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-25",
+      "mentioned_country": "China",
+      "mentioned_commodity": "textiles and fabric",
+      "risk_text": "in China, where a large portion of the raw materials used in our products is sourced by our contract manufacturers",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1050797/000105079726000028/colm-20251231.htm"
+    }
+  ]
+}

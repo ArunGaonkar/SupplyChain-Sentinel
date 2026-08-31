@@ -123,11 +123,12 @@ def run_filing_agent(segment: str = "pharma", force_refresh: bool = False) -> li
         user_prompt = "\n\n".join(user_lines)
 
         print(f"[filing_agent] {ticker}: reviewing {len(excerpts)} excerpts")
-        # 2000 was enough when only sourcing-direction dependencies were in
-        # scope; broadening to also recognize market/export dependencies
-        # (see module docstring) means more excerpts genuinely qualify, and
-        # 2000 silently truncated mid-JSON-array for two companies here.
-        response = call_llm(system, user_prompt, max_tokens=3000)
+        # 2000, then 3000, both silently truncated mid-JSON-array for some
+        # companies (caught only because extract_json then failed to parse,
+        # not silently) as extraction broadened to recognize both sourcing
+        # and market/export dependencies (see module docstring). Sized up
+        # further since it kept recurring on richer companies (QCOM, NVDA).
+        response = call_llm(system, user_prompt, max_tokens=4096)
         call_id = f"{segment}_{ticker}"
         try:
             parsed = extract_json(response)

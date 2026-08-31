@@ -32,6 +32,7 @@
     --node-company-border: #fcd34d;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
@@ -298,6 +299,57 @@
     border-top: 1px solid var(--border);
   }
   footer a { color: var(--accent); }
+
+  /* --- side nav + back-to-top --- */
+  .side-nav {
+    position: fixed;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  }
+  .side-nav a {
+    font-size: 11.5px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    border-left: 2px solid transparent;
+  }
+  .side-nav a:hover { background: var(--bg); color: var(--text); }
+  .side-nav a.active { color: var(--accent); border-left-color: var(--accent); background: #eff6ff; font-weight: 600; }
+  @media (max-width: 1300px) { .side-nav { display: none; } }
+
+  .back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 40;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-to-top:hover { background: #1d4ed8; }
 </style>
 </head>
 <body>
@@ -318,7 +370,7 @@
     <div class="stat" data-target="subsection-gaps"><div class="n" id="stat-gap-signals">{{ segments[0].stats.gap_mentions }}</div><div class="l">Gap Signals</div></div>
     <div class="stat" data-target="subsection-opportunities"><div class="n" id="stat-opportunities">{{ segments[0].stats.opportunity_events }}</div><div class="l">Opportunities</div></div>
   </div>
-  <p class="range-note">Tiles reflect the <strong id="segment-label">{{ default_segment|title }}</strong> segment, currently showing: <strong id="range-label">All time</strong> &middot; click a tile to jump to it</p>
+  <p class="range-note">Tiles reflect the <strong id="segment-label">{{ default_segment|replace('_', ' ')|title }}</strong> segment, currently showing: <strong id="range-label">All time</strong> &middot; click a tile to jump to it</p>
 </header>
 
 <main>
@@ -327,10 +379,10 @@
       <label for="segment-select">Segment</label>
       <select id="segment-select">
         {% for seg in segments %}
-          <option value="{{ seg.segment }}" {{ 'selected' if seg.segment == default_segment else '' }}>{{ seg.segment|title }}</option>
+          <option value="{{ seg.segment }}" {{ 'selected' if seg.segment == default_segment else '' }}>{{ seg.segment|replace('_', ' ')|title }}</option>
         {% endfor %}
         {% for stub in stub_segments %}
-          <option value="{{ stub }}" disabled>{{ stub|title }} (coming soon)</option>
+          <option value="{{ stub }}" disabled>{{ stub|replace('_', ' ')|title }} (coming soon)</option>
         {% endfor %}
       </select>
     </div>
@@ -386,7 +438,7 @@
     {% endif %}
     <div id="alert-cards-list">
       {% for card in cards %}
-        <div class="card {{ card.severity }}" data-kind="alert" data-segment="{{ card.segment }}" data-date="{{ card.date_iso }}" data-ticker="{{ card.filing_mention.ticker }}" data-country="{{ card.shared_country }}" data-event-id="{{ card.policy_event_id }}" data-mention-id="{{ card.filing_mention_id }}">
+        <div class="card {{ card.severity }}" data-kind="alert" data-segment="{{ card.segment }}" data-date="{{ card.date_iso }}" data-ticker="{{ card.filing_mention.ticker }}" data-country="{{ card.shared_country }}" data-event-id="{{ card.graph_event_id }}" data-mention-id="{{ card.graph_mention_id }}">
           <div class="card-head">
             <h3>{{ card.title }}</h3>
             <span class="badge {{ card.severity }}">{{ card.severity }}</span>
@@ -447,7 +499,7 @@
         <summary>{{ group.country }} <span class="count-pill">{{ group.events|length }} opportunit{{ 'y' if group.events|length == 1 else 'ies' }}</span></summary>
         <div class="group-body">
           {% for e in group.events %}
-            <div class="card opp-card" data-kind="opportunity" data-segment="{{ e.segment }}" data-date="{{ e.date_iso }}" data-country="{{ e.country }}" data-event-id="{{ e.id }}">
+            <div class="card opp-card" data-kind="opportunity" data-segment="{{ e.segment }}" data-date="{{ e.date_iso }}" data-country="{{ e.country }}" data-event-id="{{ e.graph_event_id }}">
               <div class="card-head">
                 <h3>{{ e.headline }}</h3>
                 <span class="badge opp">opportunity</span>
@@ -465,6 +517,15 @@
     <p class="no-match" id="opportunity-no-match">No opportunity signals match the current filter.</p>
   </details>
 </main>
+
+<nav class="side-nav" aria-label="Section navigation">
+  <a href="#section-graph" data-target="section-graph">Dependency Graph</a>
+  <a href="#section-alerts" data-target="section-alerts">Alert Cards</a>
+  <a href="#subsection-gaps" data-target="subsection-gaps">Gaps</a>
+  <a href="#subsection-opportunities" data-target="subsection-opportunities">Opportunities</a>
+</nav>
+
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">&uarr; Top</button>
 
 <footer>
   Built with a two-agent pipeline (Policy Agent + Filing Agent) + causal graph merge, coded with Claude Code.
@@ -765,7 +826,7 @@
   }
 
   function titleCase(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
+    return s.split("_").map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ");
   }
 
   function updateStats() {
@@ -840,20 +901,65 @@
     cards.forEach(function (c) { container.appendChild(c); }); // appendChild on an existing node MOVES it
   }
 
-  // ---------- stat tile -> jump to section ----------
+  // ---------- jump to section (stat tiles + side nav) ----------
   function openAncestorDetails(el) {
     while (el) {
       if (el.tagName === "DETAILS") el.open = true;
       el = el.parentElement;
     }
   }
+  function jumpToSection(targetId) {
+    var target = document.getElementById(targetId);
+    if (!target) return;
+    openAncestorDetails(target);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
   document.querySelectorAll(".stat[data-target]").forEach(function (el) {
+    el.addEventListener("click", function () { jumpToSection(el.dataset.target); });
+  });
+  // Side nav links are real <a href="#id"> anchors (not preventDefault'd) —
+  // JS-driven scrollIntoView({behavior:"smooth"}) inside a real anchor's
+  // click handler was silently getting cut short (opened the target
+  // <details> correctly, per openAncestorDetails, but the page never
+  // actually scrolled) in a way plain non-anchor elements like the stat
+  // tiles above don't hit. Letting the browser's native hash navigation do
+  // the scrolling instead — smoothed via `scroll-behavior: smooth` on
+  // <html> — is the standard, more robust mechanism for a real link, so
+  // only the auto-expand runs here, not a manual scroll call.
+  document.querySelectorAll(".side-nav a[data-target]").forEach(function (el) {
     el.addEventListener("click", function () {
       var target = document.getElementById(el.dataset.target);
-      if (!target) return;
-      openAncestorDetails(target);
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (target) openAncestorDetails(target);
     });
+  });
+
+  // ---------- side nav: highlight the section currently in view ----------
+  var sideNavLinks = Array.prototype.slice.call(document.querySelectorAll(".side-nav a[data-target]"));
+  if (sideNavLinks.length && "IntersectionObserver" in window) {
+    var navTargets = sideNavLinks
+      .map(function (link) { return document.getElementById(link.dataset.target); })
+      .filter(Boolean);
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          sideNavLinks.forEach(function (link) {
+            link.classList.toggle("active", link.dataset.target === entry.target.id);
+          });
+        });
+      },
+      { rootMargin: "-15% 0px -75% 0px" } // "in view" = crossed roughly the top quarter of the viewport
+    );
+    navTargets.forEach(function (t) { observer.observe(t); });
+  }
+
+  // ---------- back to top ----------
+  var backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", function () {
+    backToTop.classList.toggle("visible", window.scrollY > 400);
+  });
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   // ---------- wiring ----------

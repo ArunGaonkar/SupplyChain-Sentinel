@@ -1,0 +1,77 @@
+{
+  "agent": "filing_agent",
+  "call_id": "steel_aluminum_AA",
+  "timestamp": "2026-08-31T06:12:42.327627+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a steel_aluminum supply-chain intelligence pipeline.\nSegment scope: Steel and aluminum supply chain \u2014 raw metal, coil/sheet, and scrap sourcing dependencies between countries and US-listed metals producers, dominated in 2025-2026 by Section 232 tariffs (raised to 50%) on imported steel and aluminum.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (steel, aluminum, steel coil and sheet, aluminum ingots, scrap metal), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Canada, Mexico, China, Brazil, South Korea, India, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    steel, aluminum, steel coil and sheet, aluminum ingots, scrap metal if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Alcoa (AA), 10-K filed 2026-02-26\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') and could be interpreted, applied, or modified in ways to make the Company\u2019s operations or compliance activities more costly. These laws and regulations include those relating to safety and health, environmental protection and compliance, tailings management, data privacy and security, anti-corruption, human rights, competition, and trade, such as tariffs or other import or export restrictions that may increase the cost of raw material or cross-border shipments and impact our ability to do business with certain countries or individuals. Though we cannot predict the collective potential adverse impact of the expanding body of laws, regulations, and interpretations, we believe that we are in complia\n\n[1] (matched keyword: 'tariff') ld lead to a reduction in the price of aluminum and declines in the LME price have in the past and could in the future have a negative impact on our business, financial condition, and results of operations. Regional premiums tend to vary based on the supply of and demand for metal in a particular region, associated transportation costs, and import tariffs. Product premiums generally are a function of supply and demand for a given primary aluminum shape and alloy combination in a particular region. Periods of industry overcapacity may also result in a weak aluminum pricing environment. While Alcoa does not generally enter into derivative contracts to mitigate the risk associated with changes in alu\n\n[2] (matched keyword: 'Canada') greement to support the continued operation of the San Cipri\u00e1n complex in Spain whereby Alcoa owns 75% and continues as the managing operator and Trento EQT owns 25% of the San Cipri\u00e1n operations. 4 Aluminum This segment currently consists of (i) the Company\u2019s worldwide smelting and casthouse system and (ii) a portfolio of energy assets in Brazil, Canada, and the United States. The smelting operations produce molten primary aluminum, which is then formed by the casting operations into either commodity grade ingot (e.g., t-bar, sow, standard ingot) or into value add ingot products (e.g., foundry, billet, rod, and slab), virtually all of which are sold to external customers and traders. A variety of\n\n[3] (matched keyword: 'China') ill also include lesser amounts of other constituents. 12 Competition Alcoa is subject to highly competitive conditions in all aspects of the aluminum supply chain in which it competes. Our business segments operate in key markets globally, and we are able to meet customer demand in North America, South America, Europe, the Middle East, Australia, China, and other parts of Asia. We compete with a variety of both U.S. and non-U.S. companies in all major markets across the aluminum supply chain. Competitors include bauxite miners who supply to the third-party bauxite market, alumina suppliers, commodity traders, aluminum producers, and producers of alternative materials such as steel, titanium, cop\n\n[4] (matched keyword: 'Brazil') em 2 of this Form 10-K. 3 Alcoa\u2019s alumina refining facilities and its worldwide alumina capacity stated in metric tons per year (mtpy) as of December 31, 2025 are shown in the following table: Country Facility Nameplate Capacity (1) (000 mtpy) Alcoa Corporation Consolidated Capacity (1) (000 mtpy) Australia Pinjarra 4,700 4,700 Wagerup 2,879 2,879 Brazil Po\u00e7os de Caldas 390 390 S\u00e3o Lu\u00eds (Alumar) 3,860 2,084 Spain San Cipri\u00e1n 1,600 1,600 TOTAL 13,429 11,653 (1) Nameplate Capacity is an estimate based on design capacity and normal operating efficiencies and does not necessarily represent maximum possible production. Alcoa Corporation Consolidated Capacity represents its share of the Nameplate Capaci\n\n[5] (matched keyword: 'India') ase the primary aluminum products for use in fabrication operations, which produce products primarily for the transportation, building and construction, packaging, wire, and other industrial markets. The energy assets supply power to external customers in Brazil and the United States, as well as internal customers in the Aluminum segment (Warrick (Indiana) smelter and Baie-Comeau (Canada) smelter) and, to a lesser extent, the Alumina segment (Brazilian refineries). This segment also included Alcoa Corporation\u2019s 25.1% ownership interest in a smelting joint venture company in Saudi Arabia prior to the sale of Alcoa\u2019s interest on July 1, 2025 (see Saudi Arabia Joint Venture below). Smelting and Cast\n\n[6] (matched keyword: 'China') materials such as steel, titanium, copper, carbon fiber, composites, plastic, and glass. With the Sustana \u00ae brand, including EcoDura \u00ae aluminum (recycled content), EcoLum \u00ae aluminum (low carbon), and EcoSource \u00ae alumina (also low carbon), the Company is well positioned to compete with others. Alumina We are the largest alumina producer outside of China and the largest supplier of third-party alumina outside of China. The alumina market is global and highly competitive, with many active suppliers, producers, and commodity traders. The majority of our product is sold in the form of smelter grade alumina. The market for alumina is global, and demand for alumina varies from region to region. We comp\n\n[7] (matched keyword: 'India') erating unit, which increased the capacity by 164 MW. In 2025, approximately 43 percent of the generation from the Warrick power plant was sold into the market under its current operating permits. Alcoa Power Generating Inc., a subsidiary of the Company, also owns certain Federal Energy Regulatory Commission (FERC)-regulated transmission assets in Indiana, Tennessee, New York, and Washington. The consolidated capacity of the Brazilian energy facilities in the table above is the assured energy, representing approximately 53 percent of hydropower plant nominal capacity. The generation is managed by Brazil\u2019s national electric system operator (ONS) and factors such as water levels and maintenance acr\n\n[8] (matched keyword: 'United States') 10-K UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 FORM (Mark One) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from _______ to _______ Commission File Number\n\n[9] (matched keyword: 'United States') eplate Capacity (1) (000 mtpy) Alcoa Corporation Consolidated Capacity (1) (000 mtpy) Australia Portland 358 197 Brazil Po\u00e7os de Caldas (2) N/A N/A S\u00e3o Lu\u00eds (Alumar) 447 268 Canada Baie-Comeau, Qu\u00e9bec 324 324 B\u00e9cancour, Qu\u00e9bec 467 350 Deschambault, Qu\u00e9bec 287 287 Iceland Fjar\u00f0a\u00e1l 351 351 Norway Lista 95 95 Mosj\u00f8en 200 200 Spain San Cipri\u00e1n 228 228 United States Massena West, NY 130 130 Evansville, IN (Warrick) 215 215 TOTAL 3,102 2,645 (1) Nameplate Capacity is an estimate based on design capacity and normal operating efficiencies and does not necessarily represent maximum possible production. Alcoa Corporation\u2019s Consolidated Capacity represents its share of the Nameplate Capacity of these facilities. (2",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"Brazil\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"a portfolio of energy assets in Brazil, Canada, and the United States. The smelting operations produce molten primary aluminum, which is then formed by the casting operations into either commodity grade ingot\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Canada\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"a portfolio of energy assets in Brazil, Canada, and the United States. The smelting operations produce molten primary aluminum\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Brazil\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"Brazil Po\u00e7os de Caldas 390 390 S\u00e3o Lu\u00eds (Alumar) 3,860 2,084\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Canada\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"Canada Baie-Comeau, Qu\u00e9bec 324 324 B\u00e9cancour, Qu\u00e9bec 467 350 Deschambault, Qu\u00e9bec 287 287\",\n    \"excerpt_index\": 9\n  },\n  {\n    \"mentioned_country\": \"Brazil\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"Brazil Po\u00e7os de Caldas (2) N/A N/A S\u00e3o Lu\u00eds (Alumar) 447 268\",\n    \"excerpt_index\": 9\n  },\n  {\n    \"mentioned_country\": \"United States\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"United States Massena West, NY 130 130 Evansville, IN (Warrick) 215 215\",\n    \"excerpt_index\": 9\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-381ab87356",
+      "company": "Alcoa",
+      "ticker": "AA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-26",
+      "mentioned_country": "Brazil",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "a portfolio of energy assets in Brazil, Canada, and the United States. The smelting operations produce molten primary aluminum, which is then formed by the casting operations into either commodity grade ingot",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526077167/aa-20251231.htm"
+    },
+    {
+      "id": "FM-3bf60d7d29",
+      "company": "Alcoa",
+      "ticker": "AA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-26",
+      "mentioned_country": "Canada",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "a portfolio of energy assets in Brazil, Canada, and the United States. The smelting operations produce molten primary aluminum",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526077167/aa-20251231.htm"
+    },
+    {
+      "id": "FM-2d1d4d6dc8",
+      "company": "Alcoa",
+      "ticker": "AA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-26",
+      "mentioned_country": "Brazil",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "Brazil Po\u00e7os de Caldas 390 390 S\u00e3o Lu\u00eds (Alumar) 3,860 2,084",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526077167/aa-20251231.htm"
+    },
+    {
+      "id": "FM-b224fb8293",
+      "company": "Alcoa",
+      "ticker": "AA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-26",
+      "mentioned_country": "Canada",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "Canada Baie-Comeau, Qu\u00e9bec 324 324 B\u00e9cancour, Qu\u00e9bec 467 350 Deschambault, Qu\u00e9bec 287 287",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526077167/aa-20251231.htm"
+    },
+    {
+      "id": "FM-74648fd31f",
+      "company": "Alcoa",
+      "ticker": "AA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-26",
+      "mentioned_country": "Brazil",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "Brazil Po\u00e7os de Caldas (2) N/A N/A S\u00e3o Lu\u00eds (Alumar) 447 268",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526077167/aa-20251231.htm"
+    },
+    {
+      "id": "FM-152a002b13",
+      "company": "Alcoa",
+      "ticker": "AA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-26",
+      "mentioned_country": "United States",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "United States Massena West, NY 130 130 Evansville, IN (Warrick) 215 215",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526077167/aa-20251231.htm"
+    }
+  ]
+}

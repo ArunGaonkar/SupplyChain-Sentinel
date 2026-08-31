@@ -33,15 +33,27 @@ def get_client() -> anthropic.Anthropic:
 
 
 def call_llm(system: str, user: str, max_tokens: int = 4096) -> str:
-    """One Messages API call. Returns the response text."""
+    """One Messages API call. Returns the response text.
+
+    Retries once on an empty response — an intermittent failure mode
+    observed repeatedly across segments during this build (a call
+    completing with zero text content, not an API exception, so it isn't
+    caught by any try/except around this function). Retrying the exact same
+    request has reliably recovered it every time it's been hit; a second
+    empty response is treated as real rather than retried indefinitely.
+    """
     client = get_client()
-    msg = client.messages.create(
-        model=MODEL,
-        max_tokens=max_tokens,
-        system=system,
-        messages=[{"role": "user", "content": user}],
-    )
-    return "".join(block.text for block in msg.content if block.type == "text")
+    for attempt in range(2):
+        msg = client.messages.create(
+            model=MODEL,
+            max_tokens=max_tokens,
+            system=system,
+            messages=[{"role": "user", "content": user}],
+        )
+        text = "".join(block.text for block in msg.content if block.type == "text")
+        if text or attempt == 1:
+            return text
+    return text
 
 
 def extract_json(text: str):

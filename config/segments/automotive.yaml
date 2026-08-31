@@ -1,0 +1,79 @@
+# SupplyChain Sentinel — segment config: automotive
+# See config/segments/README.md for which segments have real data vs. are
+# config-only stubs.
+segment: automotive
+description: >
+  Automotive and auto parts supply chain — vehicle assembly, parts sourcing,
+  and EV battery/electronics dependencies between countries and US-listed
+  automakers and suppliers, dominated in 2025-2026 by Section 232 tariffs on
+  imported vehicles and auto parts.
+
+entity_types:
+  - country
+  - company
+  - commodity
+  - policy_type
+
+countries:
+  - Mexico
+  - Canada
+  - China
+  - Japan
+  - South Korea
+  - Germany
+  - United States
+
+companies:
+  - name: Ford Motor
+    ticker: F
+  - name: General Motors
+    ticker: GM
+  - name: BorgWarner
+    ticker: BWA
+  - name: Aptiv
+    ticker: APTV
+  - name: Lear Corporation
+    ticker: LEA
+  - name: Adient
+    ticker: ADNT
+  - name: Dana Incorporated
+    ticker: DAN
+  - name: Tesla
+    ticker: TSLA
+
+commodities:
+  - automobiles
+  - auto parts
+  - vehicle electronics
+  - tires
+  - EV batteries
+
+policy_types:
+  - tariff_increase
+  - tariff_decrease
+  - export_restriction
+  - import_restriction
+  - trade_agreement
+  - regulatory_change
+
+# GDELT query terms used by src/connectors/gdelt.py
+gdelt_query_terms:
+  - Section 232 automobile
+  - Mexico auto tariff
+  - South Korea automobile tariff
+  - Canada auto tariff
+  - automotive import tariff
+
+# SEC EDGAR full-text search terms used by src/connectors/edgar.py
+edgar_query_terms:
+  - tariff
+  - supply chain
+  - Mexico
+  - USMCA
+
+# Searched/excerpted first (see src/connectors/edgar.py _search_best_filing) —
+# Section 232 auto/auto-parts tariffs are the dominant real 2025-2026 policy
+# lever for this segment.
+edgar_priority_terms:
+  - tariffs
+  - tariff

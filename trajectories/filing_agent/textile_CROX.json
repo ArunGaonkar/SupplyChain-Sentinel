@@ -1,0 +1,99 @@
+{
+  "agent": "filing_agent",
+  "call_id": "textile_CROX",
+  "timestamp": "2026-08-31T05:55:25.987195+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a textile supply-chain intelligence pipeline.\nSegment scope: Textile and apparel supply chain \u2014 garment manufacturing, footwear, cotton and fabric sourcing dependencies between countries and US-listed apparel brands/retailers, shaped in 2025-2026 by both Section 301 China tariffs and the elimination of the de minimis import exemption.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (apparel, footwear, cotton, textiles and fabric, cotton yarn), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Bangladesh, Vietnam, China, India, Cambodia, Turkey, Mexico, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    apparel, footwear, cotton, textiles and fabric, cotton yarn if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Crocs (CROX), 10-K filed 2026-02-12\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') ence on a number of suppliers for key production materials, and any disruption in the supply of such materials; \u2022 changes in foreign exchange rates, most significantly but not limited to the Euro, South Korean Won, and Chinese Yuan, or other global currencies; \u2022 the adverse impact of government actions and regulations, such as export restrictions, tariffs, and other trade protection measures; \u2022 the fact that we conduct significant business activity outside the U.S., which exposes us to risks of international commerce; \u2022 our inability to successfully execute our long-term growth strategy, maintain or grow our current revenue and profit levels, or accurately forecast demand and supply for our produc\n\n[1] (matched keyword: 'tariff') capabilities required to produce our footwear are broadly available for both brands. Nonetheless, see the risk factors under \u201cRisks Related to our Supply Chain \u2014 We depend solely on third-party manufacturers located outside of the U.S.\u201d and \u201cRisks Related to International Operations \u2014Government actions and regulations, such as export restrictions, tariffs, and other trade protection measures, could adversely affect our business\u201d included in Item 1A. Risk Factors of this Annual Report on Form 10-K for more information on risks associated with sourcing. Distribution and Logistics We strive to enhance our distribution and logistics network to further streamline our supply chain, increase our speed to\n\n[2] (matched keyword: 'Vietnam') thane. We purchase this material from a select group of third-party sources, and we believe these materials are broadly available. Sourcing Our sourcing strategy is to maintain a flexible, globally-diversified, cost-efficient third-party manufacturing base. We source our inventory production from multiple third-party manufacturers, primarily in: \u2022 Vietnam for the Crocs Brand. We have additional third-party manufacturers in China, Indonesia, India, and Mexico, among other countries. During the years ended December 31, 2025, 2024, and 2023, approximately 45%, 51%, and 56%, respectively, of our Crocs Brand production was in Vietnam. Our largest third-party manufacturer for the Crocs Brand, with the ma\n\n[3] (matched keyword: 'China') s, dress casual, boots, and sandals. Diversification within our icon silhouettes include the Stretch Sox, Stretch Canvas, Craft Linen, and Stretch Jersey. \u2022 Drive market share gains across our Tier 1 markets through prioritization of investments behind our strategic markets \u2014 For the Crocs Brand, we are currently focused on six Tier 1 markets: (i) China, (ii) India, (iii) Japan, (iv) South Korea, (v), the U.S., and (vi) Western Europe. Our international sales in 2025 were 48.6% of Crocs Brand revenues compared to 44.1% and 41.0% in 2024 and 2023, respectively. For the HEYDUDE Brand, our current primary focus is to stabilize the U.S. marketplace, and we have made progress towards this goal. To sup\n\n[4] (matched keyword: 'Cambodia') respectively, and our second largest third-party manufacturer for the Crocs Brand, primarily operating in both Vietnam and China, produced approximately 28%, 25%, and 26% of our production during the years ended December 31, 2025, 2024, and 2023, respectively. \u2022 Vietnam for the HEYDUDE Brand. We have additional third-party manufacturers in China, Cambodia, Indonesia, and India. During the years ended December 31, 2025, 2024 and 2023, approximately 44%, 20%, and 5%, respectively, of our HEYDUDE Brand production was in Vietnam. Prior to 2025, the majority of our HEYDUDE Brand production was in China. We believe any potential concentration risk is mitigated by the fact that the manufacturing capabilit\n\n[5] (matched keyword: 'China') tes the net change during 2025 in the number of our company-operated retail stores (inclusive of full-price retail stores, outlet stores, kiosks, store-in-store locations, and temporary stores) by reportable operating segment and country: December 31, 2024 Opened Closed December 31, 2025 Crocs Brand United States 172 16 2 186 South Korea 95 2 2 95 China 51 9 4 56 Japan 21 11 6 26 Singapore 17 1 \u2014 18 Canada 9 2 \u2014 11 Germany 10 \u2014 \u2014 10 Great Britain 4 6 \u2014 10 France 2 4 \u2014 6 Malaysia \u2014 5 \u2014 5 Austria 3 \u2014 \u2014 3 Puerto Rico 3 \u2014 \u2014 3 The Netherlands 2 1 \u2014 3 Australia 1 3 \u2014 4 India \u2014 2 \u2014 2 Ireland \u2014 1 \u2014 1 Total Crocs Brand 390 63 14 439 HEYDUDE Brand United States 52 25 2 75 Total HEYDUDE Brand 52 25 2 75 Tot\n\n[6] (matched keyword: 'Cambodia') ucts, and as a result, could have a material adverse effect on our business, financial condition, and results of operations. For example, the United States (\u201cU.S.\u201d) has imposed tariffs on foreign imports from multiple countries, including an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured. These tariffs have increased, and may continue to 17 Table of Contents increase, the cost of certain products and negatively impact our results of operations. Furthermore, these foregoing factors may require us to increase prices for a greater number of products to offs\n\n[7] (matched keyword: 'Mexico') is registered in the U.S., the European Union, China, Canada, Singapore, Korea, United Kingdom, and Australia among others. Protection for the HEYDUDE logo has published in the U.S. and other countries and has moved to registration in some, including Singapore, Canada, China, Korea, the European Union, the United Kingdom, Australia, Brazil, Japan, Mexico, and New Zealand, among others. We also have registrations or pending trademark applications for other marks and logos in various countries around the world. In the U.S., our patents are generally in effect for up to 20 years from the date of filing the patent application. Our trademarks registered within and outside of the U.S. are generally vali\n\n[8] (matched keyword: 'United States') crox-20251231 Table of Contents UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 ________________________________________________________________________________________________________________________________ FORM ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended or TRANSITION REPORT PURSUANT TO SECTION 13 OR\n\n[9] (matched keyword: 'supply chain') disruptions in the global economy as well as a negative impact on our business, financial condition, and results of operations; \u2022 a pandemic, epidemic, or other public health emergency has had an adverse impact, and may have a future material adverse impact, on our business, operations, liquidity, financial condition, and results of operations; \u2022 supply chain disruptions, which could interrupt product manufacturing and global logistics and increase product costs; \u2022 our dependence on third-party manufacturers located outside of the U.S.; \u2022 if we need to replace manufacturers or distribution centers; \u2022 our dependence on the global supply chain and impacts of supply chain constraints and inflationary pres",
+  "raw_response": "[\n  {\"mentioned_country\": \"Vietnam\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"During the years ended December 31, 2025, 2024, and 2023, approximately 45%, 51%, and 56%, respectively, of our Crocs Brand production was in Vietnam.\", \"excerpt_index\": 2},\n  {\"mentioned_country\": \"Vietnam\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"During the years ended December 31, 2025, 2024 and 2023, approximately 44%, 20%, and 5%, respectively, of our HEYDUDE Brand production was in Vietnam.\", \"excerpt_index\": 4},\n  {\"mentioned_country\": \"China\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"Prior to 2025, the majority of our HEYDUDE Brand production was in China.\", \"excerpt_index\": 4},\n  {\"mentioned_country\": \"China\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured\", \"excerpt_index\": 6},\n  {\"mentioned_country\": \"Vietnam\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured\", \"excerpt_index\": 6},\n  {\"mentioned_country\": \"Cambodia\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured\", \"excerpt_index\": 6},\n  {\"mentioned_country\": \"India\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured\", \"excerpt_index\": 6},\n  {\"mentioned_country\": \"China\", \"mentioned_commodity\": \"footwear\", \"risk_text\": \"For the Crocs Brand, we are currently focused on six Tier 1 markets: (i) China, (ii) India, (iii) Japan, (iv) South Korea, (v), the U.S., and (vi) Western Europe.\", \"excerpt_index\": 3}\n]",
+  "parsed_output": [
+    {
+      "id": "FM-e9291b4877",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "Vietnam",
+      "mentioned_commodity": "footwear",
+      "risk_text": "During the years ended December 31, 2025, 2024, and 2023, approximately 45%, 51%, and 56%, respectively, of our Crocs Brand production was in Vietnam.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-be84e86243",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "Vietnam",
+      "mentioned_commodity": "footwear",
+      "risk_text": "During the years ended December 31, 2025, 2024 and 2023, approximately 44%, 20%, and 5%, respectively, of our HEYDUDE Brand production was in Vietnam.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-dbab5b16cb",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "China",
+      "mentioned_commodity": "footwear",
+      "risk_text": "Prior to 2025, the majority of our HEYDUDE Brand production was in China.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-84b6eb88f1",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "China",
+      "mentioned_commodity": "footwear",
+      "risk_text": "an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-7cbddc2b9d",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "Vietnam",
+      "mentioned_commodity": "footwear",
+      "risk_text": "an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-d68cb1cc2d",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "Cambodia",
+      "mentioned_commodity": "footwear",
+      "risk_text": "an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-55110e16f1",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "India",
+      "mentioned_commodity": "footwear",
+      "risk_text": "an incremental tariff of 20%, 20%, 19%, 18%, and 19% on all imports from Vietnam, China, Indonesia, India, and Cambodia, respectively, the countries in which our products are primarily manufactured",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    },
+    {
+      "id": "FM-15a967da2f",
+      "company": "Crocs",
+      "ticker": "CROX",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-12",
+      "mentioned_country": "China",
+      "mentioned_commodity": "footwear",
+      "risk_text": "For the Crocs Brand, we are currently focused on six Tier 1 markets: (i) China, (ii) India, (iii) Japan, (iv) South Korea, (v), the U.S., and (vi) Western Europe.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1334036/000133403626000006/crox-20251231.htm"
+    }
+  ]
+}

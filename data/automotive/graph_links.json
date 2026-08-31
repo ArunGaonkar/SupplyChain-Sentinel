@@ -1,0 +1,119 @@
+[
+  {
+    "id": "GL-109d9030a3",
+    "policy_event_id": "PE-37fc14cdc6",
+    "filing_mention_id": "FM-400e46d470",
+    "shared_country": "South Korea",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-0a61acc17a",
+    "policy_event_id": "PE-37fc14cdc6",
+    "filing_mention_id": "FM-593172dbaf",
+    "shared_country": "South Korea",
+    "shared_commodity": "automobiles",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-322078bf61",
+    "policy_event_id": "PE-8b6751e8be",
+    "filing_mention_id": "FM-1e12c72e6d",
+    "shared_country": "Japan",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-819e95c6a5",
+    "policy_event_id": "PE-8b6751e8be",
+    "filing_mention_id": "FM-f1c48a771d",
+    "shared_country": "Japan",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-bb13617742",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-0ac645d9a7",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-e8fb90fb42",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-7208f3600c",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-1a62569ff2",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-fae1676508",
+    "shared_country": "Germany",
+    "shared_commodity": "automobiles",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-17bdc6f432",
+    "policy_event_id": "PE-f1d93abe88",
+    "filing_mention_id": "FM-8765083c0e",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-e6f19ad0ce",
+    "policy_event_id": "PE-f1d93abe88",
+    "filing_mention_id": "FM-ade59b2abf",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-46c6595b44",
+    "policy_event_id": "PE-f1d93abe88",
+    "filing_mention_id": "FM-5fa5e00660",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-cb9c7d3154",
+    "policy_event_id": "PE-c84329ad7c",
+    "filing_mention_id": "FM-8765083c0e",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-6e0240a5a0",
+    "policy_event_id": "PE-c84329ad7c",
+    "filing_mention_id": "FM-ade59b2abf",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-4900a21bc2",
+    "policy_event_id": "PE-c84329ad7c",
+    "filing_mention_id": "FM-5fa5e00660",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  }
+]

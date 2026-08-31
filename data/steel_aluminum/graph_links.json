@@ -1,0 +1,290 @@
+[
+  {
+    "id": "GL-3074e509ed",
+    "policy_event_id": "PE-2583770a68",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-af5dc62b7e",
+    "policy_event_id": "PE-5118cc0998",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-bbafc938ab",
+    "policy_event_id": "PE-e63d84982d",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel and aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-77600896ce",
+    "policy_event_id": "PE-500771adc9",
+    "filing_mention_id": "FM-3bf60d7d29",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-b38390543f",
+    "policy_event_id": "PE-500771adc9",
+    "filing_mention_id": "FM-ef3e1bc589",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-abe010b336",
+    "policy_event_id": "PE-500771adc9",
+    "filing_mention_id": "FM-c13ac18545",
+    "shared_country": "Canada",
+    "shared_commodity": "steel coil and sheet",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-8f09e03334",
+    "policy_event_id": "PE-500771adc9",
+    "filing_mention_id": "FM-2521ae8b8b",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-d3d789a1c8",
+    "policy_event_id": "PE-500771adc9",
+    "filing_mention_id": "FM-62b448ec6f",
+    "shared_country": "Canada",
+    "shared_commodity": "steel coil and sheet",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-f3b85c1228",
+    "policy_event_id": "PE-e25775082f",
+    "filing_mention_id": "FM-3bf60d7d29",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-261fb75eac",
+    "policy_event_id": "PE-e25775082f",
+    "filing_mention_id": "FM-ef3e1bc589",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-4bffe66df5",
+    "policy_event_id": "PE-e25775082f",
+    "filing_mention_id": "FM-c13ac18545",
+    "shared_country": "Canada",
+    "shared_commodity": "steel coil and sheet",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-8b430fc3dd",
+    "policy_event_id": "PE-e25775082f",
+    "filing_mention_id": "FM-2521ae8b8b",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-e9b82bf1a3",
+    "policy_event_id": "PE-e25775082f",
+    "filing_mention_id": "FM-62b448ec6f",
+    "shared_country": "Canada",
+    "shared_commodity": "steel coil and sheet",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-cb2f8769aa",
+    "policy_event_id": "PE-53e23946f5",
+    "filing_mention_id": "FM-3bf60d7d29",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-b6a0417512",
+    "policy_event_id": "PE-53e23946f5",
+    "filing_mention_id": "FM-ef3e1bc589",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-71a2b08836",
+    "policy_event_id": "PE-53e23946f5",
+    "filing_mention_id": "FM-c13ac18545",
+    "shared_country": "Canada",
+    "shared_commodity": "steel coil and sheet",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-6f1509a30c",
+    "policy_event_id": "PE-53e23946f5",
+    "filing_mention_id": "FM-2521ae8b8b",
+    "shared_country": "Canada",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-845e915e95",
+    "policy_event_id": "PE-53e23946f5",
+    "filing_mention_id": "FM-62b448ec6f",
+    "shared_country": "Canada",
+    "shared_commodity": "steel coil and sheet",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-97318272a7",
+    "policy_event_id": "PE-9c1bc9f165",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel and aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-9883347e8c",
+    "policy_event_id": "PE-889f9ae856",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-b7b934a5cf",
+    "policy_event_id": "PE-fcfa6ed214",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-6a7d627628",
+    "policy_event_id": "PE-81381b7720",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-0609e788e1",
+    "policy_event_id": "PE-0fdc068289",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-e75e51d490",
+    "policy_event_id": "PE-d34b8e506e",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-1d488e0853",
+    "policy_event_id": "PE-ba77e9e6ff",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-2c856c5f89",
+    "policy_event_id": "PE-1fa13c3864",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-696938bd64",
+    "policy_event_id": "PE-220a498695",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-ba25b48151",
+    "policy_event_id": "PE-dfc013f2a5",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-4c39901088",
+    "policy_event_id": "PE-ad3946a470",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-ef9b55d6cb",
+    "policy_event_id": "PE-a73b5cef22",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-73bafa0d85",
+    "policy_event_id": "PE-eb291d594d",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": "steel, aluminum, scrap metal",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-d47aad078a",
+    "policy_event_id": "PE-8f455bdfe2",
+    "filing_mention_id": "FM-152a002b13",
+    "shared_country": "United States",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  }
+]

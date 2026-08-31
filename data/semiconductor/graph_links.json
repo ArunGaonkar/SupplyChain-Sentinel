@@ -9,9 +9,27 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-f35ac4a53d",
+    "id": "GL-af202e6667",
     "policy_event_id": "PE-f84a8c50ab",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-eb00b0317f",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-43ea064b7f",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-eff91052f0",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
@@ -54,9 +72,27 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-969aba6232",
+    "id": "GL-a1dade0fbb",
     "policy_event_id": "PE-6fc3ce7750",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-0f94b9b742",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-ed04491889",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-eff91052f0",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
@@ -99,9 +135,27 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-735b68e149",
+    "id": "GL-43fcf2c2f1",
     "policy_event_id": "PE-cde39b3434",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-4614fd5b72",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-cd065f5772",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-eff91052f0",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
@@ -144,13 +198,31 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-1786d6c6fe",
+    "id": "GL-c3f045ab3b",
     "policy_event_id": "PE-5f0e33005d",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
     "confidence": 0.6
+  },
+  {
+    "id": "GL-9270a05134",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-f216eedf3a",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-eff91052f0",
+    "shared_country": "China",
+    "shared_commodity": "memory chips",
+    "hop_count": 1,
+    "confidence": 0.9
   },
   {
     "id": "GL-f0f632ee0d",
@@ -189,9 +261,27 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-0a4b2c6397",
+    "id": "GL-0205e31648",
     "policy_event_id": "PE-5260cffb82",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-93a858c677",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-9a0dd570d8",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-eff91052f0",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
@@ -234,9 +324,27 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-e0ac12f521",
+    "id": "GL-907b6fb131",
     "policy_event_id": "PE-97e136e2f1",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-61770696ea",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-15b2271297",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-eff91052f0",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
@@ -279,13 +387,31 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-d0c2625432",
+    "id": "GL-dd523a7a91",
     "policy_event_id": "PE-dc4bc02bbc",
-    "filing_mention_id": "FM-beff10b38f",
+    "filing_mention_id": "FM-7d872c575e",
     "shared_country": "China",
     "shared_commodity": null,
     "hop_count": 2,
     "confidence": 0.6
+  },
+  {
+    "id": "GL-f30bd98b1c",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-8f2f203ebb",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-ec9e06da0b",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-eff91052f0",
+    "shared_country": "China",
+    "shared_commodity": "memory chips",
+    "hop_count": 1,
+    "confidence": 0.9
   },
   {
     "id": "GL-949de78af0",

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "PE-bf77921962",
+    "headline": "Haiti CBERA Apparel Duty-Free Quota Update",
+    "country": "Haiti",
+    "policy_type": "regulatory_change",
+    "affected_product": "apparel",
+    "date": "20260212",
+    "source_url": "https://www.federalregister.gov/documents/2026/02/12/2026-02832/limitation-of-duty-free-imports-of-apparel-articles-assembled-in-haiti-under-the-caribbean-basin",
+    "snippet": "the quantity of imports eligible for preferential treatment under the value-added provision is 267,063,493 square meters equivalent",
+    "severity": "low"
+  },
+  {
+    "id": "PE-0f55ea13f7",
+    "headline": "Haiti CBERA Apparel Duty-Free Quota Update",
+    "country": "Haiti",
+    "policy_type": "regulatory_change",
+    "affected_product": "apparel",
+    "date": "20241219",
+    "source_url": "https://www.federalregister.gov/documents/2024/12/19/2024-30072/limitation-of-duty-free-imports-of-apparel-articles-assembled-in-haiti-under-the-caribbean-basin",
+    "snippet": "the quantity of imports eligible for preferential treatment under the value-added provision is 322,927,229 square meters equivalent",
+    "severity": "low"
+  },
+  {
+    "id": "PE-8d09543418",
+    "headline": "USMCA Textile/Apparel Rule Correction",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "textiles and fabric",
+    "date": "20250908",
+    "source_url": "https://www.federalregister.gov/documents/2025/09/08/2025-17122/agreement-between-the-united-states-of-america-the-united-mexican-states-and-canada-usmca",
+    "snippet": "amending the CBP regulations to add implementing regulations for the preferential tariff treatment...related to...textile and apparel goods",
+    "severity": "low"
+  },
+  {
+    "id": "PE-4f6954118c",
+    "headline": "Section 301 Forced Labor Tariffs & Textile Mechanism",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "textiles and fabric",
+    "date": "20260605",
+    "source_url": "https://www.federalregister.gov/documents/2026/06/05/2026-11296/notice-of-determinations-and-request-for-comments-concerning-actions-in-section-301-investigations",
+    "snippet": "proposes a textile mechanism that would allow for a certain volume of apparel and textile imports from certain economies to enter the United States at a reduced Section 301 tariff rate",
+    "severity": "high"
+  },
+  {
+    "id": "PE-32a23b2d54",
+    "headline": "Sub-Saharan Africa Apparel Duty-Free Limits",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "apparel",
+    "date": "20260212",
+    "source_url": "https://www.federalregister.gov/documents/2026/02/12/2026-02852/limitations-of-duty-free-imports-of-apparel-articles-assembled-in-beneficiary-sub-saharan-african",
+    "snippet": "Limitations of Duty-Free Imports of Apparel Articles Assembled in Beneficiary Sub-Saharan African Countries From Regional and Third-Country Fabric",
+    "severity": "low"
+  },
+  {
+    "id": "PE-43363ede38",
+    "headline": "USMCA Textile/Apparel Implementing Rules",
+    "country": "United States",
+    "policy_type": "trade_agreement",
+    "affected_product": "textiles and fabric",
+    "date": "20250117",
+    "source_url": "https://www.federalregister.gov/documents/2025/01/17/2025-00550/agreement-between-the-united-states-of-america-the-united-mexican-states-and-canada-usmca",
+    "snippet": "add implementing regulations for the preferential tariff treatment and related customs provisions of...USMCA...with respect to...textile and apparel goods",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-f12d3568d6",
+    "headline": "Section 301 Forced Labor Tariffs on 60 Economies",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "cotton yarn",
+    "date": "20260728",
+    "source_url": "https://www.federalregister.gov/documents/2026/07/28/2026-15181/notice-of-actions-in-section-301-investigations-of-acts-policies-and-practices-of-various-economies",
+    "snippet": "establish, when feasible, tariff-rate quotas (TRQs) for Bangladesh, Cambodia, Indonesia, and Malaysia...to encourage the importation by each of these economies of U.S. cotton and textile goods",
+    "severity": "high"
+  },
+  {
+    "id": "PE-f6e6b0357d",
+    "headline": "Haiti CBERA Apparel Duty-Free Quota Update",
+    "country": "Haiti",
+    "policy_type": "regulatory_change",
+    "affected_product": "apparel",
+    "date": "20231218",
+    "source_url": "https://www.federalregister.gov/documents/2023/12/18/2023-27723/limitation-of-duty-free-imports-of-apparel-articles-assembled-in-haiti-under-the-caribbean-basin",
+    "snippet": "the quantity of imports eligible for preferential treatment under the value-added provision is 313,655,640 square meters equivalent",
+    "severity": "low"
+  },
+  {
+    "id": "PE-d80094b1d5",
+    "headline": "Sub-Saharan Africa Apparel Duty-Free Limits",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "apparel",
+    "date": "20240930",
+    "source_url": "https://www.federalregister.gov/documents/2024/09/30/2024-22397/limitations-of-duty--and-quota-free-imports-of-apparel-articles-assembled-in-beneficiary-sub-saharan",
+    "snippet": "Limitations of Duty- and Quota-Free Imports of Apparel Articles Assembled in Beneficiary Sub-Saharan African Countries From Regional and Third-Country Fabric",
+    "severity": "low"
+  },
+  {
+    "id": "PE-2b5252e5c9",
+    "headline": "De Minimis Exemption Suspended Indefinitely",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "apparel",
+    "date": "20260624",
+    "source_url": "https://www.federalregister.gov/documents/2026/06/24/2026-12670/indefinite-suspension-of-the-de-minimis-exemption-for-merchandise-arriving-through-all-modes-other",
+    "snippet": "implement an indefinite suspension of the de minimis administrative exemption for imports valued at $800 or less arriving via all modes other than through the international postal network",
+    "severity": "high"
+  },
+  {
+    "id": "PE-7b85f11685",
+    "headline": "Section 301 Forced Labor Tariffs on 60 Economies",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "cotton yarn",
+    "date": "20260728",
+    "source_url": "https://www.federalregister.gov/documents/2026/07/28/2026-15274/actions-by-the-united-states-in-the-investigations-under-section-301-of-the-trade-act-of-1974-of-the",
+    "snippet": "imposing tariffs on all products of the investigated economy, with certain exemptions...establish...tariff-rate quotas (TRQs) for Bangladesh, Cambodia, Indonesia, and Malaysia",
+    "severity": "high"
+  },
+  {
+    "id": "PE-ca5806737d",
+    "headline": "Section 301 Probe on Manufacturing Overcapacity",
+    "country": "China",
+    "policy_type": "tariff_increase",
+    "affected_product": "textiles and fabric",
+    "date": "20260317",
+    "source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05214/initiation-of-section-301-investigations-acts-policies-and-practices-of-certain-economies-relating",
+    "snippet": "investigations will focus on economies that appear to exhibit structural excess capacity...China...Cambodia, Thailand, Korea, Vietnam, Taiwan, Bangladesh, Mexico...India",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-9e34d365d6",
+    "headline": "Bangladesh Surgical Towels Origin Ruling",
+    "country": "Bangladesh",
+    "policy_type": "regulatory_change",
+    "affected_product": "textiles and fabric",
+    "date": "20241015",
+    "source_url": "https://www.federalregister.gov/documents/2024/10/15/2024-23652/notice-of-issuance-of-final-determination-concerning-surgical-towels",
+    "snippet": "CBP has concluded in the final determination that the country of origin of the surgical towels in question is Bangladesh",
+    "severity": "low"
+  },
+  {
+    "id": "PE-ef90d3d8a6",
+    "headline": "CPSC Updates Clothing Textile Flammability Rule",
+    "country": "United States",
+    "policy_type": "regulatory_change",
+    "affected_product": "textiles and fabric",
+    "date": "20231025",
+    "source_url": "https://www.federalregister.gov/documents/2023/10/25/2023-23388/standard-for-the-flammability-of-clothing-textiles",
+    "snippet": "The U.S. Consumer Product Safety Commission ... is amending the Standard for the Flammability of Clothing Textiles.",
+    "severity": "low"
+  },
+  {
+    "id": "PE-693be219b1",
+    "headline": "USTR Seeks Comments on AGOA Modernization",
+    "country": "United States",
+    "policy_type": "trade_agreement",
+    "affected_product": "apparel",
+    "date": "20260429",
+    "source_url": "https://www.federalregister.gov/documents/2026/04/29/2026-08347/request-for-comments-on-the-modernization-of-the-african-growth-and-opportunity-act-agoa",
+    "snippet": "USTR invites comments ... on the modernization of the African Growth and Opportunity Act (AGOA), which is authorized through December 31, 2026.",
+    "severity": "medium"
+  },
+  {
+    "id": "PE-47d5735d09",
+    "headline": "Section 301 Forced Labor Import Probe Launched",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "cotton",
+    "date": "20260317",
+    "source_url": "https://www.federalregister.gov/documents/2026/03/17/2026-05151/initiation-of-section-301-investigations-of-acts-policies-and-practices-of-various-economies-related",
+    "snippet": "USTR is initiating investigations ... related to the failure to impose and effectively enforce a prohibition on the importation of goods produced with forced labor.",
+    "severity": "high"
+  },
+  {
+    "id": "PE-fdf7d276b7",
+    "headline": "De Minimis $800 Exemption Rule Change",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "apparel, footwear, textiles and fabric",
+    "date": "20250121",
+    "source_url": "https://www.federalregister.gov/documents/2025/01/21/2025-01074/trade-and-national-security-actions-and-low-value-shipments",
+    "snippet": "CBP proposes to make merchandise that is subject to specified trade or national security actions ineligible for this administrative exemption",
+    "severity": "high"
+  },
+  {
+    "id": "PE-2f8d4dfb78",
+    "headline": "De Minimis Suspension for Postal Imports",
+    "country": "United States",
+    "policy_type": "import_restriction",
+    "affected_product": "apparel, footwear, textiles and fabric",
+    "date": "20260624",
+    "source_url": "https://www.federalregister.gov/documents/2026/06/24/2026-12669/indefinite-suspension-of-the-de-minimis-exemption-for-mail-shipments-and-new-postal-informal-entry",
+    "snippet": "amends the U.S. Customs and Border Protection (CBP) regulations to implement an indefinite suspension of the de minimis administrative exemption for imports valued at $800 or less arriving through the international postal network",
+    "severity": "high"
+  },
+  {
+    "id": "PE-5be68e4c2b",
+    "headline": "Reciprocal Tariff Executive Order",
+    "country": "United States",
+    "policy_type": "tariff_increase",
+    "affected_product": "apparel, footwear, textiles and fabric",
+    "date": "20250407",
+    "source_url": "https://www.federalregister.gov/documents/2025/04/07/2025-06063/regulating-imports-with-a-reciprocal-tariff-to-rectify-trade-practices-that-contribute-to-large-and",
+    "snippet": "Regulating Imports With a Reciprocal Tariff To Rectify Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+    "severity": "high"
+  },
+  {
+    "id": "PE-b6a0910007",
+    "headline": "USMCA Yarn Rules-of-Origin Review",
+    "country": "United States",
+    "policy_type": "trade_agreement",
+    "affected_product": "textiles and fabric",
+    "date": "20240424",
+    "source_url": "https://www.federalregister.gov/documents/2024/04/24/2024-08691/request-for-public-comment-on-a-commercial-availability-request-under-the-united",
+    "snippet": "Canada is requesting that the United States and Mexico consider changing the rules of origin for certain end-use fabrics ... based on the lack of commercial availability for certain high-tenacity polyester yarns",
+    "severity": "medium"
+  }
+]

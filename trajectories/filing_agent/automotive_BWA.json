@@ -1,0 +1,121 @@
+{
+  "agent": "filing_agent",
+  "call_id": "automotive_BWA",
+  "timestamp": "2026-08-31T06:02:43.351996+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a automotive supply-chain intelligence pipeline.\nSegment scope: Automotive and auto parts supply chain \u2014 vehicle assembly, parts sourcing, and EV battery/electronics dependencies between countries and US-listed automakers and suppliers, dominated in 2025-2026 by Section 232 tariffs on imported vehicles and auto parts.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (automobiles, auto parts, vehicle electronics, tires, EV batteries), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Mexico, Canada, China, Japan, South Korea, Germany, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    automobiles, auto parts, vehicle electronics, tires, EV batteries if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: BorgWarner (BWA), 10-K filed 2026-02-11\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') r (\u201cOEM\u201d) customers; the challenges associated with rapidly changing technologies, including artificial intelligence, and our ability to innovate in response; the difficulty in forecasting demand for electric vehicles and our electric vehicles revenue growth; potential future changes in laws and regulations, including, by way of example, taxes and tariffs, in the countries in which we operate; potential disruptions in the global economy caused by wars or other geopolitical conflicts; the ability to identify targets and consummate acquisitions on acceptable terms; failure to realize the expected benefits of acquisitions on a timely basis; the possibility that our 2023 tax-free spin-off of our forme\n\n[1] (matched keyword: 'tariff') customers; impacts of any future strikes involving any of our OEM customers and any actions such OEM customers take in response; fluctuations in interest rates and foreign currency exchange rates; our dependence on information systems; the uncertainty of the global economic environment; the uncertainty surrounding global trade policies, including tariffs and export restrictions and their impact on the Company, its customers and its suppliers; the outcome of existing or any future legal proceedings, including litigation with respect to various claims, or governmental investigations, including related litigation; impacts from any potential future acquisition or disposition transactions; and the oth\n\n[2] (matched keyword: 'Mexico') art of the U.S. or other countries, including the imposition of or increases in tariffs, changes to existing trade agreements and any resulting changes in international trade relations, may have an adverse effect on us. In 2025, the U.S. announced significant tariffs on imports from a broad range of countries, including the European Union, Canada, Mexico and China. These tariffs have increased the cost of raw materials and components we purchase, and to the extent the tariffs announced to date or announced in the future become or remain effective and are maintained, these tariffs would likely further increase the cost of raw materials and components we purchase. The imposition of tariffs by the U.\n\n[3] (matched keyword: 'China') dated joint ventures is shared with the Company\u2019s respective joint venture partners. Certain information concerning the Company's joint ventures is set forth below: Joint venture Products Year organized Percentage owned by the Company Location of operation Joint venture partner Unconsolidated: NSK-Warner K.K. Transmission components 1964 50% Japan/China NSK Ltd. Turbo Energy Private Limited Turbochargers 1987 32.6% India Sundaram Finance Limited; Brakes India Limited Fast Warner Intelligent Control Systems (Xi\u2019an) Co., Ltd. Inverters 2024 49% China Shaanxi Fast Auto Drive Group Consolidated: BuradaWarner LLC Valvetrain and fuel injection equipment 1977 70% Korea BU RA DA Company Limited BorgWarne\n\n[4] (matched keyword: 'South Korea') in. It remains unclear what additional actions the current U.S. administration may take with respect to trade issues involving China and other countries. In 2025, we imported approximately $918 million in value to the U.S. Approximately 68% of that value originated in Mexico, approximately 9% originated in Canada and approximately 6% originated in South Korea. We use important intellectual property in our business. If we are unable to protect our intellectual property or if a third party makes assertions against us or our customers relating to intellectual property rights, our business could be adversely affected. We own important intellectual property, including patents, trademarks, copyrights, and tr\n\n[5] (matched keyword: 'Germany') ber 31, 2025 and 2024, respectively. T he decrease in the net unfunded position was a result of a higher pension assets, which was primarily due to asset returns during the period and the impact of foreign exchange. Of t he total net unfunded amounts, $17 million and $32 million at December 31, 2025 and 2024, respectively, were related to plans in Germany, where there is no tax deduction allowed under the applicable regulations to fund the plans; hence, the common practice is to make contributions as benefit payments become due. Other postemployment benefits primarily consist of health care benefits for certain former employees and retirees of the Company\u2019s U.S. operations. The Company funds these\n\n[6] (matched keyword: 'Mexico') operations, there is no assurance that we will continue to be successful in recovering such costs from our customers or implementing the other mitigation efforts without disrupting our business, operations and financial performance. In addition to potential increases in customs duties and tariffs in the U.S. and other countries, the United States-Mexico-Canada Agreement (\"USMCA\") is subject to renewal in 2026. There can be no assurance that the USMCA will be renewed or, if renewed, any newly negotiated terms in the USMCA will not adversely affect our business. Also, China presents unique risks to U.S. automotive manufacturers due to the strain in U.S.-China relations and the level of integration\n\n[7] (matched keyword: 'Germany') ariables. The Company also considers the impact of active management of the plans\u2019 invested assets. In determining its pension expense for the year ended December 31, 2025, the Company used long-term rates of return on plan assets ranging from 2.8% to 7.9% outside of the U.S. and 5% in the U.S. The primary funded non-U.S. plans are in the U.K. and Germany. Actual returns on U.S. pension assets were 7.3% and 0.6% for the years ended December 31, 2025 and 2024, respectively, compared to the expected rate of return assumptions of 5% for the years ended December 31, 2025 and 2024. Actual returns on U.K. pension assets were 5.9% and (3.7)% for the years ended December 31, 2025 and 2024, respectively, co\n\n[8] (matched keyword: 'United States') bwa-20251231 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington D.C. 20549 Form (Mark One) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from to Commission File Number: (Exact name of\n\n[9] (matched keyword: 'United States') s and uncertainties, including without limitation those not currently known to us or that we currently believe are immaterial, also may impair our business, operations, liquidity, financial condition and prospects. Use of Non-GAAP Financial Measures In addition to results presented in accordance with accounting principles generally accepted in the United States of America (\u201cGAAP\u201d), this report may include non-GAAP financial measures. The Company believes that these non-GAAP financial measures provide additional information that is useful to investors in understanding the underlying performance and trends of the Company. Readers should be aware that non-GAAP financial measures have inherent limitations an",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"In 2025, the U.S. announced significant tariffs on imports from a broad range of countries, including the European Union, Canada, Mexico and China. These tariffs have increased the cost of raw materials and components we purchase\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"In 2025, the U.S. announced significant tariffs on imports from a broad range of countries, including the European Union, Canada, Mexico and China.\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"In 2025, we imported approximately $918 million in value to the U.S. Approximately 68% of that value originated in Mexico\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Canada\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"approximately 9% originated in Canada and approximately 6% originated in South Korea\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"South Korea\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"approximately 6% originated in South Korea\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"the United States-Mexico-Canada Agreement (\\\"USMCA\\\") is subject to renewal in 2026. There can be no assurance that the USMCA will be renewed\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"automobiles\",\n    \"risk_text\": \"China presents unique risks to U.S. automotive manufacturers due to the strain in U.S.-China relations and the level of integration\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"vehicle electronics\",\n    \"risk_text\": \"Fast Warner Intelligent Control Systems (Xi\u2019an) Co., Ltd. Inverters 2024 49% China Shaanxi Fast Auto Drive Group\",\n    \"excerpt_index\": 3\n  },\n  {\n    \"mentioned_country\": \"Japan\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"NSK-Warner K.K. Transmission components 1964 50% Japan/China NSK Ltd.\",\n    \"excerpt_index\": 3\n  },\n  {\n    \"mentioned_country\": \"South Korea\",\n    \"mentioned_commodity\": \"auto parts\",\n    \"risk_text\": \"BuradaWarner LLC Valvetrain and fuel injection equipment 1977 70% Korea BU RA DA Company Limited\",\n    \"excerpt_index\": 3\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-485641eba1",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "In 2025, the U.S. announced significant tariffs on imports from a broad range of countries, including the European Union, Canada, Mexico and China. These tariffs have increased the cost of raw materials and components we purchase",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-d05986ff28",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "China",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "In 2025, the U.S. announced significant tariffs on imports from a broad range of countries, including the European Union, Canada, Mexico and China.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-a5b7a3b816",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "In 2025, we imported approximately $918 million in value to the U.S. Approximately 68% of that value originated in Mexico",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-8765083c0e",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "Canada",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "approximately 9% originated in Canada and approximately 6% originated in South Korea",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-400e46d470",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "South Korea",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "approximately 6% originated in South Korea",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-551f031c97",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "the United States-Mexico-Canada Agreement (\"USMCA\") is subject to renewal in 2026. There can be no assurance that the USMCA will be renewed",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-8ba24a2ef7",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "China",
+      "mentioned_commodity": "automobiles",
+      "risk_text": "China presents unique risks to U.S. automotive manufacturers due to the strain in U.S.-China relations and the level of integration",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-e2fbd4208c",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "China",
+      "mentioned_commodity": "vehicle electronics",
+      "risk_text": "Fast Warner Intelligent Control Systems (Xi\u2019an) Co., Ltd. Inverters 2024 49% China Shaanxi Fast Auto Drive Group",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-f1c48a771d",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "Japan",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "NSK-Warner K.K. Transmission components 1964 50% Japan/China NSK Ltd.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    },
+    {
+      "id": "FM-16308c9c40",
+      "company": "BorgWarner",
+      "ticker": "BWA",
+      "filing_type": "10-K",
+      "filing_date": "2026-02-11",
+      "mentioned_country": "South Korea",
+      "mentioned_commodity": "auto parts",
+      "risk_text": "BuradaWarner LLC Valvetrain and fuel injection equipment 1977 70% Korea BU RA DA Company Limited",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908255/000090825526000011/bwa-20251231.htm"
+    }
+  ]
+}

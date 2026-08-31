@@ -28,18 +28,22 @@ ANTHROPIC_API_KEY=sk-ant-...
 ## Run everything
 
 ```bash
-python run_pipeline.py           # defaults to pharma
+python run_pipeline.py                # defaults to pharma
 python run_pipeline.py semiconductor
+python run_pipeline.py textile
+python run_pipeline.py automotive
+python run_pipeline.py steel_aluminum
 ```
 
 Each invocation runs one segment's phases in order: connectors -> baseline ->
 Policy Agent -> Filing Agent -> graph -> alerts, then **always** rebuilds the
 dashboard from every segment that has data on disk (not just the one just
 run), then runs Phase 6 eval only if that segment has a golden test set
-(`eval/golden_events_<segment>.yaml` — pharma has one, semiconductor doesn't
-yet, so its Phase 6 is skipped, not faked). Run both commands above, in
-either order, to get the full two-segment dashboard; open `dist/index.html`
-in a browser afterward — its Segment dropdown switches between them.
+(`eval/golden_events_<segment>.yaml` — pharma and semiconductor have one,
+textile/automotive/steel_aluminum don't yet, so their Phase 6 is skipped,
+not faked). Run all five commands above, in any order, to get the full
+five-segment dashboard; open `dist/index.html` in a browser afterward — its
+Segment dropdown switches between them.
 
 **Every phase is idempotent and cache-checked**: if a segment's
 `data/<segment>/cache/...` or a phase's output file
@@ -76,55 +80,59 @@ python -m src.agents.filing_agent semiconductor   # Phase 3  — Filing Agent
 python -m src.graph semiconductor                 # Phase 4a — causal graph
 python -m src.alerts semiconductor                # Phase 4b — Alert Cards
 python -m src.dashboard                           # Phase 5  — dashboard (all segments, no argument)
-python -m eval.run_eval pharma                    # Phase 6  — baseline vs. advanced eval (pharma only)
+python -m eval.run_eval pharma                    # Phase 6  — baseline vs. advanced eval (pharma, semiconductor)
+python -m eval.run_eval semiconductor
 ```
 
 ## Expected output
 
-### pharma
-- `data/pharma/policy_events.json` — ~12 structured PolicyEvents (from ~66
-  unique raw items reviewed — most raw items are filtered out as irrelevant
-  noise, which is expected).
-- `data/pharma/filing_mentions.json` — ~24 structured FilingMentions (from 8
-  companies' 10-Ks; extraction recognizes both sourcing dependencies and
-  market/export dependencies — see CHANGELOG.md).
-- `data/pharma/graph_links.json` — ~12 links (via shared country: Ireland,
-  Germany, Switzerland at this data scope — Germany is fed by two distinct
+Actual counts from the committed data (each segment: 8 seed companies, one
+10-K each):
+
+| segment | policy events | filing mentions | graph links | alert cards | golden cases | advanced vs. baseline |
+|---|---|---|---|---|---|---|
+| pharma | 12 | 29 | 12 | 12 | 10 | 100% vs. 10% |
+| semiconductor | 22 | 49 | 49 | 49 | 9 | 100% vs. ~60-67% |
+| textile | 20 | 37 | 8 | 8 | — | no golden set |
+| automotive | 25 | 54 | 13 | 13 | — | no golden set |
+| steel_aluminum | 21 | 35 | 32 | 32 | — | no golden set |
+
+Notes on what shapes these numbers, per segment:
+- **pharma**: links via shared country (Ireland, Germany, Switzerland,
+  United Kingdom at this data scope) — Germany is fed by two distinct
   policy catalysts, an EU-wide tariff framework and a Germany-specific
   Section 301 probe, resolved via `EU_MEMBERS` bloc matching in
-  `src/graph.py`).
-- `data/pharma/alert_cards.json` — ~12 Alert Cards, each citing both a policy
-  source URL and a filing source URL.
-- `eval/eval_results_pharma.json` + console table — baseline ~25% vs.
-  advanced 100% accuracy on the 8 golden cases (baseline's exact number can
-  vary a few points run-to-run since it's unstructured LLM prose being
-  judged by another LLM call; the advanced pipeline's score is deterministic
-  because it's read directly from the structured graph, not judged).
+  `src/graph.py`. Filing extraction recognizes both sourcing and
+  market/export dependencies (see CHANGELOG.md).
+- **semiconductor**: almost entirely China — US export-control policy
+  toward China is the dominant real signal here, not tariffs (see
+  `edgar_priority_terms` in `config/segments/semiconductor.yaml`). 49
+  graph links from 22 events × 49 mentions because 7 distinct China
+  catalysts each independently match most of the same 7 companies.
+- **textile**: lower link count than its event/mention totals suggest —
+  the policy pull is more concentrated on China/Bangladesh/Haiti than the
+  companies' Vietnam/Cambodia/India-heavy sourcing footprints (a real,
+  documented data-pull gap — see CHANGELOG.md "textile" note, not a
+  filtering failure).
+- **eval**: baseline's exact number can vary a few points run-to-run since
+  it's unstructured LLM prose being judged by another LLM call; the
+  advanced pipeline's score is deterministic because it's read directly
+  from the structured graph, not judged.
 
-### semiconductor
-- `data/semiconductor/policy_events.json` — ~22 structured PolicyEvents (US
-  export-control policy toward China is the dominant real signal here, not
-  tariffs — see `edgar_priority_terms` in `config/segments/semiconductor.yaml`).
-- `data/semiconductor/filing_mentions.json` — ~32 structured FilingMentions
-  across 6 of 8 companies (2 correctly yield zero — their cached excerpts
-  were too generic).
-- `data/semiconductor/graph_links.json` — ~35 links, almost entirely China,
-  reflecting how concentrated real 2025-2026 semiconductor policy actually is.
-- `data/semiconductor/alert_cards.json` — ~34 Alert Cards.
-- No `eval/golden_events_semiconductor.yaml` yet — Phase 6 is skipped for
-  this segment, by design (see README "Result").
+`dist/index.html` — an interactive, client-side-rendered dependency graph
+(hover/click to trace a company's path back to its catalyst; segment,
+time-range, and detail-level controls, clickable stat tiles and a side nav
+that jump to and expand their section, a back-to-top button), Alert Cards
+(sortable by policy-event date), and a Gap/Opportunity section — Gaps
+(FilingMentions with no matching PolicyEvent, grouped by company) and
+Opportunities (PolicyEvents with no matching FilingMention, grouped by
+country). Every segment's data is embedded in the same page, with every
+cross-referenced id segment-prefixed (see CHANGELOG.md — a real bug where
+two segments legitimately pulled the same cross-industry government notice,
+producing a genuine cross-segment id collision); the Segment dropdown
+filters client-side, so no separate build per segment is needed.
 
-### dashboard (both segments)
-- `dist/index.html` — an interactive, client-side-rendered dependency graph
-  (hover/click to trace a company's path back to its catalyst; segment,
-  time-range, and detail-level controls, clickable stat tiles that jump to
-  and expand their section), Alert Cards (sortable by policy-event date),
-  and a Gap/Opportunity section — Gaps (FilingMentions with no matching
-  PolicyEvent, grouped by company) and Opportunities (PolicyEvents with no
-  matching FilingMention, grouped by country). Every segment's data is
-  embedded in the same page; the Segment dropdown filters client-side, so no
-  separate build per segment is needed.
-- `dist/glossary.html` — term definitions for everything on the dashboard.
+`dist/glossary.html` — term definitions for everything on the dashboard.
 
 ## Approximate runtime / cost
 
@@ -132,10 +140,10 @@ Per segment:
 - Connectors (from cache): instant. From scratch: ~2-3 min (EDGAR fetches 8
   full 10-K documents, several MB each; Federal Register fallback is fast).
 - Baseline: 1 LLM call, ~20s.
-- Policy Agent: 4 LLM calls (batched), ~1 min.
+- Policy Agent: 3-5 LLM calls (batched), ~1 min.
 - Filing Agent: 8 LLM calls (one per company), ~1 min.
-- Alerts: 1 LLM call per graph link (~12 for pharma, ~35 for semiconductor),
-  ~30s-3 min.
-- Eval (pharma only): 8 LLM judge calls, ~30s.
-- **Total per segment from a warm cache: ~5-8 minutes, ~30-55 Anthropic API
-  calls (`claude-sonnet-5`), well under $1.**
+- Alerts: 1 LLM call per graph link (8-49 depending on the segment — see
+  table above), ~30s-4 min.
+- Eval (pharma, semiconductor only): 1 LLM judge call per golden case, ~30s.
+- **Total per segment from a warm cache: ~5-10 minutes, ~15-65 Anthropic API
+  calls (`claude-sonnet-5`) depending on the segment, well under $1.**

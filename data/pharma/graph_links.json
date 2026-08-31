@@ -1,39 +1,57 @@
 [
   {
-    "id": "GL-1320a04b33",
+    "id": "GL-2fb505bc35",
     "policy_event_id": "PE-798fb587e1",
-    "filing_mention_id": "FM-44ae0da3fb",
+    "filing_mention_id": "FM-833c0d1ff1",
+    "shared_country": "Switzerland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-f2bf0ce2ea",
+    "policy_event_id": "PE-798fb587e1",
+    "filing_mention_id": "FM-c546e2b4ad",
     "shared_country": "Switzerland",
     "shared_commodity": "generic drugs",
     "hop_count": 1,
     "confidence": 0.9
   },
   {
-    "id": "GL-daf063d9e3",
+    "id": "GL-fe1c63399e",
     "policy_event_id": "PE-c8158dc8a3",
-    "filing_mention_id": "FM-2e6b950188",
+    "filing_mention_id": "FM-af4670c1af",
     "shared_country": "Ireland",
     "shared_commodity": null,
     "hop_count": 2,
     "confidence": 0.6
   },
   {
-    "id": "GL-8b534a37bb",
+    "id": "GL-1c4e8c5b73",
     "policy_event_id": "PE-c8158dc8a3",
-    "filing_mention_id": "FM-c0a53477ea",
+    "filing_mention_id": "FM-4131b09d55",
     "shared_country": "Germany",
     "shared_commodity": null,
     "hop_count": 2,
     "confidence": 0.6
   },
   {
-    "id": "GL-2ba79711c1",
+    "id": "GL-22b42e2265",
     "policy_event_id": "PE-c8158dc8a3",
-    "filing_mention_id": "FM-7709ff24f9",
+    "filing_mention_id": "FM-ce8bf28d82",
     "shared_country": "Ireland",
-    "shared_commodity": "generic drugs",
-    "hop_count": 1,
-    "confidence": 0.9
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-463bdaf50c",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-e187821102",
+    "shared_country": "Netherlands",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
   },
   {
     "id": "GL-d649520021",
@@ -43,15 +61,6 @@
     "shared_commodity": null,
     "hop_count": 2,
     "confidence": 0.6
-  },
-  {
-    "id": "GL-55b67f4d19",
-    "policy_event_id": "PE-c8158dc8a3",
-    "filing_mention_id": "FM-c4092cf3b5",
-    "shared_country": "Germany",
-    "shared_commodity": "generic drugs",
-    "hop_count": 1,
-    "confidence": 0.9
   },
   {
     "id": "GL-ef44b9e82b",
@@ -81,18 +90,9 @@
     "confidence": 0.6
   },
   {
-    "id": "GL-71130a264f",
+    "id": "GL-53467cdc23",
     "policy_event_id": "PE-7c5a675c4e",
-    "filing_mention_id": "FM-c0a53477ea",
-    "shared_country": "Germany",
-    "shared_commodity": "innovative pharmaceutical products",
-    "hop_count": 1,
-    "confidence": 0.9
-  },
-  {
-    "id": "GL-1afff70ef7",
-    "policy_event_id": "PE-7c5a675c4e",
-    "filing_mention_id": "FM-c4092cf3b5",
+    "filing_mention_id": "FM-4131b09d55",
     "shared_country": "Germany",
     "shared_commodity": null,
     "hop_count": 2,

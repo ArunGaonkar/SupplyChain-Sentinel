@@ -3,25 +3,49 @@
   "ticker": "INTC",
   "cik": "0000050863",
   "filing_type": "10-K",
-  "filing_date": "2025-01-31",
-  "accession": "0000050863-25-000009",
-  "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086325000009/a12282024ex22.htm",
+  "filing_date": "2026-01-23",
+  "accession": "0000050863-26-000011",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/intc-20251227.htm",
   "excerpts": [
     {
-      "keyword": "export control",
-      "text": "on 6.11. Taxes 14 Section 6.12. Financial Statements 14 Section 6.13. Contracts; Other Transactions 15 Section 6.14. Construction and Tool Installation Budget; Project Schedule 15 Section 6.15. [Reserved] 15 Section 6.16. Environmental Laws 15 Section 6.17. Federal Requirements 16 Section 6.18 Foreign Entity Concern; Prohibited Persons; Sanctions; Export Controls; Anti-Corruption; Anti-Money Laundering Laws 17 Section 6.19. Insolvency Proceedings 18 Section 6.20. No Defaults; no Change of Control Events; no Clawback Events 18 Section 6.21. Material Adverse Effect 18 Section 6.22. Program Requirements 18 Section 6.23. Full Disclosure 18 Section 6.24. No Immunity 18 Section 6.25. No Federal Debt Delinquency"
+      "keyword": "tariff",
+      "text": "y utilization, shortages and constraints; \u25aa expectations regarding government funding, incentives, policies and priorities; \u25aa technology trends and developments, including with respect to AI; \u25aa macro environmental and economic conditions; \u25aa geopolitical tensions and conflicts, including with respect to international trade policies in areas such as tariffs and export controls, and their potential impact on our business; \u25aa tax- and accounting-related expectations; \u25aa expectations regarding our relationships with certain sanctioned parties; and \u25aa other characterizations of future events or circumstances. Such statements involve many risks and uncertainties that could cause our actual results to differ"
     },
     {
-      "keyword": "export control",
-      "text": "; (g) all applicable federal labor and employment laws, including Title VII of the Civil Rights Act of 1964 (42 U.S.C. \u00a7 2000e et seq.), the Fair Labor Standards Act (29 U.S.C. \u00a7 203), the Occupational Safety and Health Act (29 U.S.C. \u00a7 653) and the National Labor Relations Act (29 U.S.C. \u00a7 151 et seq.) in all material respects; (h) all applicable Export Control Laws in all respects except for any actual or potential violations that involve only unintentional minor, technical infractions, which either (i) were voluntarily self-disclosed to BIS within sixty (60) days of the Recipient Party becoming aware of the violation, and, within sixty (60) days of submission of the final disclosure resulted in the iss"
+      "keyword": "tariff",
+      "text": "including geopolitical and trade tensions between the U.S. and China, tensions and conflict affecting Israel and the Middle East, rising tensions between mainland China and Taiwan and the impacts of Russia's war on Ukraine; \u25aa recently elevated geopolitical tensions, volatility and uncertainty with respect to international trade policies, including tariffs and export controls, impacting our business, the markets in which we compete and the world economy; \u25aa the evolving market for products with AI capabilities; 1 Table of Contents \u25aa our complex global supply chain supporting our manufacturing facilities and incorporating external foundries, including from disruptions, delays, trade tensions and conf"
+    },
+    {
+      "keyword": "Japan",
+      "text": "estments are generally offset by corresponding losses or gains on the related hedging instruments. Substantially all of our revenue is transacted in U.S. dollars. However, a portion of our operating expenditures and capital purchases are incurred in other currencies, primarily the Israeli shekel, the Malaysian ringgit, the European Union euro, the Japanese yen, and the Chinese yuan. We have established currency risk management programs to protect against currency exchange rate risks associated with non-U.S.-dollar forecasted future cash flows and existing non-U.S.-dollar monetary assets and liabilities. We may also hedge currency risk arising from funding of foreign currency-denominated future in"
+    },
+    {
+      "keyword": "Netherlands",
+      "text": "alating U.S. export controls and trade restrictions, including strengthened controls on semiconductor manufacturing equipment, AI and advanced computing products, as well as new caps on the global distribution of high-performance integrated circuits and additional limitations on critical minerals. The U.S., often in coordination with Japan and the Netherlands, imposed these restrictions while adding more Chinese firms to prohibited lists, and China responded with its own limitations on U.S. access to minerals and on companies supplying Taiwan's military. In 2025, the new U.S. administration further tightened export controls and trade measures, expanding the scope of restrictions, which has led to addit"
+    },
+    {
+      "keyword": "Malaysia",
+      "text": "Arizona (Intel 7 and ramping Intel 18A), Ireland (Intel 4 and Intel 3) and Israel (Intel 7). Finished wafers from our production fabs are then sent to our assembly and test facilities where the individual die are packaged and the finished semiconductor is tested. In 2025, our key assembly and test facilities were in China, New Mexico, Vietnam and Malaysia, with New Mexico being our key advanced packaging facility and a new advanced packaging facility being built in Malaysia. Maintaining reliable production capacity across these facilities is critical to meeting customer demand. Our Business 12 Table of Contents Semiconductor manufacturing is a capital-intensive industry. From 2021 through 2024, we"
+    },
+    {
+      "keyword": "Singapore",
+      "text": "ernational venture capital firm he founded in 1987, and the founding managing partner of two other funds, Celesta Capital and Walden Catalyst Ventures. He is on the board of directors of Schneider Electric SE, a digital automation and energy management company. Mr. Tan holds a Bachelor of Science in Physics from Nanyang Technological University in Singapore, a Master of Science in Nuclear Engineering from the Massachusetts Institute of Technology and a Master of Business Administration from the University of San Francisco. Chief Executive Officer Nagasubramaniyan Chandrasekaran 51 Naga Chandrasekaran has been our Executive Vice President, Chief Technology and Operations Officer, and General Manager o"
+    },
+    {
+      "keyword": "Singapore",
+      "text": "niversity of Madras; a Master of Science Degree and a Doctorate in Mechanical Engineering from Oklahoma State University; a Master\u2019s of Information and Data Science from the University of California, Berkeley; and dual executive Master of Business Administration degrees from the University of California, Los Angeles, and the National University of Singapore. Mr. Chandrasekaran is a member of the Board of Directors of Mobileye Global, Inc. Executive Vice President and Chief Technology and Operations Officer, General Manager of Intel Foundry April Miller Boise 57 Ms. Miller Boise has been our Executive Vice President and Chief Legal Officer since July 2022 and Corporate Secretary since August 2022. Ms."
+    },
+    {
+      "keyword": "Taiwan",
+      "text": "at facility could have a significant adverse impact on our business. Additionally, our property, plant and equipment assets in Israel are self-insured and could be impacted by the conflict. Further, our Mobileye business is headquartered and has most of its operations in Israel and could be similarly impacted; \u25aa Tensions between mainland China and Taiwan have increased significantly in recent years, presenting an elevated risk of hostilities. Many of our products depend on suppliers in Taiwan for critical components, including various compute die, that cannot be easily or quickly replaced. Other of our products are made entirely in Taiwan. As such, any disruption impacting Taiwan could significant"
     },
     {
       "keyword": "United States",
-      "text": "chedule E Affiliate Transactions Schedule F Addresses Schedule G Dispute Resolution iii This DIRECT FUNDING AGREEMENT (the \u201c Agreement \u201d), dated as of November 25, 2024, is entered into by and between (a) Intel Corporation, a corporation organized and existing under the laws of the State of Delaware as the recipient (the \u201c Recipient \u201d) and (b) the UNITED STATES DEPARTMENT OF COMMERCE (the \u201c Department \u201d and together with the Recipient, the \u201c Parties \u201d and each a \u201c Party \u201d), an agency of the United States of America, acting by and through the Secretary of Commerce (or appropriate authorized representative thereof). RECITALS WHEREAS , the Recipient has undertaken (a) construction, tool purchase and install"
+      "text": "intc-20251227 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM (Mark One) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended December 27, 2025. or TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from to . Commission File N"
     },
     {
-      "keyword": "United States",
-      "text": "rties and the Projects; and (ii) the negotiation, review, and preparation of this Agreement, the other Financing Documents any other documents and instruments related to this Agreement or thereto (including legal opinions). Section 3.4. Net of Tax . (a) The Recipient understands and agrees that the Department is an agency or instrumentality of the United States and that all payments by the Recipient to the Department hereunder are payable, and shall in all cases be paid, free and clear of all Taxes. (b) If the Recipient shall be required by Applicable Law to withhold or deduct any tax from or in respect of any sum payable hereunder or under any other Financing Document to the Department, (i) the sum paya"
+      "keyword": "supply chain",
+      "text": "owers the digital world. Building on our legacy of innovation, we are focused on transforming our business to meet the demands of a rapidly evolving technology landscape. The pace of technological change, dynamic customer needs and intensifying competition continue to shape the semiconductor industry. A secure, resilient and balanced semiconductor supply chain has become increasingly important to maintaining continuity of operations for global enterprises, governments and consumers, while meeting global demand in an uncertain and rapidly changing world. We aim to build a new Intel for the future, undertaking an enterprise-wide transformation to strengthen execution, enhance innovation and better positio"
     }
   ]
 }

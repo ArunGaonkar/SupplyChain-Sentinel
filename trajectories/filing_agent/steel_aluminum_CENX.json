@@ -1,0 +1,77 @@
+{
+  "agent": "filing_agent",
+  "call_id": "steel_aluminum_CENX",
+  "timestamp": "2026-08-31T06:13:08.201476+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a steel_aluminum supply-chain intelligence pipeline.\nSegment scope: Steel and aluminum supply chain \u2014 raw metal, coil/sheet, and scrap sourcing dependencies between countries and US-listed metals producers, dominated in 2025-2026 by Section 232 tariffs (raised to 50%) on imported steel and aluminum.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (steel, aluminum, steel coil and sheet, aluminum ingots, scrap metal), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Canada, Mexico, China, Brazil, South Korea, India, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    steel, aluminum, steel coil and sheet, aluminum ingots, scrap metal if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Century Aluminum (CENX), 10-K filed 2025-03-03\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') ociated with restarting curtailed production; \u2022 Our plans with regards to the future of our Hawesville smelter; \u2022 Our ability to successfully obtain and/or retain competitive power arrangements for our operations, including securing necessary power arrangement for the greenfield project; \u2022 The impact of Section 232 and 301 trade actions, including tariffs or other trade remedies, the extent to which any such remedies may be changed, including through exclusions or exemptions, and the duration of any trade remedy; \u2022 The impact of any new or changed law, regulation, including, without limitation, sanctions or other similar remedies or restrictions or any changes in interpretation of existing laws or\n\n[1] (matched keyword: 'tariff') ding by continuing to improve our operational efficiencies, investigating new and alternative power sources, and reprocessing and reusing scrap aluminum in our operations. Duty Free Access to our Major Customer Markets. Our facilities benefit from international and national trade laws and regulations. For example, the European Union imposes import tariffs on primary aluminum from producers outside the European Economic Area (the \"EEA\"), which includes Iceland, and the U.S. currently imposes a 10% tariff on certain primary aluminum imports into the United States, which is expected to increase to 25% effective March 12, 2025. Our U.S. and Icelandic businesses currently access these respective market\n\n[2] (matched keyword: 'Canada') office locations, a refinery, a rope conveyor and a railway. Jamalco\u2019s mining and refinery operations may be reached by a toll road from the center of Kingston, approximately a one hour drive west of Kingston, the administrative capital and main business center of the island. Jamaica has multiple daily air and sea connections to the United States, Canada, and United Kingdom. The bauxite deposits are distributed throughout the region in communities of local residents, served by an extensive road system and infrastructure providing services to these communities. The deposits are connected to the central stockpile at St Jago by internal private haul roads. Access to the deposits is also available thr\n\n[3] (matched keyword: 'Mexico') c producers, like Century, can supply all the aluminum necessary for critical industries and national defense. In addition to primary aluminum products, the tariffs also cover certain other semi-finished products. All imports that directly compete with our products are covered by the tariff, with the exception of imports from Australia, Canada and Mexico. Additionally, primary aluminum imports from Argentina are allowed up to an annual quota limit of 169,000 metric tonnes, the first 18,000 metric tonnes of imports from the European Union and the first 900 metric tonnes of imports from the United Kingdom are also allowed duty free. Imports that receive a product exclusion from the Department of Com\n\n[4] (matched keyword: 'China') city and overproduction of aluminum may materially disrupt global aluminum markets causing price deterioration which, in turn, could adversely impact our operating results, sales, margins and profitability. Prior to 2021, global aluminum prices had been significantly depressed primarily due to large amounts of excess capacity and overproduction in China and other regions. Significant portions of global aluminum production would not be possible during such times without financial and other support and incentives from governments and state-owned entities. This oversupply caused global aluminum prices to be adversely impacted. Supply and demand in the aluminum market began to balance in 2021, howeve\n\n[5] (matched keyword: 'India') ity Fair Value Liability Fair Value with 10% Adverse Price Change 2024 2023 2024 2023 Commodity contracts (1) 4.4 $ 7.8 (0.2) $ 15.3 Foreign exchange contracts (2) \u2014 0.1 \u2014 0.6 Total $ 4.4 $ 7.9 $ (0.2) $ 15.9 (1) Commodity contracts reflect our outstanding LME and MWP forward financial sales contracts, fixed for floating swaps, HFO price swaps and Indiana Hub power price swaps. (2) Foreign exchange contracts reflect our outstanding FX swaps and the casthouse currency hedges. 48 Item 8. Financial Statements and Supplementary Data INDEX TO FINANCIAL STATEMENTS Page Reports of Independent Registered Public Accounting Firm (PCAOB ID No. ) 50 Consolidated Statements of Operations for the Years Ended D\n\n[6] (matched keyword: 'China') t Premium will increase, which we expect will have a material positive impact on our financial position and results of operations. Section 301 Tariffs On May 22, 2024, the United States Trade Representative (USTR) issued a proposal (the \u201cProposal\u201d) to implement new tariffs on certain items and increase existing tariffs on other items imported from China pursuant to USTR\u2019s authority under Section 301 of the Trade Act of 1974. The new and increased tariffs were adopted pursuant to the USTR\u2019s authority to investigate unfair trade barriers and impose measures to counteract a foreign country\u2019s unfair or discriminatory trade practices. Under the Proposal, tariffs on aluminum imported from China are exp\n\n[7] (matched keyword: 'China') minatory trade practices. Under the Proposal, tariffs on aluminum imported from China are expected to increase to 25% from the current 7.5% tariff imposed in 2018. The increased tariff is in addition to the 10% tariff imposed under Section 232 of the Trade Expansion Act. The new and increased Section 301 tariffs are only applicable to imports with China as the country of origin. Other Items In August 2022, the IRA became law. The IRA provides for substantial tax credits and incentives for the development of critical minerals (including aluminum), renewable energy, clean fuels , electric vehicles, and supporting infrastructure, among other provisions. Section 45X of the IRA contains a production t\n\n[8] (matched keyword: 'United States') cenx-20241231 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 FOR THE FISCAL YEAR ENDED OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 Commission File Number (Exact name of registrant as specified in its charter) (Stat\n\n[9] (matched keyword: 'United States') e or as the context otherwise requires, \"Century Aluminum Company,\" \"Century Aluminum,\" \"Century,\" the \"Company,\" \"we,\" \"us,\" and \"our\" refer to Century Aluminum Company and its subsidiaries. Item 1. Business Overview Century Aluminum Company is a global producer of primary aluminum and operates aluminum reduction facilities, or \"smelters,\" in the United States and Iceland. Aluminum is an internationally traded commodity, and its price is effectively determined on the London Metal Exchange (the \"LME\"), plus applicable regional and value-added product premiums. Our smelters produce standard-grade and value-added primary aluminum products. Our current annual production capacity is approximately 1,020,000 t",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"Iceland\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"the U.S. currently imposes a 10% tariff on certain primary aluminum imports into the United States, which is expected to increase to 25% effective March 12, 2025. Our U.S. and Icelandic businesses currently access these respective market\",\n    \"excerpt_index\": 1\n  },\n  {\n    \"mentioned_country\": \"Jamaica\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"Jamalco\u2019s mining and refinery operations may be reached by a toll road from the center of Kingston, approximately a one hour drive west of Kingston, the administrative capital and main business center of the island.\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"Canada\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"All imports that directly compete with our products are covered by the tariff, with the exception of imports from Australia, Canada and Mexico.\",\n    \"excerpt_index\": 3\n  },\n  {\n    \"mentioned_country\": \"Mexico\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"All imports that directly compete with our products are covered by the tariff, with the exception of imports from Australia, Canada and Mexico.\",\n    \"excerpt_index\": 3\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"tariffs on aluminum imported from China are expected to increase to 25% from the current 7.5% tariff imposed in 2018.\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"aluminum\",\n    \"risk_text\": \"The increased tariff is in addition to the 10% tariff imposed under Section 232 of the Trade Expansion Act. The new and increased Section 301 tariffs are only applicable to imports with China as the country of origin.\",\n    \"excerpt_index\": 7\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-2a3d589015",
+      "company": "Century Aluminum",
+      "ticker": "CENX",
+      "filing_type": "10-K",
+      "filing_date": "2025-03-03",
+      "mentioned_country": "Iceland",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "the U.S. currently imposes a 10% tariff on certain primary aluminum imports into the United States, which is expected to increase to 25% effective March 12, 2025. Our U.S. and Icelandic businesses currently access these respective market",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000094915725000024/cenx-20241231.htm"
+    },
+    {
+      "id": "FM-f1b2165083",
+      "company": "Century Aluminum",
+      "ticker": "CENX",
+      "filing_type": "10-K",
+      "filing_date": "2025-03-03",
+      "mentioned_country": "Jamaica",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "Jamalco\u2019s mining and refinery operations may be reached by a toll road from the center of Kingston, approximately a one hour drive west of Kingston, the administrative capital and main business center of the island.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000094915725000024/cenx-20241231.htm"
+    },
+    {
+      "id": "FM-ef3e1bc589",
+      "company": "Century Aluminum",
+      "ticker": "CENX",
+      "filing_type": "10-K",
+      "filing_date": "2025-03-03",
+      "mentioned_country": "Canada",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "All imports that directly compete with our products are covered by the tariff, with the exception of imports from Australia, Canada and Mexico.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000094915725000024/cenx-20241231.htm"
+    },
+    {
+      "id": "FM-06941acbc6",
+      "company": "Century Aluminum",
+      "ticker": "CENX",
+      "filing_type": "10-K",
+      "filing_date": "2025-03-03",
+      "mentioned_country": "Mexico",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "All imports that directly compete with our products are covered by the tariff, with the exception of imports from Australia, Canada and Mexico.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000094915725000024/cenx-20241231.htm"
+    },
+    {
+      "id": "FM-7825577819",
+      "company": "Century Aluminum",
+      "ticker": "CENX",
+      "filing_type": "10-K",
+      "filing_date": "2025-03-03",
+      "mentioned_country": "China",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "tariffs on aluminum imported from China are expected to increase to 25% from the current 7.5% tariff imposed in 2018.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000094915725000024/cenx-20241231.htm"
+    },
+    {
+      "id": "FM-229158c88f",
+      "company": "Century Aluminum",
+      "ticker": "CENX",
+      "filing_type": "10-K",
+      "filing_date": "2025-03-03",
+      "mentioned_country": "China",
+      "mentioned_commodity": "aluminum",
+      "risk_text": "The increased tariff is in addition to the 10% tariff imposed under Section 232 of the Trade Expansion Act. The new and increased Section 301 tariffs are only applicable to imports with China as the country of origin.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000094915725000024/cenx-20241231.htm"
+    }
+  ]
+}
