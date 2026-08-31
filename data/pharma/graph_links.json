@@ -1,0 +1,110 @@
+[
+  {
+    "id": "GL-1320a04b33",
+    "policy_event_id": "PE-798fb587e1",
+    "filing_mention_id": "FM-44ae0da3fb",
+    "shared_country": "Switzerland",
+    "shared_commodity": "generic drugs",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-daf063d9e3",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-2e6b950188",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-8b534a37bb",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-c0a53477ea",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-2ba79711c1",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-7709ff24f9",
+    "shared_country": "Ireland",
+    "shared_commodity": "generic drugs",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-d649520021",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-051b01435e",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-55b67f4d19",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-c4092cf3b5",
+    "shared_country": "Germany",
+    "shared_commodity": "generic drugs",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-ef44b9e82b",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-897a3d8b04",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-287cfa3609",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-82fbff3f7a",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-314d7003a5",
+    "policy_event_id": "PE-c8158dc8a3",
+    "filing_mention_id": "FM-b1284fcb15",
+    "shared_country": "Ireland",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-71130a264f",
+    "policy_event_id": "PE-7c5a675c4e",
+    "filing_mention_id": "FM-c0a53477ea",
+    "shared_country": "Germany",
+    "shared_commodity": "innovative pharmaceutical products",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-1afff70ef7",
+    "policy_event_id": "PE-7c5a675c4e",
+    "filing_mention_id": "FM-c4092cf3b5",
+    "shared_country": "Germany",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-4430414860",
+    "policy_event_id": "PE-7c5a675c4e",
+    "filing_mention_id": "FM-897a3d8b04",
+    "shared_country": "Germany",
+    "shared_commodity": "innovative pharmaceutical products",
+    "hop_count": 1,
+    "confidence": 0.9
+  }
+]

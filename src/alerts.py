@@ -19,12 +19,7 @@ sys.path.insert(0, str(ROOT))
 from src.llm import call_llm, extract_json, save_trajectory
 from src.models import AlertCard, FilingMention, GraphLink, PolicyEvent
 
-POLICY_EVENTS_PATH = ROOT / "data" / "policy_events.json"
-FILING_MENTIONS_PATH = ROOT / "data" / "filing_mentions.json"
-GRAPH_LINKS_PATH = ROOT / "data" / "graph_links.json"
-OUTPUT_PATH = ROOT / "data" / "alert_cards.json"
-
-SYSTEM_PROMPT = """You are the Alert Explainer in a pharma supply-chain intelligence pipeline.
+SYSTEM_PROMPT = """You are the Alert Explainer in a {segment} supply-chain intelligence pipeline.
 
 You will be given ONE causal link: a government/news policy event and a
 company SEC filing mention that share a country (and possibly a commodity).
@@ -68,29 +63,38 @@ def _build_user_prompt(event: PolicyEvent, mention: FilingMention) -> str:
     )
 
 
-def run_alerts(force_refresh: bool = False) -> list[AlertCard]:
-    if OUTPUT_PATH.exists() and not force_refresh:
-        print(f"[alerts] using cached {OUTPUT_PATH}")
-        raw = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+def run_alerts(segment: str = "pharma", force_refresh: bool = False) -> list[AlertCard]:
+    segment_dir = ROOT / "data" / segment
+    output_path = segment_dir / "alert_cards.json"
+    if output_path.exists() and not force_refresh:
+        print(f"[alerts] using cached {output_path}")
+        raw = json.loads(output_path.read_text(encoding="utf-8"))
         return [AlertCard(**a) for a in raw]
 
-    events = {e["id"]: PolicyEvent(**e) for e in json.loads(POLICY_EVENTS_PATH.read_text(encoding="utf-8"))}
-    mentions = {m["id"]: FilingMention(**m) for m in json.loads(FILING_MENTIONS_PATH.read_text(encoding="utf-8"))}
-    links = [GraphLink(**link) for link in json.loads(GRAPH_LINKS_PATH.read_text(encoding="utf-8"))]
+    events = {
+        e["id"]: PolicyEvent(**e) for e in json.loads((segment_dir / "policy_events.json").read_text(encoding="utf-8"))
+    }
+    mentions = {
+        m["id"]: FilingMention(**m)
+        for m in json.loads((segment_dir / "filing_mentions.json").read_text(encoding="utf-8"))
+    }
+    links = [GraphLink(**link) for link in json.loads((segment_dir / "graph_links.json").read_text(encoding="utf-8"))]
 
+    system = SYSTEM_PROMPT.format(segment=segment)
     cards: list[AlertCard] = []
     for link in links:
         event = events[link.policy_event_id]
         mention = mentions[link.filing_mention_id]
         user_prompt = _build_user_prompt(event, mention)
+        call_id = f"{segment}_{link.id}"
 
         print(f"[alerts] {link.id}: {event.country}/{event.affected_product} <-> {mention.ticker}")
-        response = call_llm(SYSTEM_PROMPT, user_prompt, max_tokens=800)
+        response = call_llm(system, user_prompt, max_tokens=800)
         try:
             obj = extract_json(response)
         except (ValueError, json.JSONDecodeError) as e:
             print(f"  [alerts] {link.id}: failed to parse JSON ({e}), skipping")
-            save_trajectory("alert_explainer", link.id, SYSTEM_PROMPT, user_prompt, response, parsed=None)
+            save_trajectory("alert_explainer", call_id, system, user_prompt, response, parsed=None)
             continue
 
         card = AlertCard(
@@ -105,13 +109,15 @@ def run_alerts(force_refresh: bool = False) -> list[AlertCard]:
             filing_source_url=mention.source_url,
         )
         cards.append(card)
-        save_trajectory("alert_explainer", link.id, SYSTEM_PROMPT, user_prompt, response, parsed=card.model_dump())
+        save_trajectory("alert_explainer", call_id, system, user_prompt, response, parsed=card.model_dump())
 
-    OUTPUT_PATH.write_text(json.dumps([c.model_dump() for c in cards], indent=2), encoding="utf-8")
-    print(f"[alerts] {len(cards)} Alert Cards saved to {OUTPUT_PATH}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps([c.model_dump() for c in cards], indent=2), encoding="utf-8")
+    print(f"[alerts] {len(cards)} Alert Cards saved to {output_path}")
     return cards
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    run_alerts()
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    run_alerts(segment=segment_arg)

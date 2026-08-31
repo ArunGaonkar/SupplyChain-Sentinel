@@ -15,9 +15,6 @@ from pathlib import Path
 from src.models import FilingMention, GraphLink, PolicyEvent
 
 ROOT = Path(__file__).resolve().parent.parent
-POLICY_EVENTS_PATH = ROOT / "data" / "policy_events.json"
-FILING_MENTIONS_PATH = ROOT / "data" / "filing_mentions.json"
-OUTPUT_PATH = ROOT / "data" / "graph_links.json"
 
 # Countries our two agents might name slightly differently for the same place.
 COUNTRY_ALIASES = {
@@ -124,18 +121,23 @@ def build_graph(events: list[PolicyEvent], mentions: list[FilingMention]) -> lis
     return links
 
 
-def run_graph(force_refresh: bool = False) -> list[GraphLink]:
-    if OUTPUT_PATH.exists() and not force_refresh:
-        print(f"[graph] using cached {OUTPUT_PATH}")
-        raw = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+def run_graph(segment: str = "pharma", force_refresh: bool = False) -> list[GraphLink]:
+    segment_dir = ROOT / "data" / segment
+    output_path = segment_dir / "graph_links.json"
+    if output_path.exists() and not force_refresh:
+        print(f"[graph] using cached {output_path}")
+        raw = json.loads(output_path.read_text(encoding="utf-8"))
         return [GraphLink(**link) for link in raw]
 
-    events = [PolicyEvent(**e) for e in json.loads(POLICY_EVENTS_PATH.read_text(encoding="utf-8"))]
-    mentions = [FilingMention(**m) for m in json.loads(FILING_MENTIONS_PATH.read_text(encoding="utf-8"))]
+    events = [PolicyEvent(**e) for e in json.loads((segment_dir / "policy_events.json").read_text(encoding="utf-8"))]
+    mentions = [
+        FilingMention(**m) for m in json.loads((segment_dir / "filing_mentions.json").read_text(encoding="utf-8"))
+    ]
 
     links = build_graph(events, mentions)
-    OUTPUT_PATH.write_text(json.dumps([link.model_dump() for link in links], indent=2), encoding="utf-8")
-    print(f"[graph] {len(events)} events x {len(mentions)} mentions -> {len(links)} links saved to {OUTPUT_PATH}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps([link.model_dump() for link in links], indent=2), encoding="utf-8")
+    print(f"[graph] {len(events)} events x {len(mentions)} mentions -> {len(links)} links saved to {output_path}")
     return links
 
 
@@ -143,4 +145,5 @@ if __name__ == "__main__":
     import sys
 
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    run_graph()
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    run_graph(segment=segment_arg)

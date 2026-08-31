@@ -1,0 +1,317 @@
+[
+  {
+    "id": "GL-c3dd623d7e",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-f35ac4a53d",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-325096ea0a",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-4daf7a57be",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-9ea2e327a9",
+    "policy_event_id": "PE-f84a8c50ab",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-8e8f0d6d89",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-969aba6232",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-f8732147e2",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-3b6d95e574",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-b637cae04b",
+    "policy_event_id": "PE-6fc3ce7750",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-adabd90912",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-735b68e149",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-a33bc05803",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-5b8449b446",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-d165f9492c",
+    "policy_event_id": "PE-cde39b3434",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-9385b58135",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-1786d6c6fe",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-f0f632ee0d",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-b551f4416c",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-830934f987",
+    "policy_event_id": "PE-5f0e33005d",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-bc108dc47b",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-0a4b2c6397",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-e65d04af54",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-7b50847385",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-8903be9a85",
+    "policy_event_id": "PE-5260cffb82",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-41007131ca",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-e0ac12f521",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-9172cd6219",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-9343f99273",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-7d7793be4a",
+    "policy_event_id": "PE-97e136e2f1",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": "advanced logic chips",
+    "hop_count": 1,
+    "confidence": 0.9
+  },
+  {
+    "id": "GL-de38863ce1",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-dafbe56be5",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-d0c2625432",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-beff10b38f",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-949de78af0",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-4984d6f0df",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-a4b5a97c9b",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-4bce445814",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  },
+  {
+    "id": "GL-bd4c2461b8",
+    "policy_event_id": "PE-dc4bc02bbc",
+    "filing_mention_id": "FM-6752bad2c8",
+    "shared_country": "China",
+    "shared_commodity": null,
+    "hop_count": 2,
+    "confidence": 0.6
+  }
+]

@@ -29,7 +29,6 @@ from typing import Optional
 import requests
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-CACHE_DIR = ROOT / "data" / "cache" / "policy_raw"
 GDELT_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
 FEDREG_URL = "https://www.federalregister.gov/api/v1/documents.json"
 USER_AGENT = "SupplyChainSentinel/0.1 (hackathon submission; contact arun.rg37@gmail.com)"
@@ -114,19 +113,20 @@ def _try_federal_register(term: str, per_page: int = 15, timeout: int = 20) -> l
     ]
 
 
-def pull_policy_events(query_terms: list[str], force_refresh: bool = False) -> list[dict]:
+def pull_policy_events(query_terms: list[str], segment: str = "pharma", force_refresh: bool = False) -> list[dict]:
     """Pulls raw policy/news items for each query term, caching each to
-    data/cache/policy_raw/<term>.json. Returns the combined list.
+    data/<segment>/cache/policy_raw/<term>.json. Returns the combined list.
 
     If a cache file already exists and force_refresh is False, it is reused
     (this is what makes reruns work with zero network calls).
     """
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_dir = ROOT / "data" / segment / "cache" / "policy_raw"
+    cache_dir.mkdir(parents=True, exist_ok=True)
     combined: list[dict] = []
     gdelt_ever_worked = False
 
     for term in query_terms:
-        cache_path = CACHE_DIR / f"{_slug(term)}.json"
+        cache_path = cache_dir / f"{_slug(term)}.json"
         if cache_path.exists() and not force_refresh:
             print(f"  [cache hit] {cache_path.name}")
             combined.extend(json.loads(cache_path.read_text(encoding="utf-8")))
@@ -165,6 +165,7 @@ if __name__ == "__main__":
     sys.path.insert(0, str(ROOT))
     from src.config import load_segment
 
-    cfg = load_segment("pharma")
-    events = pull_policy_events(cfg["gdelt_query_terms"])
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    cfg = load_segment(segment_arg)
+    events = pull_policy_events(cfg["gdelt_query_terms"], segment=segment_arg)
     print(f"\nTotal raw policy items cached: {len(events)}")

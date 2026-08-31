@@ -1,0 +1,226 @@
+[
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Foreign-Produced Direct Product Rule Additions, and Refinements to Controls for Advanced Computing and Semiconductor Manufacturing Items",
+    "url": "https://www.federalregister.gov/documents/2024/12/05/2024-28270/foreign-produced-direct-product-rule-additions-and-refinements-to-controls-for-advanced-computing",
+    "date": "20241205",
+    "domain": "federalregister.gov",
+    "snippet": "In this interim final rule (IFR), the Bureau of Industry and Security (BIS) makes changes to the Export Administration Regulations (EAR) controls for certain advanced computing items, supercomputers, and semiconductor manufacturing equipment, which includes adding new controls for certain semiconductor manufacturing equipment and related items, creating new Foreign Direct Product (FDP) rules for certain commodities to impair the capability to produce \"advanced-node integrated circuits\" (\"advanced-node ICs\") by certain destinations or entities of concern, adding new controls for certain high bandwidth memory important for advanced computing, and clarifying controls on certain software keys that allow for the use of items such as software tools. This IFR publishes concurrently with another BIS final rule entitled, \"Additions and Modifications to the Entity List; and Removals from the Validated End-User (VEU) Program\" (Entity List rule) that adds to and modifies the Entity List to ensure appropriate EAR controls are in place for certain critical technologies and to minimize the risk of diversion to entities of concern.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2024-28270"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Notice of Action: China's Acts, Policies, and Practices Related to Targeting of the Semiconductor Industry for Dominance",
+    "url": "https://www.federalregister.gov/documents/2025/12/29/2025-23912/notice-of-action-chinas-acts-policies-and-practices-related-to-targeting-of-the-semiconductor",
+    "date": "20251229",
+    "domain": "federalregister.gov",
+    "snippet": "The United States Trade Representative (U.S. Trade Representative) has determined that China's acts, policies, and practices are actionable under Section 301 of the Trade Act of 1974 and that appropriate responsive action includes taking tariff action now on semiconductors from China, with an initial tariff level of 0 percent, increasing in 18 months on June 23, 2027, to a rate to be announced not fewer than 30 days prior to that date, as described below.",
+    "agencies": [
+      "Trade Representative, Office of United States"
+    ],
+    "doc_type": "Notice",
+    "document_number": "2025-23912"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Revocation of Validated End-User Authorizations in the People's Republic of China",
+    "url": "https://www.federalregister.gov/documents/2025/09/02/2025-16735/revocation-of-validated-end-user-authorizations-in-the-peoples-republic-of-china",
+    "date": "20250902",
+    "domain": "federalregister.gov",
+    "snippet": "In this final rule, the Bureau of Industry and Security (BIS) amends the Export Administration Regulations (EAR) to revise the existing Validated End-User (VEU) Authorizations list for the People's Republic of China (PRC) by removing Intel Semiconductor (Dalian) Ltd; Samsung China Semiconductor Co. Ltd; and SK hynix Semiconductor (China) Ltd.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2025-16735"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Implementation of Additional Export Controls: Certain Advanced Computing Items; Supercomputer and Semiconductor End Use; Updates and Corrections; and Export Controls on Semiconductor Manufacturing Items; Corrections and Clarifications",
+    "url": "https://www.federalregister.gov/documents/2024/04/04/2024-07004/implementation-of-additional-export-controls-certain-advanced-computing-items-supercomputer-and",
+    "date": "20240404",
+    "domain": "federalregister.gov",
+    "snippet": "On October 25, 2023, the Bureau of Industry and Security (BIS) published in the Federal Register the interim final rules (IFR), \"Export Controls on Semiconductor Manufacturing Items\" (SME IFR) and \"Implementation of Additional Export Controls: Certain Advanced Computing Items; Supercomputer and Semiconductor End Use; Updates and Corrections\" (AC/S IFR). This rule corrects inadvertent errors in those rules and makes additional clarifications for the two rules.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2024-07004"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Notice of Request for Public Comments on Section 232 National Security Investigation of Imports of Semiconductors and Semiconductor Manufacturing Equipment",
+    "url": "https://www.federalregister.gov/documents/2025/04/16/2025-06591/notice-of-request-for-public-comments-on-section-232-national-security-investigation-of-imports-of",
+    "date": "20250416",
+    "domain": "federalregister.gov",
+    "snippet": "The Secretary of Commerce initiated an investigation to determine the effects on the national security of imports of semiconductors and semiconductor manufacturing equipment (SME), and their derivative products. This investigation has been initiated under section 232 of the Trade Expansion Act of 1962, as amended. Interested parties are invited to submit written comments, data, analyses, or other information pertinent to the investigation to the Department of Commerce's (Department) Bureau of Industry and Security (BIS), Office of Strategic Industries and Economic Security. This notice identifies issues on which the Department is especially interested in obtaining the public's views.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Notice",
+    "document_number": "2025-06591"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Revision to License Review Policy for Advanced Computing Commodities",
+    "url": "https://www.federalregister.gov/documents/2026/01/15/2026-00789/revision-to-license-review-policy-for-advanced-computing-commodities",
+    "date": "20260115",
+    "domain": "federalregister.gov",
+    "snippet": "The Bureau of Industry and Security (BIS) is revising its license review policy for exports of certain semiconductors to China and Macau--changing it from a presumption of denial to a case-by-case review. The semiconductors covered by this rule are the Nvidia H200 and its equivalents, as well as less advanced chips--provided that (1) the semiconductors are commercially available in the United States at the time of publication of this rule and (2) the exporter certifies that: there is sufficient supply of this product in the United States; production of this product for exports to China will not divert global foundry capacity for similar or more advanced products for end users in the United States; the recipient has demonstrated sufficient security procedures; and the item undergoes independent, third-party testing in the United States to verify its performance specifications.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2026-00789"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Commerce Control List Additions and Revisions; Implementation of Controls on Advanced Technologies Consistent With Controls Implemented by International Partners",
+    "url": "https://www.federalregister.gov/documents/2024/09/06/2024-19633/commerce-control-list-additions-and-revisions-implementation-of-controls-on-advanced-technologies",
+    "date": "20240906",
+    "domain": "federalregister.gov",
+    "snippet": "The Bureau of Industry and Security (BIS) is implementing export controls on several semiconductor, quantum, and additive manufacturing items for national security and foreign policy reasons. This rule adds new Export Control Classification Numbers (ECCNs) to the Commerce Control List, revises existing ECCNs, adds a new license exception to authorize exports and reexports to and by countries that have implemented equivalent technical controls for these newly added items, and adds two new worldwide license requirements to the national security and regional stability controls in the Export Administration Regulations (EAR). These controls are the product of extensive discussions with international partners.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2024-19633"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Export Controls on Semiconductor Manufacturing Items",
+    "url": "https://www.federalregister.gov/documents/2023/10/25/2023-23049/export-controls-on-semiconductor-manufacturing-items",
+    "date": "20231025",
+    "domain": "federalregister.gov",
+    "snippet": "On October 7, 2022, the Bureau of Industry and Security (BIS) released the interim final rule (IFR) \"Implementation of Additional Export Controls: Certain Advanced Computing and Semiconductor Manufacturing Items; Supercomputer and Semiconductor End Use\" (October 7 IFR), which amended the Export Administration Regulations (EAR) to implement controls on advanced computing integrated circuits (ICs), computer commodities that contain such ICs, and certain semiconductor manufacturing items. The October 7 IFR also made other EAR changes to ensure appropriate related controls, including on certain \"U.S. person\" activities. This IFR addresses comments received in response to only the part of the October 7 IFR that controls semiconductor manufacturing equipment (SME) and amends the EAR to implement SME controls more effectively and to address ongoing national security concerns.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2023-23049"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Public Briefing on Changes to Advanced Computing and Semiconductor Manufacturing Items",
+    "url": "https://www.federalregister.gov/documents/2024/12/04/2024-28423/public-briefing-on-changes-to-advanced-computing-and-semiconductor-manufacturing-items",
+    "date": "20241204",
+    "domain": "federalregister.gov",
+    "snippet": "On December 2, 2024, the Office of the Federal Register posted for public inspection two related Bureau of Industry and Security (BIS) rules: an interim final rule, \"Foreign-Produced Direct Product Rule Additions, and Refinements to Controls for Advanced Computing and Semiconductor Manufacturing Items,\" (RIN 0694-AJ74) and a final rule, \"Additions and Modifications to the Entity List; Removals from the Validated End-User (VEU) Program\" (RIN 0694-AJ77). This document announces that, on December 5, 2024, BIS will host a virtual public briefing on these rules. This document also provides details on the procedures for participating in the virtual public briefing.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2024-28423"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Export Controls on Semiconductor Manufacturing Items; Implementation of Additional Export Controls: Certain Advanced Computing Items; Supercomputer and Semiconductor End Use; Updates and Corrections; Extension of Comment Period",
+    "url": "https://www.federalregister.gov/documents/2023/12/15/2023-27588/export-controls-on-semiconductor-manufacturing-items-implementation-of-additional-export-controls",
+    "date": "20231215",
+    "domain": "federalregister.gov",
+    "snippet": "On October 25, 2023, the Bureau of Industry and Security (BIS) published in the Federal Register the interim final rules (IFR), \"Export Controls on Semiconductor Manufacturing Items\" (SME IFR) and \"Implementation of Additional Export Controls: Certain Advanced Computing Items; Supercomputer and Semiconductor End Use; Updates and Corrections\" (AC/S IFR). This notification extends the deadline for submission of written comments on both rules to January 17, 2024. BIS is making this extension to allow commenters to have additional time to review the interim final rules and to benefit from the significant amount of public outreach that BIS is conducting on the rules prior to preparing and submitting their comments on the IFRs.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2023-27588"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Enhanced Favorable Treatment for the United Arab Emirates Under the Export Administration Regulations",
+    "url": "https://www.federalregister.gov/documents/2026/07/14/2026-14132/enhanced-favorable-treatment-for-the-united-arab-emirates-under-the-export-administration",
+    "date": "20260714",
+    "domain": "federalregister.gov",
+    "snippet": "In this final rule, the Bureau of Industry and Security (BIS) amends the Export Administration Regulations (EAR) to provide enhanced favorable treatment for the United Arab Emirates (UAE). Specifically, BIS is removing the UAE from Country Groups D:3 and D:4 and adding the UAE to Country Group A:5. More license exceptions will now be available, including Strategic Trade Authorization (STA) for the UAE Government and approved commercial entities in the UAE. STA will authorize the export, reexport, or transfer (in-country) of military items; certain commercial satellites and spacecraft; and dual-use items useful in, inter alia, oil and gas production, desalination, and civil nuclear power generation. The UAE Government and approved commercial entities will also have license-free access to advanced computing items, consistent with the May 2025 U.S.-UAE Artificial Intelligence Cooperation framework, without compromising U.S. digital infrastructure buildout.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2026-14132"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Implementation of Additional Due Diligence Measures for Advanced Computing Integrated Circuits; Amendments and Clarifications; and Extension of Comment Period",
+    "url": "https://www.federalregister.gov/documents/2025/01/16/2025-00711/implementation-of-additional-due-diligence-measures-for-advanced-computing-integrated-circuits",
+    "date": "20250116",
+    "domain": "federalregister.gov",
+    "snippet": "BIS is revising the Export Administration Regulations (EAR) in response to requests from the public to provide additional due diligence procedures regarding advanced computing integrated circuits (ICs). This interim final rule (IFR) will protect the national security of the United States and assist foundries and Outsourced Semiconductor Assembly and Test (\"OSATs\") companies in complying with provisions of the EAR pertaining to advanced computing ICs in the supply chain. This IFR also revises the EAR to make amendments and clarifications to the EAR for changes made to the EAR in an IFR released by BIS on December 2, 2024, \"Foreign-Produced Direct Product Rule Additions, and Refinements to Controls for Advanced Computing and Semiconductor Manufacturing Items,\" (FDP IFR), including extending the deadline for written comments for the FDP IFR to March 14, 2025.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2025-00711"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Procedures for Access to the Public Briefing on Additional Export Controls on Certain Advanced Computing and Supercomputing Items; and Semiconductor Manufacturing Items",
+    "url": "https://www.federalregister.gov/documents/2023/10/27/2023-23810/procedures-for-access-to-the-public-briefing-on-additional-export-controls-on-certain-advanced",
+    "date": "20231027",
+    "domain": "federalregister.gov",
+    "snippet": "On October 25, 2023, the Bureau of Industry and Security (BIS) is publishing in the Federal Register two interim final rules, \"Implementation of Additional Export Controls: Certain Advanced Computing Items; Supercomputer and Semiconductor End Use; Updates and Corrections\" and \"Export Controls on Semiconductor Manufacturing Items,\" which were both filed for public inspection at the Federal Register on October 18, 2023. BIS published an associated final rule, \"Entity List Additions,\" in the Federal Register on October 19, 2023. On November 6, 2023, Assistant Secretary for Export Administration Thea D. Rozman Kendler will conduct a public briefing on these two interim final rules and one final rule. This announcement provides details on the procedures for participating in the public briefing.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Proposed Rule",
+    "document_number": "2023-23810"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Additions and Modifications to the Entity List; Removals From the Validated End-User (VEU) Program",
+    "url": "https://www.federalregister.gov/documents/2024/12/05/2024-28267/additions-and-modifications-to-the-entity-list-removals-from-the-validated-end-user-veu-program",
+    "date": "20241205",
+    "domain": "federalregister.gov",
+    "snippet": "In this final rule, the Bureau of Industry and Security (BIS) amends the Export Administration Regulations (EAR) by adding 140 entities to the Entity List. These entries are listed on the Entity List under the destinations of China, People's Republic of (China), Japan, South Korea, and Singapore and have been determined by the U.S. Government to be acting contrary to the national security and foreign policy interests of the United States. This final rule also modifies 14 existing entries on the Entity List, consisting of revisions to 14 entries under China. This final rule publishes concurrently with BIS's interim final rule, \"Foreign-Produced Direct Product Rule Additions, and Refinements to Controls for Advanced Computing and Semiconductor Manufacturing Items\" (0694-AJ74), which makes additional changes to the EAR controls on advanced computing items and semiconductor manufacturing items. This final rule is part of this larger effort to ensure that appropriate EAR controls are in place on these items, including in connection with transactions destined to or otherwise involving the entities being added to the Entity List, as well as for existing entries on the Entity List that are being modified. All of these entities (those newly added and those being modified) are involved with the development and production of \"advanced-node integrated circuits\" (\"advanced-node ICs\") and/or semiconductor manufacturing items, and/or have supported the Chinese government's Military-Civil Fusion (MCF) Development Strategy. Additionally, this final rule designates nine of these entities being added and seven of the entries being modified as entities for which entity-specific restrictions involving foreign-produced items apply. This final rule also amends the EAR by removing three entities from the Validated End- User (VEU) Program.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2024-28267"
+  },
+  {
+    "source": "federal_register",
+    "query_term": "semiconductor export control",
+    "title": "Implementation of Additional Export Controls: Certain Advanced Computing Items; Supercomputer and Semiconductor End Use; Updates and Corrections",
+    "url": "https://www.federalregister.gov/documents/2023/10/25/2023-23055/implementation-of-additional-export-controls-certain-advanced-computing-items-supercomputer-and",
+    "date": "20231025",
+    "domain": "federalregister.gov",
+    "snippet": "On October 7, 2022, the Bureau of Industry and Security (BIS) released the interim final rule (IFR), \"Implementation of Additional Export Controls: Certain Advanced Computing and Semiconductor Manufacturing Items; Supercomputer and Semiconductor End Use; Entity List Modification\" (October 7 IFR), which amended the Export Administration Regulations (EAR) to implement controls on advanced computing integrated circuits (ICs), computer commodities that contain such ICs, and certain semiconductor manufacturing items, and to make other EAR changes to implement appropriate related controls, including on certain \"U.S. person\" activities. This Advanced Computing/ Supercomputing IFR (AC/S IFR) addresses comments received in response to only the part of the October 7 IFR that controls advanced computing ICs and computer commodities that contain such ICs. This rule also makes other changes to make the controls more effective and less burdensome, including by correcting and clarifying the controls to more effectively achieve the policy objectives identified in the October 7 IFR. This AC/S IFR is published concurrently with a second BIS IFR, \"Export Controls on Semiconductor Manufacturing Items,\" which addresses public comments received in response to other portions of the October 7 IFR. Together, these IFRs revise the October 7 IFR controls to more effectively achieve BIS's focused national security policy objectives. These revisions protect U.S. national security interests by further restricting China's ability to obtain critical technologies to modernize its military capabilities in ways that threaten the national security interests of the United States and its allies.",
+    "agencies": [
+      "Commerce Department",
+      "Industry and Security Bureau"
+    ],
+    "doc_type": "Rule",
+    "document_number": "2023-23055"
+  }
+]

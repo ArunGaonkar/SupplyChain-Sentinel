@@ -1,0 +1,123 @@
+{
+  "rows": [
+    {
+      "id": "eval-01",
+      "company": "AbbVie",
+      "ticker": "ABBV",
+      "country": "Ireland",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "US-EU tariff relief on generics could ease cost pressure at AbbVie's Irish plants",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-02",
+      "company": "Bristol-Myers Squibb",
+      "ticker": "BMY",
+      "country": "Ireland",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Could Affect BMY's Irish Manufacturing Base",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-03",
+      "company": "Eli Lilly",
+      "ticker": "LLY",
+      "country": "Ireland",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "EU Tariff Cut on Generic Drugs Eases Cost Pressure on Lilly's Irish API Operations",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-04",
+      "company": "Viatris",
+      "ticker": "VTRS",
+      "country": "Ireland",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "US-EU Tariff Cut on Generics Eases Cost Pressure for Viatris' Irish API Operations",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-05",
+      "company": "Eli Lilly",
+      "ticker": "LLY",
+      "country": "Germany",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "EU Generic Drug Tariff Cut Intersects with Lilly's German Manufacturing Expansion",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-06",
+      "company": "AbbVie",
+      "ticker": "ABBV",
+      "country": "Germany",
+      "expect_link": true,
+      "baseline_caught": false,
+      "baseline_correct": false,
+      "baseline_evidence": "",
+      "advanced_caught": true,
+      "advanced_correct": true,
+      "advanced_evidence": "US-EU Tariff Cut on Generic Drugs Could Ease Cost Pressure on AbbVie's German Operations",
+      "advanced_beat_baseline": true
+    },
+    {
+      "id": "eval-07",
+      "company": "Merck",
+      "ticker": "MRK",
+      "country": null,
+      "expect_link": false,
+      "baseline_caught": false,
+      "baseline_correct": true,
+      "baseline_evidence": "",
+      "advanced_caught": false,
+      "advanced_correct": true,
+      "advanced_evidence": "",
+      "advanced_beat_baseline": false
+    },
+    {
+      "id": "eval-08",
+      "company": "Eli Lilly",
+      "ticker": "LLY",
+      "country": "China",
+      "expect_link": false,
+      "baseline_caught": false,
+      "baseline_correct": true,
+      "baseline_evidence": "",
+      "advanced_caught": false,
+      "advanced_correct": true,
+      "advanced_evidence": "",
+      "advanced_beat_baseline": false
+    }
+  ],
+  "summary": {
+    "total_cases": 8,
+    "baseline_accuracy": 0.25,
+    "advanced_accuracy": 1.0,
+    "cases_advanced_beat_baseline": 6,
+    "cases_baseline_beat_advanced": 0
+  }
+}

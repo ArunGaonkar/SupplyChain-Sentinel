@@ -4,6 +4,73 @@ One entry per phase/iteration: what was tried, the evidence, and the
 decision/learning. Includes things tried and removed, per the hackathon's own
 rules for this document.
 
+## Post-submission — Semiconductor segment (real second segment, not a stub)
+
+Requested: expand from pharma-only to also cover semiconductors, and retry
+GDELT (still down — same confirmed infrastructure outage as Phase 0, checked
+again from two independent network paths).
+
+**Refactor required first:** every path in the codebase was hardcoded to
+`data/policy_events.json` etc. — a single, implicit "pharma" dataset. Adding
+a second segment meant threading a `segment` parameter through every
+connector, agent, `graph.py`, `alerts.py`, `baseline.py`, and `eval/
+run_eval.py`, and moving data to `data/<segment>/...`. Trajectory filenames
+also gained a segment prefix (`pharma_batch_000.json`) since `policy_agent`'s
+batch-number naming would otherwise collide across segments.
+
+**Real bug found and fixed (generalizing a pharma-specific assumption):**
+`src/connectors/edgar.py` hardcoded `"tariffs"/"tariff"` as the search term
+tried first when picking which filing to pull, on the unstated assumption
+that tariffs are always the central policy lever. For semiconductors, export
+controls (the China Entity List, license requirements on advanced chips) are
+at least as central as tariffs — this is not a semiconductor-only
+technicality, it's the dominant real 2025-2026 policy story for this sector.
+Fixed by making the priority-term list a per-segment config field
+(`edgar_priority_terms`) instead of a hardcoded constant.
+
+**Real bug found and fixed (a second pharma-specific assumption, more
+consequential):** the Filing Agent's prompt only recognized SOURCE
+dependencies ("the company manufactures/sources in country X"). Rerunning it
+for semiconductors surfaced that NVIDIA's own 10-K discusses its single most
+material China exposure — a "significant portion of our revenue," subject to
+US export-license requirements — and the agent correctly skipped it, because
+that's a MARKET/export dependency (the company sells there and needs a
+license to), not a sourcing one. The prompt was pharma-shaped: pharma tariffs
+are overwhelmingly about importing FROM a country, so sourcing-only framing
+happened to be sufficient there and the gap never showed up. Broadened the
+prompt to recognize both directions equally. Rerunning pharma too (for
+consistency, not because pharma needed it) picked up 6 more FilingMentions
+there as well (18 -> 24) — a small quality improvement piggybacking on a fix
+made for a different segment's problem. Re-ran the full pharma eval
+afterward to confirm this didn't regress it: still 25% baseline / 100%
+advanced / 6 cases won / 0 lost.
+
+**Bug found and fixed (silent truncation, not a logic error):** both
+`policy_agent.py` (`max_tokens=3000`) and `filing_agent.py`
+(`max_tokens=2000`) had been sized against pharma's hit rate. Semiconductor's
+batches had a higher density of genuinely relevant items, so two
+policy-agent batches and two filing-agent calls got cut off mid-JSON-array —
+caught immediately because `extract_json` then failed to parse them (a loud
+failure, not a silent one), not because anyone was watching for it. Raised
+both limits (4096 / 3000) and reran; every batch parsed cleanly afterward.
+
+**Result:** semiconductor produced 22 PolicyEvents, 32 FilingMentions, 35
+GraphLinks, 34 Alert Cards, from real GDELT-outage-fallback Federal Register
+notices and real 10-Ks — richer and more concentrated than pharma's numbers,
+which is itself an honest finding: real-world semiconductor export-control
+policy in this window is genuinely denser and more China-concentrated than
+pharma tariff policy is EU-concentrated. No golden eval set was built for
+semiconductor (out of scope for this pass — see README); `run_pipeline.py`
+skips Phase 6 for a segment with no golden file rather than fake a score.
+
+**Dashboard:** the Segment dropdown (previously a no-op stub) now genuinely
+switches — every segment with data is rendered into the same page, tagged
+`data-segment`, and the existing time-range/focus filter mechanism was
+extended with a segment filter using the identical pattern. Switching
+segments clears any active company/country focus, since a focus based on a
+country string (e.g. "China" or "Germany") could otherwise silently carry
+over and match the wrong segment's same-named country.
+
 ## Post-submission — Dashboard v3 (Opportunities, grouping, sort, dynamic stats, glossary)
 
 Requested feedback on v2: the header stat tiles didn't visibly do anything,

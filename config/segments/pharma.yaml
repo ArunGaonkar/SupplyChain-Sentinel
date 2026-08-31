@@ -1,6 +1,6 @@
 # SupplyChain Sentinel — segment config: pharma
-# Only "pharma" is implemented for this build; other segments are config stubs
-# (see config/segments/README.md) to show the architecture generalizes.
+# See config/segments/README.md for which segments have real data vs. are
+# config-only stubs.
 segment: pharma
 description: >
   Pharmaceutical supply chain — active pharmaceutical ingredients (API),
@@ -74,3 +74,10 @@ edgar_query_terms:
   - supply chain
   - active pharmaceutical ingredient
   - import restriction
+
+# Searched/excerpted first (see src/connectors/edgar.py _search_best_filing) —
+# the terms most central to THIS segment's causal thesis. For pharma that's
+# tariffs specifically, not the broader edgar_query_terms list above.
+edgar_priority_terms:
+  - tariffs
+  - tariff

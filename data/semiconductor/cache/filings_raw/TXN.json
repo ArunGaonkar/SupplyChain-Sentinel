@@ -1,0 +1,47 @@
+{
+  "company": "Texas Instruments",
+  "ticker": "TXN",
+  "cik": "0000097476",
+  "filing_type": "10-K",
+  "filing_date": "2026-02-06",
+  "accession": "0000097476-26-000059",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/97476/000009747626000059/txn-20251231.htm",
+  "excerpts": [
+    {
+      "keyword": "tariff",
+      "text": "iny, which has contributed to variability in global trade conditions and supply chains. Certain countries where we operate, particularly the United States and China, have experienced, and other countries may experience, geopolitical tensions and administrative measures that affect global trade and macroeconomic conditions through the imposition of tariffs, including tariffs specific to the products that we sell, import or export restrictions, trade embargoes and sanctions, restrictions on cross-border investment and other trade barriers applicable to the semiconductor industry. Geopolitical tensions and administrative measures could limit our access to markets or impact our ability to deliver prod"
+    },
+    {
+      "keyword": "tariff",
+      "text": "eases in product demand. Additionally, the loss or significant curtailment of purchases by one or more of our large customers, including curtailments due to a change in the design or manufacturing sourcing policies or practices of these customers, the timing of customer or distributor inventory adjustments, changes in demand for customer products, tariffs, export controls or other trade measures, may adversely affect our results of operations and financial condition. Our results of operations also might suffer because of a general decline or volatility in customer demand resulting from, for example: uncertainty regarding the stability of global credit and financial markets; natural events, pandemi"
+    },
+    {
+      "keyword": "Taiwan",
+      "text": "land, Maine X Tucson, Arizona X Santa Clara, California * X Houston, Texas X Chengdu, China ** X X Shanghai, China * X X Freising, Germany X X Bangalore, India ** X X Aizu, Japan X X Miho, Japan X X Kuala Lumpur, Malaysia ** X X Melaka, Malaysia ** X Aguascalientes, Mexico * X Baguio, Philippines ** X X Pampanga (Clark), Philippines ** X X Taipei, Taiwan ** X X * Leased. ** Portions of the facilities are leased and owned. This may include land leases, particularly for non-U.S. sites. Our facilities in the United States contained approximately 17.8 million square feet at December 31, 2025, of which approximately 0.6 million square feet were leased. Our facilities outside the United States contained"
+    },
+    {
+      "keyword": "China",
+      "text": "our business and industry Our global operations subject us to risks associated with domestic or international political, social, economic or other conditions. We have facilities in more than 30 countries. About 60% of our revenue comes from customers with headquarter locations outside the United States. Revenue from end customers headquartered in China represented about 20% of our revenue in 2025, while revenue from products shipped into China represented about 50% of our revenue in 2025. We also continue to expand our offerings of online transactions and services worldwide. The semiconductor industry has recently been the focus of increased regulatory activity and scrutiny, which has contribute"
+    },
+    {
+      "keyword": "Japan",
+      "text": "lithographic and chemical processing steps that fabricate a number of semiconductor devices on a thin silicon wafer. Each device on the wafer is packaged and tested. The entire process takes place in highly specialized facilities that require substantial investments. We own and operate semiconductor manufacturing facilities in North America, Asia, Japan and Europe. These include both wafer fabrication (fab) and assembly/test facilities. We invest in manufacturing technologies and do most of our manufacturing in-house. This strategic decision to make manufacturing and technology a core competitive advantage provides us with tangible benefits of lower manufacturing costs and greater control of our"
+    },
+    {
+      "keyword": "Malaysia",
+      "text": "ese forward currency exchange contracts to reduce the earnings impact that exchange rate fluctuations may have on our non-U.S. dollar net balance sheet exposures. As of December 31, 2025, we had forward currency exchange contracts outstanding with a notional value of $675 million to hedge net balance sheet exposures (including $174 million to sell Malaysian ringgit, $169 million to buy Indian rupee and $107 million to sell British pounds). Similar hedging activities existed at year-end 2024. Interest rate risk We have the following potential exposure to changes in interest rates: (i) the effect of changes in interest rates on the fair value of our investments in cash equivalents and short-term inves"
+    },
+    {
+      "keyword": "China",
+      "text": "etition in the markets in which we operate. We expect this competition will continue to increase from large competitors and from small competitors serving niche markets, and also from emerging companies, particularly in Asia, that sell products into the same markets in which we operate. For example, we may face increased competition as a result of China actively promoting and reshaping its domestic semiconductor industry through policy changes and investment, which could prevent us from competing effectively. Certain competitors possess sufficient financial, technical and management resources and utilize available incentives offered by various countries and government entities to develop and mark"
+    },
+    {
+      "keyword": "United States",
+      "text": "txn-20251231 UNITED STATES SECURITIES AND EXCHANGE COMMISSION Washington, D.C. 20549 FORM ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from ___________ to ___________ Commission File Number (Exac"
+    },
+    {
+      "keyword": "supply chain",
+      "text": "and Europe. These include both wafer fabrication (fab) and assembly/test facilities. We invest in manufacturing technologies and do most of our manufacturing in-house. This strategic decision to make manufacturing and technology a core competitive advantage provides us with tangible benefits of lower manufacturing costs and greater control of our supply chain, offering our customers geopolitically dependable capacity. We have focused on creating a competitive manufacturing structural cost advantage by investing in our 300mm capacity, as an unpackaged chip built on a 300mm wafer costs about 40% less than an unpackaged chip built on a 200mm wafer. 6 We continue to strengthen our competitive advantage in"
+    }
+  ]
+}

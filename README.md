@@ -5,9 +5,11 @@ Coded with **[Claude Code](https://claude.com/claude-code)** (Anthropic's CLI co
 [CHANGELOG.md](CHANGELOG.md) for the phase-by-phase build log and
 [trajectories/](trajectories/) for real agent I/O logs captured during the build.
 
-**Segment: pharma only.** `config/segments/` supports other segments as a config
-stub (see [config/segments/README.md](config/segments/README.md)); only pharma
-is implemented this round.
+**Segments: pharma and semiconductor** (added post-submission — see
+[CHANGELOG.md](CHANGELOG.md) "Semiconductor segment"). `textile.yaml` remains a
+config stub (see [config/segments/README.md](config/segments/README.md)); the
+dashboard's Segment dropdown switches between whichever segments have real
+pipeline data on disk.
 
 ## The problem
 
@@ -36,6 +38,10 @@ a single-prompt **baseline** to prove the improvement is real, not asserted.
   grounded in a company's own filing language, not speculation.
 
 ## Result (measured, not asserted)
+
+Measured on pharma — the segment with a hand-labeled golden set. Semiconductor
+has real pipeline data (see below) but no golden set of its own yet, so
+`run_pipeline.py semiconductor` skips Phase 6 rather than fake a number.
 
 On 8 hand-labeled golden test cases ([eval/golden_events_pharma.yaml](eval/golden_events_pharma.yaml)),
 run via `python -m eval.run_eval`:
@@ -97,14 +103,16 @@ required for the agent/LLM steps themselves).
   (also free, no key) for real US trade-policy notices. Both code paths are
   implemented — if GDELT is up when you run it, it's used. See CHANGELOG.md.
 - **[SEC EDGAR full-text search](https://efts.sec.gov/LATEST/search-index)**
-  and filing documents — free, no key, real 10-Ks (FY2025, filed Feb 2026) for
-  8 seed pharma companies.
+  and filing documents — free, no key, real 10-Ks for 8 seed companies per
+  segment (pharma: filed Feb 2026; semiconductor: mixed FY2024-2026).
 - No paid or rate-limited sources (X/Twitter, Reddit) are used.
 
 ## What's out of scope (by design, not oversight)
 
-- **Textile and semiconductor segments** — config stub only
-  ([config/segments/README.md](config/segments/README.md)).
+- **Textile segment** — config stub only
+  ([config/segments/README.md](config/segments/README.md)). ~~Semiconductor~~
+  — built post-submission with real data (22 policy events, 32 filing
+  mentions, 35 graph links); see CHANGELOG.md "Semiconductor segment."
 - **Market price data (yfinance) and social sentiment** — not pulled.
 - **LangGraph or any orchestration framework** — plain Python (dicts) is
   sufficient at this scope; `src/graph.py` has no hidden state machine.
@@ -121,7 +129,8 @@ required for the agent/LLM steps themselves).
 ## Repo layout
 
 ```
-config/segments/pharma.yaml   entity types, seed countries/companies/commodities
+config/segments/pharma.yaml         entity types, seed countries/companies/commodities
+config/segments/semiconductor.yaml  same shape, semiconductor entities
 src/models.py                 pydantic schemas (PolicyEvent, FilingMention, GraphLink, AlertCard)
 src/connectors/gdelt.py       policy/news pull (GDELT, falls back to Federal Register) + cache
 src/connectors/edgar.py       SEC filing pull (full-text search + document fetch) + cache
@@ -130,12 +139,17 @@ src/agents/policy_agent.py    Agent 1: raw policy items -> structured PolicyEven
 src/agents/filing_agent.py    Agent 2: raw filing excerpts -> structured FilingMentions
 src/graph.py                  merges both agents' output into a causal graph
 src/alerts.py                 graph -> cited, LLM-explained Alert Cards
-src/dashboard.py              renders dist/index.html (Jinja2, static, no backend)
-eval/golden_events_pharma.yaml  8 hand-labeled test cases
+src/dashboard.py              renders dist/index.html + dist/glossary.html (Jinja2, static, no backend);
+                               loads every segment with data and merges them into one page for the
+                               dashboard's client-side Segment dropdown
+templates/dashboard.html.jinja  the dashboard template — interactive graph, Alert Cards, Gap/Opportunity
+templates/glossary.html.jinja   term definitions, standalone page
+eval/golden_events_pharma.yaml  8 hand-labeled test cases (pharma only — see README "Result")
 eval/run_eval.py              baseline vs. advanced comparison
-data/cache/                   cached raw pulls (committed, for reproducibility)
-trajectories/                 real agent I/O logs, captured during the build
-run_pipeline.py               runs every phase in order
+data/<segment>/cache/         cached raw pulls per segment (committed, for reproducibility)
+data/<segment>/*.json         structured pipeline output per segment
+trajectories/                 real agent I/O logs, captured during the build (segment-prefixed filenames)
+run_pipeline.py               runs every phase in order for one segment: `python run_pipeline.py <segment>`
 REPRODUCTION.md               exact commands, clean-env setup
 CHANGELOG.md                  phase-by-phase Improvement Changelog
 ```

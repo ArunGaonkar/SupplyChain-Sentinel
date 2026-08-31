@@ -25,12 +25,6 @@ sys.path.insert(0, str(ROOT))
 
 from src.llm import call_llm, extract_json
 
-GOLDEN_PATH = ROOT / "eval" / "golden_events_pharma.yaml"
-BASELINE_PATH = ROOT / "data" / "baseline_output.json"
-ALERT_CARDS_PATH = ROOT / "data" / "alert_cards.json"
-POLICY_EVENTS_PATH = ROOT / "data" / "policy_events.json"
-FILING_MENTIONS_PATH = ROOT / "data" / "filing_mentions.json"
-RESULTS_PATH = ROOT / "eval" / "eval_results.json"
 
 JUDGE_SYSTEM = """You are grading whether a piece of analyst text explicitly draws a
 specific causal connection between a company and a country's trade/tariff
@@ -83,12 +77,18 @@ def _baseline_caught(case: dict, baseline_text: str) -> tuple[bool, str]:
         return False, ""
 
 
-def run_eval() -> dict:
-    golden = yaml.safe_load(GOLDEN_PATH.read_text(encoding="utf-8"))["cases"]
-    baseline = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
-    alert_cards = json.loads(ALERT_CARDS_PATH.read_text(encoding="utf-8")) if ALERT_CARDS_PATH.exists() else []
-    events_by_id = {e["id"]: e for e in json.loads(POLICY_EVENTS_PATH.read_text(encoding="utf-8"))}
-    mentions_by_id = {m["id"]: m for m in json.loads(FILING_MENTIONS_PATH.read_text(encoding="utf-8"))}
+def run_eval(segment: str = "pharma") -> dict:
+    segment_dir = ROOT / "data" / segment
+    golden_path = ROOT / "eval" / f"golden_events_{segment}.yaml"
+    alert_cards_path = segment_dir / "alert_cards.json"
+
+    golden = yaml.safe_load(golden_path.read_text(encoding="utf-8"))["cases"]
+    baseline = json.loads((segment_dir / "baseline_output.json").read_text(encoding="utf-8"))
+    alert_cards = json.loads(alert_cards_path.read_text(encoding="utf-8")) if alert_cards_path.exists() else []
+    events_by_id = {e["id"]: e for e in json.loads((segment_dir / "policy_events.json").read_text(encoding="utf-8"))}
+    mentions_by_id = {
+        m["id"]: m for m in json.loads((segment_dir / "filing_mentions.json").read_text(encoding="utf-8"))
+    }
 
     rows = []
     for case in golden:
@@ -128,7 +128,7 @@ def run_eval() -> dict:
         ),
     }
     result = {"rows": rows, "summary": summary}
-    RESULTS_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    (ROOT / "eval" / f"eval_results_{segment}.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result
 
 
@@ -153,5 +153,6 @@ def _print_report(result: dict) -> None:
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    result = run_eval()
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    result = run_eval(segment=segment_arg)
     _print_report(result)

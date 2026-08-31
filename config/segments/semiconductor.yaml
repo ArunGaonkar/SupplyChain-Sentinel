@@ -1,0 +1,87 @@
+# SupplyChain Sentinel — segment config: semiconductor
+# See config/segments/README.md for which segments have real data vs. are
+# config-only stubs.
+segment: semiconductor
+description: >
+  Semiconductor supply chain — chip design, fabrication (foundry), memory,
+  lithography/fab equipment, and packaging/testing dependencies between
+  countries and US-listed chip companies, dominated in 2025-2026 by US-China
+  export-control policy rather than tariffs specifically.
+
+entity_types:
+  - country
+  - company
+  - commodity
+  - policy_type
+
+countries:
+  - Taiwan
+  - South Korea
+  - China
+  - Japan
+  - Netherlands
+  - Malaysia
+  - Singapore
+  - United States
+
+companies:
+  - name: NVIDIA
+    ticker: NVDA
+  - name: Intel
+    ticker: INTC
+  - name: Texas Instruments
+    ticker: TXN
+  - name: Qualcomm
+    ticker: QCOM
+  - name: Broadcom
+    ticker: AVGO
+  - name: Micron Technology
+    ticker: MU
+  - name: Applied Materials
+    ticker: AMAT
+  - name: Lam Research
+    ticker: LRCX
+
+commodities:
+  - advanced logic chips
+  - memory chips
+  - lithography equipment
+  - wafers
+  - chip packaging and testing
+
+policy_types:
+  - tariff_increase
+  - tariff_decrease
+  - export_restriction
+  - import_restriction
+  - trade_agreement
+  - regulatory_change
+
+# GDELT query terms used by src/connectors/gdelt.py
+gdelt_query_terms:
+  - semiconductor export control
+  - chip tariff
+  - China semiconductor restriction
+  - advanced chip export ban
+  - semiconductor supply chain policy
+
+# SEC EDGAR full-text search terms used by src/connectors/edgar.py
+edgar_query_terms:
+  - export control
+  - tariff
+  - supply chain
+  - China
+
+# Searched/excerpted first (see src/connectors/edgar.py _search_best_filing) —
+# the terms most central to THIS segment's causal thesis. Export controls
+# (the China Entity List, license requirements on advanced chips/EDA/
+# lithography) are the dominant real 2025-2026 policy lever for this
+# segment, not tariffs specifically — unlike pharma, where a straight
+# tariffs/tariff priority was the right call. Generalizing this instead of
+# reusing pharma's hardcoded "tariffs"/"tariff" priority is itself a real
+# fix made while building this segment; see CHANGELOG.md.
+edgar_priority_terms:
+  - export control
+  - export restriction
+  - tariffs
+  - tariff

@@ -1,16 +1,27 @@
 """Phase 3 — Agent 2: SEC filing agent.
 
-Reads the raw cached filing excerpts (data/cache/filings_raw/<TICKER>.json)
+Reads the raw cached filing excerpts (data/<segment>/cache/filings_raw/<TICKER>.json)
 and uses an LLM to extract FilingMention objects: a company's stated
-dependency on a specific country and/or commodity (API, generics, etc.),
-citing the filing section it came from.
+dependency on a specific country and/or commodity (API, generics, advanced
+chips, etc.), citing the filing section it came from.
 
 Like the Policy Agent, this requires real judgment: most excerpts are
 generic risk-factor boilerplate or incidental country mentions (a product
 approval in Japan, a tax-rate table) that do NOT represent a genuine
-sourcing/manufacturing dependency. The agent must tell those apart from
-excerpts like Teva's "our policy is to maintain multiple supply sources for
-APIs ... India" or Viatris's plant locations list — and skip the rest.
+dependency. The agent must tell those apart from excerpts like Teva's "our
+policy is to maintain multiple supply sources for APIs ... India" — or,
+just as validly, NVIDIA's "[China] comprise a significant portion of our
+revenue" under a US export-control regime — and skip the rest.
+
+A dependency runs in TWO possible directions, and both count: a company can
+depend on a country as a SOURCE (manufactures/sources there — the dominant
+pattern for pharma tariffs) or as a MARKET/export destination (sells there,
+or needs an export license to ship there — the dominant pattern for
+semiconductor export controls, where NVIDIA's actual largest China exposure
+is post-sale license risk, not sourcing). Missing the second direction was
+a real gap found while building the semiconductor segment: the first prompt
+here only recognized sourcing language, so it silently skipped NVIDIA's own
+account of its most material China exposure. See CHANGELOG.md.
 """
 from __future__ import annotations
 
@@ -26,21 +37,30 @@ from src.config import load_segment
 from src.llm import call_llm, extract_json, save_trajectory
 from src.models import FilingMention
 
-FILINGS_RAW_DIR = ROOT / "data" / "cache" / "filings_raw"
-OUTPUT_PATH = ROOT / "data" / "filing_mentions.json"
-
-SYSTEM_PROMPT = """You are the Filing Agent in a pharma supply-chain intelligence pipeline.
+SYSTEM_PROMPT = """You are the Filing Agent in a {segment} supply-chain intelligence pipeline.
+Segment scope: {segment_description}
 
 You will be given excerpts pulled from one company's SEC 10-K filing, found by
-searching for tariff-related terms and country names. Many of these excerpts
-are generic legal boilerplate or incidental mentions (a product approval in a
-country, a tax-rate reconciliation table) that do NOT represent a real
-sourcing or manufacturing dependency. Your job is to tell those apart.
+searching for tariff/export-control-related terms and country names. Many of
+these excerpts are generic legal boilerplate or truly incidental mentions
+(a routine tax-rate reconciliation table with no operational content) that do
+NOT represent a real dependency. Your job is to tell those apart from a
+genuine one.
 
-For each excerpt that DOES describe a genuine dependency — the company
-manufactures, sources active pharmaceutical ingredients (API), or otherwise
-materially relies on operations in a specific country, for a specific
-commodity/product category — extract one FilingMention:
+A genuine dependency runs in EITHER of two directions — both count equally:
+  - SOURCE dependency: the company manufactures, sources, or otherwise
+    materially relies on operations located in a specific country.
+  - MARKET/EXPORT dependency: the company derives material revenue from, or
+    requires a government export license/authorization to sell into, a
+    specific country — e.g. "[Country] comprises a significant portion of
+    our revenue" under an export-control regime, or "sales to customers in
+    [Country] ... materially and adversely affected by export license
+    requirements." This direction matters as much as sourcing for segments
+    where the live policy lever is export control, not just tariffs.
+
+For each excerpt that DOES describe a genuine dependency (either direction),
+about one of this segment's commodities/products ({commodities}), extract one
+FilingMention:
   - mentioned_country: the country (use one of the seed countries if it
     clearly matches: {countries}; otherwise the actual country named)
   - mentioned_commodity: the specific commodity/product, preferring one of
@@ -48,10 +68,10 @@ commodity/product category — extract one FilingMention:
   - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this
   - excerpt_index: the integer index of the input excerpt this came from
 
-Skip excerpts that are incidental (a country only mentioned as a market where
-a drug is sold or approved, without any sourcing/manufacturing dependency) or
-too generic to name a specific country. It is fine and expected to return an
-empty array if none of the excerpts describe a real dependency.
+Skip excerpts that are truly incidental (e.g. a country named only in a legal
+boilerplate list with no operational or revenue content) or too generic to
+name a specific country. It is fine and expected to return an empty array if
+none of the excerpts describe a real dependency.
 
 Return ONLY a JSON array of objects with keys: mentioned_country,
 mentioned_commodity, risk_text, excerpt_index. No markdown fences, no
@@ -69,20 +89,24 @@ def _make_id(source_url: str, excerpt_index: int, country: str, commodity: str) 
     return f"FM-{h}"
 
 
-def run_filing_agent(force_refresh: bool = False) -> list[FilingMention]:
-    if OUTPUT_PATH.exists() and not force_refresh:
-        print(f"[filing_agent] using cached {OUTPUT_PATH}")
-        raw = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+def run_filing_agent(segment: str = "pharma", force_refresh: bool = False) -> list[FilingMention]:
+    output_path = ROOT / "data" / segment / "filing_mentions.json"
+    if output_path.exists() and not force_refresh:
+        print(f"[filing_agent] using cached {output_path}")
+        raw = json.loads(output_path.read_text(encoding="utf-8"))
         return [FilingMention(**m) for m in raw]
 
-    cfg = load_segment("pharma")
+    cfg = load_segment(segment)
     system = SYSTEM_PROMPT.format(
+        segment=segment,
+        segment_description=cfg.get("description", segment).strip(),
         countries=", ".join(cfg["countries"]),
         commodities=", ".join(cfg["commodities"]),
     )
 
+    filings_raw_dir = ROOT / "data" / segment / "cache" / "filings_raw"
     mentions: list[FilingMention] = []
-    for path in sorted(FILINGS_RAW_DIR.glob("*.json")):
+    for path in sorted(filings_raw_dir.glob("*.json")):
         record = json.loads(path.read_text(encoding="utf-8"))
         ticker = record["ticker"]
         excerpts = record["excerpts"]
@@ -99,12 +123,17 @@ def run_filing_agent(force_refresh: bool = False) -> list[FilingMention]:
         user_prompt = "\n\n".join(user_lines)
 
         print(f"[filing_agent] {ticker}: reviewing {len(excerpts)} excerpts")
-        response = call_llm(system, user_prompt, max_tokens=2000)
+        # 2000 was enough when only sourcing-direction dependencies were in
+        # scope; broadening to also recognize market/export dependencies
+        # (see module docstring) means more excerpts genuinely qualify, and
+        # 2000 silently truncated mid-JSON-array for two companies here.
+        response = call_llm(system, user_prompt, max_tokens=3000)
+        call_id = f"{segment}_{ticker}"
         try:
             parsed = extract_json(response)
         except (ValueError, json.JSONDecodeError) as e:
             print(f"  [filing_agent] {ticker}: failed to parse JSON ({e}), skipping")
-            save_trajectory("filing_agent", ticker, system, user_prompt, response, parsed=None)
+            save_trajectory("filing_agent", call_id, system, user_prompt, response, parsed=None)
             continue
 
         batch_mentions = []
@@ -130,16 +159,18 @@ def run_filing_agent(force_refresh: bool = False) -> list[FilingMention]:
             mentions.append(mention)
             batch_mentions.append(mention.model_dump())
 
-        save_trajectory("filing_agent", ticker, system, user_prompt, response, parsed=batch_mentions)
+        save_trajectory("filing_agent", call_id, system, user_prompt, response, parsed=batch_mentions)
         print(f"  [filing_agent] {ticker}: {len(excerpts)} excerpts -> {len(batch_mentions)} mentions")
 
-    OUTPUT_PATH.write_text(
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
         json.dumps([m.model_dump() for m in mentions], indent=2), encoding="utf-8"
     )
-    print(f"[filing_agent] {len(mentions)} FilingMentions saved to {OUTPUT_PATH}")
+    print(f"[filing_agent] {len(mentions)} FilingMentions saved to {output_path}")
     return mentions
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    run_filing_agent()
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    run_filing_agent(segment=segment_arg)

@@ -1,11 +1,11 @@
 """Phase 2 — Agent 1: Policy/news agent.
 
-Reads the raw cached policy items (data/cache/policy_raw/*.json — Federal
-Register trade-policy notices, or GDELT articles when that API is reachable),
-and uses an LLM to:
-  1. filter out items that aren't actually about pharma tariff/trade-policy
-     (the raw pull is keyword-matched, so it includes noise like unrelated
-     antidumping cases), and
+Reads the raw cached policy items (data/<segment>/cache/policy_raw/*.json —
+Federal Register trade-policy notices, or GDELT articles when that API is
+reachable), and uses an LLM to:
+  1. filter out items that aren't actually about this segment's
+     tariff/trade-policy (the raw pull is keyword-matched, so it includes
+     noise like unrelated antidumping cases), and
   2. extract each real match into a structured PolicyEvent (country,
      policy_type, affected_product, severity), citing its source_url + a
      verbatim snippet.
@@ -29,20 +29,19 @@ from src.config import load_segment
 from src.llm import call_llm, extract_json, save_trajectory
 from src.models import PolicyEvent
 
-POLICY_RAW_DIR = ROOT / "data" / "cache" / "policy_raw"
-OUTPUT_PATH = ROOT / "data" / "policy_events.json"
 BATCH_SIZE = 18
 
-SYSTEM_PROMPT = """You are the Policy Agent in a pharma supply-chain intelligence pipeline.
+SYSTEM_PROMPT = """You are the Policy Agent in a {segment} supply-chain intelligence pipeline.
+Segment scope: {segment_description}
 
 You will be given a batch of raw items pulled from government/news sources using
-broad keyword search, so many are NOT actually relevant to pharmaceutical
-tariff or trade policy (e.g. an antidumping case about soybean meal). Your job:
+broad keyword search, so many are NOT actually relevant to this segment's
+tariff or trade policy (e.g. an unrelated antidumping case). Your job:
 
 1. Read each item.
 2. SKIP any item that is not substantively about a tariff, import/export
-   restriction, trade agreement, or regulatory change affecting pharmaceutical
-   products, active pharmaceutical ingredients (API), or medical devices.
+   restriction, trade agreement, or regulatory change affecting this
+   segment's products/commodities: {commodities}.
 3. For each item that IS relevant, extract one structured PolicyEvent:
    - headline: a short (<=45 char) human-readable catalyst label a non-expert
      reader would recognize at a glance, e.g. "US-EU Tariff Cut on Generic
@@ -74,9 +73,10 @@ def _make_id(source_url: str) -> str:
     return "PE-" + hashlib.sha1(source_url.encode("utf-8")).hexdigest()[:10]
 
 
-def _load_unique_raw_items() -> list[dict]:
+def _load_unique_raw_items(segment: str) -> list[dict]:
+    policy_raw_dir = ROOT / "data" / segment / "cache" / "policy_raw"
     seen: dict[str, dict] = {}
-    for path in sorted(POLICY_RAW_DIR.glob("*.json")):
+    for path in sorted(policy_raw_dir.glob("*.json")):
         for item in json.loads(path.read_text(encoding="utf-8")):
             seen.setdefault(item["url"], item)
     return list(seen.values())
@@ -87,20 +87,23 @@ def _batches(items: list[dict], size: int):
         yield i, items[i : i + size]
 
 
-def run_policy_agent(force_refresh: bool = False) -> list[PolicyEvent]:
-    if OUTPUT_PATH.exists() and not force_refresh:
-        print(f"[policy_agent] using cached {OUTPUT_PATH}")
-        raw = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+def run_policy_agent(segment: str = "pharma", force_refresh: bool = False) -> list[PolicyEvent]:
+    output_path = ROOT / "data" / segment / "policy_events.json"
+    if output_path.exists() and not force_refresh:
+        print(f"[policy_agent] using cached {output_path}")
+        raw = json.loads(output_path.read_text(encoding="utf-8"))
         return [PolicyEvent(**e) for e in raw]
 
-    cfg = load_segment("pharma")
+    cfg = load_segment(segment)
     system = SYSTEM_PROMPT.format(
+        segment=segment,
+        segment_description=cfg.get("description", segment).strip(),
         countries=", ".join(cfg["countries"]),
         policy_types=", ".join(cfg["policy_types"]),
         commodities=", ".join(cfg["commodities"]),
     )
 
-    items = _load_unique_raw_items()
+    items = _load_unique_raw_items(segment)
     print(f"[policy_agent] {len(items)} unique raw items to review")
 
     events: list[PolicyEvent] = []
@@ -112,8 +115,12 @@ def run_policy_agent(force_refresh: bool = False) -> list[PolicyEvent]:
             )
         user_prompt = "Batch of raw items:\n\n" + "\n".join(user_lines)
 
-        response = call_llm(system, user_prompt, max_tokens=3000)
-        call_id = f"batch_{batch_start:03d}"
+        # 3000 was enough headroom for pharma's raw pulls, but proved too
+        # tight for semiconductor batches with a higher hit-rate of relevant
+        # items — one batch was silently truncated mid-JSON-array (caught
+        # only because extract_json then failed to parse it, not silently).
+        response = call_llm(system, user_prompt, max_tokens=4096)
+        call_id = f"{segment}_batch_{batch_start:03d}"
         try:
             parsed = extract_json(response)
         except (ValueError, json.JSONDecodeError) as e:
@@ -148,13 +155,15 @@ def run_policy_agent(force_refresh: bool = False) -> list[PolicyEvent]:
         save_trajectory("policy_agent", call_id, system, user_prompt, response, parsed=batch_events)
         print(f"  [policy_agent] batch {batch_start}: {len(batch)} items -> {len(batch_events)} events")
 
-    OUTPUT_PATH.write_text(
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
         json.dumps([e.model_dump() for e in events], indent=2), encoding="utf-8"
     )
-    print(f"[policy_agent] {len(events)} PolicyEvents saved to {OUTPUT_PATH}")
+    print(f"[policy_agent] {len(events)} PolicyEvents saved to {output_path}")
     return events
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    run_policy_agent()
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    run_policy_agent(segment=segment_arg)

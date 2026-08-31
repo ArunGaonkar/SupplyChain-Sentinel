@@ -1,0 +1,27 @@
+{
+  "company": "Intel",
+  "ticker": "INTC",
+  "cik": "0000050863",
+  "filing_type": "10-K",
+  "filing_date": "2025-01-31",
+  "accession": "0000050863-25-000009",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086325000009/a12282024ex22.htm",
+  "excerpts": [
+    {
+      "keyword": "export control",
+      "text": "on 6.11. Taxes 14 Section 6.12. Financial Statements 14 Section 6.13. Contracts; Other Transactions 15 Section 6.14. Construction and Tool Installation Budget; Project Schedule 15 Section 6.15. [Reserved] 15 Section 6.16. Environmental Laws 15 Section 6.17. Federal Requirements 16 Section 6.18 Foreign Entity Concern; Prohibited Persons; Sanctions; Export Controls; Anti-Corruption; Anti-Money Laundering Laws 17 Section 6.19. Insolvency Proceedings 18 Section 6.20. No Defaults; no Change of Control Events; no Clawback Events 18 Section 6.21. Material Adverse Effect 18 Section 6.22. Program Requirements 18 Section 6.23. Full Disclosure 18 Section 6.24. No Immunity 18 Section 6.25. No Federal Debt Delinquency"
+    },
+    {
+      "keyword": "export control",
+      "text": "; (g) all applicable federal labor and employment laws, including Title VII of the Civil Rights Act of 1964 (42 U.S.C. \u00a7 2000e et seq.), the Fair Labor Standards Act (29 U.S.C. \u00a7 203), the Occupational Safety and Health Act (29 U.S.C. \u00a7 653) and the National Labor Relations Act (29 U.S.C. \u00a7 151 et seq.) in all material respects; (h) all applicable Export Control Laws in all respects except for any actual or potential violations that involve only unintentional minor, technical infractions, which either (i) were voluntarily self-disclosed to BIS within sixty (60) days of the Recipient Party becoming aware of the violation, and, within sixty (60) days of submission of the final disclosure resulted in the iss"
+    },
+    {
+      "keyword": "United States",
+      "text": "chedule E Affiliate Transactions Schedule F Addresses Schedule G Dispute Resolution iii This DIRECT FUNDING AGREEMENT (the \u201c Agreement \u201d), dated as of November 25, 2024, is entered into by and between (a) Intel Corporation, a corporation organized and existing under the laws of the State of Delaware as the recipient (the \u201c Recipient \u201d) and (b) the UNITED STATES DEPARTMENT OF COMMERCE (the \u201c Department \u201d and together with the Recipient, the \u201c Parties \u201d and each a \u201c Party \u201d), an agency of the United States of America, acting by and through the Secretary of Commerce (or appropriate authorized representative thereof). RECITALS WHEREAS , the Recipient has undertaken (a) construction, tool purchase and install"
+    },
+    {
+      "keyword": "United States",
+      "text": "rties and the Projects; and (ii) the negotiation, review, and preparation of this Agreement, the other Financing Documents any other documents and instruments related to this Agreement or thereto (including legal opinions). Section 3.4. Net of Tax . (a) The Recipient understands and agrees that the Department is an agency or instrumentality of the United States and that all payments by the Recipient to the Department hereunder are payable, and shall in all cases be paid, free and clear of all Taxes. (b) If the Recipient shall be required by Applicable Law to withhold or deduct any tax from or in respect of any sum payable hereunder or under any other Financing Document to the Department, (i) the sum paya"
+    }
+  ]
+}

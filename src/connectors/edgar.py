@@ -30,7 +30,8 @@ from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-CACHE_DIR = ROOT / "data" / "cache" / "filings_raw"
+# Ticker -> CIK is a global lookup, not segment-specific, so it lives outside
+# any data/<segment>/ tree and is shared/accumulated across all segments.
 TICKERS_CACHE = ROOT / "data" / "cache" / "sec_company_tickers.json"
 USER_AGENT = "SupplyChainSentinel research arun.rg37@gmail.com"
 FTS_URL = "https://efts.sec.gov/LATEST/search-index"
@@ -42,13 +43,15 @@ HEADERS = {"User-Agent": USER_AGENT}
 def _get_cik_map(tickers: list[str], force_refresh: bool = False) -> dict[str, str]:
     """Returns {ticker: zero-padded-10-digit-CIK}, cached to disk.
 
-    Caches only the resolved subset for our seed tickers, not SEC's full
-    ~1.1MB company_tickers.json (which covers every US-listed company) — no
-    reason to commit ~10,000 irrelevant tickers to the repo for 8 lookups.
+    Caches only the resolved subset for tickers actually looked up (not
+    SEC's full ~1.1MB company_tickers.json covering every US-listed
+    company), accumulated across segments — so a later segment's lookups
+    merge into the cache rather than overwriting an earlier segment's.
     """
-    if TICKERS_CACHE.exists() and not force_refresh:
-        cached: dict[str, str] = json.loads(TICKERS_CACHE.read_text(encoding="utf-8"))
-        if all(t in cached for t in tickers):
+    cached: dict[str, str] = {}
+    if TICKERS_CACHE.exists():
+        cached = json.loads(TICKERS_CACHE.read_text(encoding="utf-8"))
+        if not force_refresh and all(t in cached for t in tickers):
             return {t: cached[t] for t in tickers}
 
     r = requests.get(TICKERS_URL, headers=HEADERS, timeout=20)
@@ -57,18 +60,23 @@ def _get_cik_map(tickers: list[str], force_refresh: bool = False) -> dict[str, s
     by_ticker = {v["ticker"]: str(v["cik_str"]).zfill(10) for v in raw.values()}
     resolved = {t: by_ticker[t] for t in tickers if t in by_ticker}
 
+    merged = {**cached, **resolved}
     TICKERS_CACHE.parent.mkdir(parents=True, exist_ok=True)
-    TICKERS_CACHE.write_text(json.dumps(resolved, indent=2), encoding="utf-8")
+    TICKERS_CACHE.write_text(json.dumps(merged, indent=2), encoding="utf-8")
     return resolved
 
 
-def _search_best_filing(cik: str, query_terms: list[str], forms: str = "10-K") -> Optional[dict]:
-    """Tries "tariffs"/"tariff" first (the term most central to this project's
-    causal thesis), preferring recent filings; falls back to the other
-    configured query terms, then to all-time, if nothing recent matches."""
-    priority_terms = ["tariffs", "tariff"] + [t for t in query_terms if t not in ("tariff",)]
+def _search_best_filing(
+    cik: str, priority_terms: list[str], other_terms: list[str], forms: str = "10-K"
+) -> Optional[dict]:
+    """Tries the segment's priority terms first (the terms most central to
+    this segment's causal thesis — "tariffs" for pharma, but "export
+    control" matters at least as much for semiconductors), preferring
+    recent filings; falls back to the other configured query terms, then to
+    all-time, if nothing recent matches."""
+    all_terms = priority_terms + [t for t in other_terms if t not in priority_terms]
     for date_range in (("2023-01-01", "2026-12-31"), (None, None)):
-        for term in priority_terms:
+        for term in all_terms:
             params = {"q": term, "ciks": cik, "forms": forms}
             if date_range[0]:
                 params.update({"dateRange": "custom", "startdt": date_range[0], "enddt": date_range[1]})
@@ -110,24 +118,25 @@ def _fetch_filing_text(cik_no_zeros: str, accession_no_dashes: str, filename: st
 
 def _extract_excerpts(
     text: str,
-    tariff_keywords: list[str],
+    priority_keywords: list[str],
     country_keywords: list[str],
     other_keywords: list[str],
     window: int = 350,
-    tariff_slots: int = 2,
+    priority_slots: int = 2,
     country_slots: int = 6,
     other_slots: int = 2,
 ) -> list[dict]:
     """Finds non-overlapping windows of text around keyword mentions, with a
     reserved slot budget per category rather than first-match-wins — a plain
-    sequential fill lets "tariffs" (which appears dozens of times as generic
-    risk-factor boilerplate) crowd out the country mentions entirely, even
-    though a country name near a sourcing/API mention is exactly the
+    sequential fill lets the segment's priority terms (e.g. "tariffs" for
+    pharma, which appears dozens of times as generic risk-factor
+    boilerplate) crowd out the country mentions entirely, even though a
+    country name near a sourcing/manufacturing mention is exactly the
     country<->commodity dependency signal the Filing Agent needs.
 
     country_keywords are round-robined (one hit per country before any
     country gets a second) so one heavily-mentioned country (e.g. "China")
-    doesn't crowd out others (e.g. "Ireland") the way tariffs did.
+    doesn't crowd out others (e.g. "Ireland") the way the priority terms did.
     """
 
     def find_spans(keywords: list[str]) -> dict[str, list[tuple[int, int]]]:
@@ -148,13 +157,13 @@ def _extract_excerpts(
         taken_starts.append(start)
         return True
 
-    # 1. Tariff mentions get a small reserved budget (already well-represented
-    #    thematically; we don't want them to dominate).
-    tariff_spans = find_spans(tariff_keywords)
-    flat_tariff = sorted((s, e, kw) for kw, spans in tariff_spans.items() for s, e in spans)
+    # 1. Priority-term mentions get a small reserved budget (already
+    #    well-represented thematically; we don't want them to dominate).
+    priority_spans = find_spans(priority_keywords)
+    flat_priority = sorted((s, e, kw) for kw, spans in priority_spans.items() for s, e in spans)
     added = 0
-    for start, end, kw in flat_tariff:
-        if added >= tariff_slots:
+    for start, end, kw in flat_priority:
+        if added >= priority_slots:
             break
         if try_add(start, end, kw):
             added += 1
@@ -193,20 +202,32 @@ def _extract_excerpts(
 
 
 def pull_filings(
-    companies: list[dict], query_terms: list[str], countries: list[str], force_refresh: bool = False
+    companies: list[dict],
+    query_terms: list[str],
+    countries: list[str],
+    segment: str = "pharma",
+    priority_terms: list[str] | None = None,
+    force_refresh: bool = False,
 ) -> list[dict]:
-    """companies: list of {"name": ..., "ticker": ...} from config/segments/pharma.yaml.
+    """companies: list of {"name": ..., "ticker": ...} from config/segments/<segment>.yaml.
     countries: seed country list from config, used as secondary excerpt keywords.
+    priority_terms: the terms most central to this segment's causal thesis
+    ("tariffs"/"tariff" for pharma; something like "export control" matters
+    at least as much for semiconductors) — searched and excerpted first,
+    ahead of the rest of query_terms. Defaults to ["tariffs", "tariff"] for
+    backward compatibility if not given.
     Returns combined list of cached filing records (one per company that had a hit).
     """
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    priority_terms = priority_terms or ["tariffs", "tariff"]
+    cache_dir = ROOT / "data" / segment / "cache" / "filings_raw"
+    cache_dir.mkdir(parents=True, exist_ok=True)
     tickers = [c["ticker"] for c in companies]
     cik_map = _get_cik_map(tickers)
 
     results = []
     for company in companies:
         ticker = company["ticker"]
-        cache_path = CACHE_DIR / f"{ticker}.json"
+        cache_path = cache_dir / f"{ticker}.json"
         if cache_path.exists() and not force_refresh:
             print(f"  [cache hit] {cache_path.name}")
             results.append(json.loads(cache_path.read_text(encoding="utf-8")))
@@ -218,7 +239,7 @@ def pull_filings(
             continue
 
         print(f"[edgar pull] {company['name']} ({ticker})")
-        hit = _search_best_filing(cik, query_terms)
+        hit = _search_best_filing(cik, priority_terms, query_terms)
         if hit is None:
             print(f"  [edgar] no filing hits for {ticker}")
             continue
@@ -234,13 +255,15 @@ def pull_filings(
             continue
 
         # "United States" isn't an interesting sourcing-dependency country for
-        # this graph (it's the tariff-imposer, not an API/commodity source),
-        # so it's deprioritized to "other" rather than taking a country slot.
+        # this graph (it's usually the policy-imposer, not the sourcing
+        # location), so it's deprioritized to "other" rather than taking a
+        # country slot.
         sourcing_countries = [c for c in countries if c != "United States"]
-        other_terms = [t for t in query_terms if t.lower() not in ("tariff", "tariffs")] + ["United States"]
+        priority_lower = {t.lower() for t in priority_terms}
+        other_terms = [t for t in query_terms if t.lower() not in priority_lower] + ["United States"]
         excerpts = _extract_excerpts(
             text,
-            tariff_keywords=["tariffs", "tariff"],
+            priority_keywords=priority_terms,
             country_keywords=sourcing_countries,
             other_keywords=other_terms,
         )
@@ -268,7 +291,14 @@ if __name__ == "__main__":
     sys.path.insert(0, str(ROOT))
     from src.config import load_segment
 
-    cfg = load_segment("pharma")
-    filings = pull_filings(cfg["companies"], cfg["edgar_query_terms"], cfg["countries"])
+    segment_arg = sys.argv[1] if len(sys.argv) > 1 else "pharma"
+    cfg = load_segment(segment_arg)
+    filings = pull_filings(
+        cfg["companies"],
+        cfg["edgar_query_terms"],
+        cfg["countries"],
+        segment=segment_arg,
+        priority_terms=cfg.get("edgar_priority_terms"),
+    )
     total_excerpts = sum(len(f["excerpts"]) for f in filings)
     print(f"\nFilings pulled: {len(filings)}, total excerpts: {total_excerpts}")

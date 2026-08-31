@@ -1,18 +1,25 @@
-"""Phase 5 — static dashboard (v3).
+"""Phase 5 — static dashboard (v4, multi-segment).
 
 Renders Alert Cards + a Gap/Opportunity view + an interactive dependency
 graph to a single static HTML file via Jinja2, plus a separate glossary
 page. No backend framework, no JS build step, no external JS/CSS
 dependencies — open dist/index.html directly in a browser. Zero network
-calls: reads only the JSON artifacts already produced in data/ by earlier
-phases.
+calls: reads only the JSON artifacts already produced in data/<segment>/ by
+earlier phases.
+
+Every segment with data on disk is loaded and rendered into the SAME page,
+each record tagged with its segment — the Segment dropdown in the UI is a
+client-side filter over that combined DOM (same mechanism as the existing
+time-range filter), not a separate build per segment. That's what lets
+switching segments update the graph, Alert Cards, Gaps, Opportunities, and
+stat tiles together without a page reload.
 
 The dependency graph is rendered CLIENT-SIDE (vanilla JS, embedded graph
 data as JSON) rather than baked into static SVG, because it needs to
-re-layout dynamically: a time-range filter changes which nodes/edges are
-visible, and a detail-level toggle changes the column structure itself
-(Catalyst -> Country -> Company vs. the fuller Catalyst -> Policy Scope ->
-Country -> Company). See templates/dashboard.html.jinja for the renderer.
+re-layout dynamically: a segment or time-range filter changes which
+nodes/edges are visible, and a detail-level toggle changes the column
+structure itself (Catalyst -> Country -> Company vs. the fuller Catalyst ->
+Policy Scope -> Country -> Company). See templates/dashboard.html.jinja.
 
 Gap vs. Opportunity (both surfaced because neither side of the graph is
 "more correct" than the other — a link needs BOTH a PolicyEvent and a
@@ -48,9 +55,13 @@ GLOSSARY_OUTPUT_PATH = ROOT / "dist" / "glossary.html"
 
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
 
+# Every segment config/segments/<name>.yaml can define; only the ones with
+# actual pipeline output on disk (checked below) end up in the dashboard.
+# Order here is display order in the Segment dropdown.
+KNOWN_SEGMENTS = ["pharma", "semiconductor", "textile"]
 
-def _load(name: str) -> list[dict]:
-    path = DATA_DIR / name
+
+def _load(path: Path) -> list[dict]:
     if not path.exists():
         return []
     return json.loads(path.read_text(encoding="utf-8"))
@@ -64,11 +75,14 @@ def _iso_date(yyyymmdd: str) -> str:
     return yyyymmdd or ""
 
 
-def build_dashboard() -> Path:
-    events = _load("policy_events.json")
-    mentions = _load("filing_mentions.json")
-    links = _load("graph_links.json")
-    cards = _load("alert_cards.json")
+def _build_segment(segment: str) -> dict:
+    """Loads and shapes one segment's data. All returned records are tagged
+    with "segment" so the client-side filter can select by it."""
+    seg_dir = DATA_DIR / segment
+    events = _load(seg_dir / "policy_events.json")
+    mentions = _load(seg_dir / "filing_mentions.json")
+    links = _load(seg_dir / "graph_links.json")
+    cards = _load(seg_dir / "alert_cards.json")
 
     events_by_id = {e["id"]: e for e in events}
     mentions_by_id = {m["id"]: m for m in mentions}
@@ -83,6 +97,7 @@ def build_dashboard() -> Path:
         enriched_cards.append(
             {
                 **card,
+                "segment": segment,
                 "policy_event": event,
                 "filing_mention": mention,
                 "date_iso": _iso_date(event.get("date", "")),
@@ -93,15 +108,12 @@ def build_dashboard() -> Path:
             }
         )
 
-    # --- Gap: FilingMentions with NO matching PolicyEvent this run — a real,
-    # disclosed dependency the company itself named, but with nothing on the
-    # policy side to confirm it against yet. See CHANGELOG.md Phase 6
-    # (eval-08 / Lilly-China) for why this is a genuine, honest system
-    # limitation worth surfacing rather than hiding. Grouped by company.
+    # --- Gap: FilingMentions with NO matching PolicyEvent this run.
     linked_mention_ids = {link["filing_mention_id"] for link in links}
     gap_mentions = [
         {
             **m,
+            "segment": segment,
             "country": m["mentioned_country"],
             "commodity": m["mentioned_commodity"],
             "date_iso": _iso_date(m.get("filing_date", "")),
@@ -116,72 +128,74 @@ def build_dashboard() -> Path:
         # "mentions", not "items" — a dict key named "items" is unreachable
         # via Jinja's `.` attribute access because it collides with the
         # built-in dict.items() method, which Jinja finds first.
-        {"company": company, "ticker": mentions_[0]["ticker"], "mentions": mentions_}
+        {"segment": segment, "company": company, "ticker": mentions_[0]["ticker"], "mentions": mentions_}
         for company, mentions_ in sorted(gap_by_company.items())
     ]
 
-    # --- Opportunity: PolicyEvents with NO matching FilingMention this run —
-    # a real policy action happened, but no covered company's filing has
-    # been tied to it. Not grouped by company (there isn't one yet) —
-    # grouped by country instead, which is the dimension that actually
-    # applies to a policy event.
+    # --- Opportunity: PolicyEvents with NO matching FilingMention this run.
+    # Grouped by country, not company — a policy event with no matching
+    # filing doesn't have a company to group by yet.
     linked_event_ids = {link["policy_event_id"] for link in links}
     opportunity_events = [
-        {**e, "date_iso": _iso_date(e.get("date", ""))} for e in events if e["id"] not in linked_event_ids
+        {**e, "segment": segment, "date_iso": _iso_date(e.get("date", ""))}
+        for e in events
+        if e["id"] not in linked_event_ids
     ]
     opportunities_by_country: dict[str, list[dict]] = {}
     for e in opportunity_events:
         opportunities_by_country.setdefault(e["country"], []).append(e)
     opportunities_grouped = [
-        {"country": country, "events": items}
+        {"segment": segment, "country": country, "events": items}
         for country, items in sorted(opportunities_by_country.items())
     ]
 
-    graph_data = {
-        "events": [
-            {
-                "id": e["id"],
-                "headline": e["headline"],
-                "country": e["country"],
-                "commodity": e["affected_product"],
-                "date": _iso_date(e["date"]),
-                "severity": e["severity"],
-                "source_url": e["source_url"],
-            }
-            for e in events
-        ],
-        "mentions": [
-            {
-                "id": m["id"],
-                "company": m["company"],
-                "ticker": m["ticker"],
-                "country": m["mentioned_country"],
-                "commodity": m["mentioned_commodity"],
-                "date": _iso_date(m["filing_date"]),
-                "source_url": m["source_url"],
-            }
-            for m in mentions
-        ],
-        "links": [
-            {
-                "id": link["id"],
-                "event_id": link["policy_event_id"],
-                "mention_id": link["filing_mention_id"],
-                "shared_country": link["shared_country"],
-            }
-            for link in links
-        ],
-    }
+    graph_events = [
+        {
+            "id": e["id"],
+            "headline": e["headline"],
+            "country": e["country"],
+            "commodity": e["affected_product"],
+            "date": _iso_date(e["date"]),
+            "severity": e["severity"],
+            "source_url": e["source_url"],
+            "segment": segment,
+        }
+        for e in events
+    ]
+    graph_mentions = [
+        {
+            "id": m["id"],
+            "company": m["company"],
+            "ticker": m["ticker"],
+            "country": m["mentioned_country"],
+            "commodity": m["mentioned_commodity"],
+            "date": _iso_date(m["filing_date"]),
+            "source_url": m["source_url"],
+            "segment": segment,
+        }
+        for m in mentions
+    ]
+    graph_links = [
+        {
+            "id": link["id"],
+            "event_id": link["policy_event_id"],
+            "mention_id": link["filing_mention_id"],
+            "shared_country": link["shared_country"],
+            "segment": segment,
+        }
+        for link in links
+    ]
 
-    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
-
-    dashboard_template = env.get_template("dashboard.html.jinja")
-    html = dashboard_template.render(
-        cards=enriched_cards,
-        gaps_grouped=gaps_grouped,
-        opportunities_grouped=opportunities_grouped,
-        graph_data_json=json.dumps(graph_data),
-        stats={
+    return {
+        "segment": segment,
+        "has_data": bool(events),
+        "cards": enriched_cards,
+        "gaps_grouped": gaps_grouped,
+        "opportunities_grouped": opportunities_grouped,
+        "graph_events": graph_events,
+        "graph_mentions": graph_mentions,
+        "graph_links": graph_links,
+        "stats": {
             "policy_events": len(events),
             "filing_mentions": len(mentions),
             "graph_links": len(links),
@@ -189,6 +203,40 @@ def build_dashboard() -> Path:
             "gap_mentions": len(gap_mentions),
             "opportunity_events": len(opportunity_events),
         },
+    }
+
+
+def build_dashboard() -> Path:
+    segments = [_build_segment(s) for s in KNOWN_SEGMENTS]
+    segments = [s for s in segments if s["has_data"]]
+    if not segments:
+        raise RuntimeError("No segment has any data in data/<segment>/policy_events.json — run run_pipeline.py first.")
+
+    all_cards = [c for seg in segments for c in seg["cards"]]
+    all_gaps_grouped = [g for seg in segments for g in seg["gaps_grouped"]]
+    all_opportunities_grouped = [o for seg in segments for o in seg["opportunities_grouped"]]
+
+    graph_data = {
+        "events": [e for seg in segments for e in seg["graph_events"]],
+        "mentions": [m for seg in segments for m in seg["graph_mentions"]],
+        "links": [link for seg in segments for link in seg["graph_links"]],
+    }
+
+    default_segment = segments[0]["segment"]
+    stub_segments = [s for s in KNOWN_SEGMENTS if s not in {seg["segment"] for seg in segments}]
+
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
+
+    dashboard_template = env.get_template("dashboard.html.jinja")
+    html = dashboard_template.render(
+        segments=segments,
+        stub_segments=stub_segments,
+        default_segment=default_segment,
+        cards=all_cards,
+        gaps_grouped=all_gaps_grouped,
+        opportunities_grouped=all_opportunities_grouped,
+        graph_data_json=json.dumps(graph_data),
+        segment_stats_json=json.dumps({seg["segment"]: seg["stats"] for seg in segments}),
     )
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(html, encoding="utf-8")

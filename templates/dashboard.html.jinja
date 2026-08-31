@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SupplyChain Sentinel — Pharma Alert Cards</title>
+<title>SupplyChain Sentinel — Alert Cards</title>
 <style>
   :root {
     --bg: #f8fafc;
@@ -306,19 +306,19 @@
   <div class="header-top">
     <div>
       <h1>SupplyChain Sentinel</h1>
-      <p>Pharma trade &amp; tariff causality — cited, explainable Alert Cards connecting policy/news events to SEC filing disclosures via a shared entity graph.</p>
+      <p>Trade &amp; tariff causality — cited, explainable Alert Cards connecting policy/news events to SEC filing disclosures via a shared entity graph.</p>
     </div>
     <a class="glossary-link" href="glossary.html" target="_blank" rel="noopener">📖 Glossary</a>
   </div>
   <div class="stats">
-    <div class="stat" data-target="section-graph"><div class="n" id="stat-policy-events">{{ stats.policy_events }}</div><div class="l">Policy Events</div></div>
-    <div class="stat" data-target="section-graph"><div class="n" id="stat-filing-mentions">{{ stats.filing_mentions }}</div><div class="l">Filing Mentions</div></div>
-    <div class="stat" data-target="section-graph"><div class="n" id="stat-graph-links">{{ stats.graph_links }}</div><div class="l">Graph Links</div></div>
-    <div class="stat" data-target="section-alerts"><div class="n" id="stat-alert-cards">{{ stats.alert_cards }}</div><div class="l">Alert Cards</div></div>
-    <div class="stat" data-target="subsection-gaps"><div class="n" id="stat-gap-signals">{{ stats.gap_mentions }}</div><div class="l">Gap Signals</div></div>
-    <div class="stat" data-target="subsection-opportunities"><div class="n" id="stat-opportunities">{{ stats.opportunity_events }}</div><div class="l">Opportunities</div></div>
+    <div class="stat" data-target="section-graph"><div class="n" id="stat-policy-events">{{ segments[0].stats.policy_events }}</div><div class="l">Policy Events</div></div>
+    <div class="stat" data-target="section-graph"><div class="n" id="stat-filing-mentions">{{ segments[0].stats.filing_mentions }}</div><div class="l">Filing Mentions</div></div>
+    <div class="stat" data-target="section-graph"><div class="n" id="stat-graph-links">{{ segments[0].stats.graph_links }}</div><div class="l">Graph Links</div></div>
+    <div class="stat" data-target="section-alerts"><div class="n" id="stat-alert-cards">{{ segments[0].stats.alert_cards }}</div><div class="l">Alert Cards</div></div>
+    <div class="stat" data-target="subsection-gaps"><div class="n" id="stat-gap-signals">{{ segments[0].stats.gap_mentions }}</div><div class="l">Gap Signals</div></div>
+    <div class="stat" data-target="subsection-opportunities"><div class="n" id="stat-opportunities">{{ segments[0].stats.opportunity_events }}</div><div class="l">Opportunities</div></div>
   </div>
-  <p class="range-note">Tiles reflect the <strong>Pharma</strong> segment, currently showing: <strong id="range-label">All time</strong> &middot; click a tile to jump to it</p>
+  <p class="range-note">Tiles reflect the <strong id="segment-label">{{ default_segment|title }}</strong> segment, currently showing: <strong id="range-label">All time</strong> &middot; click a tile to jump to it</p>
 </header>
 
 <main>
@@ -326,9 +326,12 @@
     <div class="control">
       <label for="segment-select">Segment</label>
       <select id="segment-select">
-        <option value="pharma">Pharma</option>
-        <option value="textile" disabled>Textile (coming soon)</option>
-        <option value="semiconductor" disabled>Semiconductor (coming soon)</option>
+        {% for seg in segments %}
+          <option value="{{ seg.segment }}" {{ 'selected' if seg.segment == default_segment else '' }}>{{ seg.segment|title }}</option>
+        {% endfor %}
+        {% for stub in stub_segments %}
+          <option value="{{ stub }}" disabled>{{ stub|title }} (coming soon)</option>
+        {% endfor %}
       </select>
     </div>
     <div class="control">
@@ -383,7 +386,7 @@
     {% endif %}
     <div id="alert-cards-list">
       {% for card in cards %}
-        <div class="card {{ card.severity }}" data-kind="alert" data-date="{{ card.date_iso }}" data-ticker="{{ card.filing_mention.ticker }}" data-country="{{ card.shared_country }}" data-event-id="{{ card.policy_event_id }}" data-mention-id="{{ card.filing_mention_id }}">
+        <div class="card {{ card.severity }}" data-kind="alert" data-segment="{{ card.segment }}" data-date="{{ card.date_iso }}" data-ticker="{{ card.filing_mention.ticker }}" data-country="{{ card.shared_country }}" data-event-id="{{ card.policy_event_id }}" data-mention-id="{{ card.filing_mention_id }}">
           <div class="card-head">
             <h3>{{ card.title }}</h3>
             <span class="badge {{ card.severity }}">{{ card.severity }}</span>
@@ -408,16 +411,16 @@
     <summary><h2>Gap / Opportunity signals</h2></summary>
     <p class="section-intro">Neither side of a Graph Link is "more correct" than the other — a link needs BOTH a matching Policy Event and a matching Filing Mention. A <strong>Gap</strong> is a company-disclosed dependency with no policy match yet; an <strong>Opportunity</strong> is a policy action with no company filing tied to it yet. See the <a href="glossary.html" target="_blank" rel="noopener">glossary</a> for more, and CHANGELOG.md for why this is a real, documented limitation rather than a filtering failure.</p>
 
-    <h3 class="subhead" id="subsection-gaps">Gaps — grouped by company ({{ stats.gap_mentions }})</h3>
+    <h3 class="subhead" id="subsection-gaps">Gaps — grouped by company (<span id="gaps-count"></span>)</h3>
     {% if not gaps_grouped %}
       <p class="empty">No gap signals — every disclosed dependency this run matched a policy event.</p>
     {% endif %}
     {% for group in gaps_grouped %}
-      <details class="company-group" open>
+      <details class="company-group" data-segment="{{ group.segment }}" open>
         <summary>{{ group.company }} ({{ group.ticker }}) <span class="count-pill">{{ group.mentions|length }} gap{{ 's' if group.mentions|length != 1 else '' }}</span></summary>
         <div class="group-body">
           {% for m in group.mentions %}
-            <div class="card gap-card" data-kind="gap" data-date="{{ m.date_iso }}" data-ticker="{{ m.ticker }}" data-country="{{ m.country }}">
+            <div class="card gap-card" data-kind="gap" data-segment="{{ m.segment }}" data-date="{{ m.date_iso }}" data-ticker="{{ m.ticker }}" data-country="{{ m.country }}">
               <div class="card-head">
                 <h3>{{ m.country }} / {{ m.commodity }}</h3>
                 <span class="badge gap">gap</span>
@@ -434,17 +437,17 @@
     {% endfor %}
     <p class="no-match" id="gap-no-match">No gap signals match the current filter.</p>
 
-    <h3 class="subhead" id="subsection-opportunities" style="margin-top: 28px;">Opportunities — policy events with no matched filing yet ({{ stats.opportunity_events }})</h3>
+    <h3 class="subhead" id="subsection-opportunities" style="margin-top: 28px;">Opportunities — policy events with no matched filing yet (<span id="opportunities-count"></span>)</h3>
     <p class="section-intro">Not grouped by company — a policy event with no matching filing doesn't have one yet. Grouped here by country instead.</p>
     {% if not opportunities_grouped %}
       <p class="empty">No opportunity signals — every policy event this run matched at least one filing.</p>
     {% endif %}
     {% for group in opportunities_grouped %}
-      <details class="company-group" open>
+      <details class="company-group" data-segment="{{ group.segment }}" open>
         <summary>{{ group.country }} <span class="count-pill">{{ group.events|length }} opportunit{{ 'y' if group.events|length == 1 else 'ies' }}</span></summary>
         <div class="group-body">
           {% for e in group.events %}
-            <div class="card opp-card" data-kind="opportunity" data-date="{{ e.date_iso }}" data-country="{{ e.country }}" data-event-id="{{ e.id }}">
+            <div class="card opp-card" data-kind="opportunity" data-segment="{{ e.segment }}" data-date="{{ e.date_iso }}" data-country="{{ e.country }}" data-event-id="{{ e.id }}">
               <div class="card-head">
                 <h3>{{ e.headline }}</h3>
                 <span class="badge opp">opportunity</span>
@@ -478,7 +481,13 @@
   var mentionsById = {};
   DATA.mentions.forEach(function (m) { mentionsById[m.id] = m; });
 
-  var state = { detail: "detailed", timeRange: "all", focus: null, sort: "recent" };
+  var state = {
+    detail: "detailed",
+    timeRange: "all",
+    focus: null,
+    sort: "recent",
+    segment: document.getElementById("segment-select").value,
+  };
   var TIME_LABELS = { all: "All time", "90": "Last 90 days", "30": "Last 30 days", ytd: "Since 2026-01-01" };
 
   // ---------- checkbox persistence ----------
@@ -511,7 +520,7 @@
   function visibleLinks() {
     return DATA.links.filter(function (link) {
       var event = eventsById[link.event_id];
-      return event && withinRange(event.date, state.timeRange);
+      return event && event.segment === state.segment && withinRange(event.date, state.timeRange);
     });
   }
 
@@ -721,6 +730,10 @@
   }
 
   // ---------- card filtering (Alert Cards, Gap-by-company, Opportunities) ----------
+  function matchesSegment(el) {
+    return el.dataset.segment === state.segment;
+  }
+
   function focusMatches(el) {
     if (!state.focus) return true;
     var parts = state.focus.split(":");
@@ -751,22 +764,36 @@
     if (el) el.textContent = val;
   }
 
+  function titleCase(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   function updateStats() {
-    var inRangeEvents = DATA.events.filter(function (e) { return withinRange(e.date, state.timeRange); }).length;
-    var inRangeMentions = DATA.mentions.filter(function (m) { return withinRange(m.date, state.timeRange); }).length;
+    var inRangeEvents = DATA.events.filter(function (e) {
+      return e.segment === state.segment && withinRange(e.date, state.timeRange);
+    }).length;
+    var inRangeMentions = DATA.mentions.filter(function (m) {
+      return m.segment === state.segment && withinRange(m.date, state.timeRange);
+    }).length;
+    var alertCount = document.querySelectorAll('.card[data-kind="alert"]:not(.hidden-by-filter)').length;
+    var gapCount = document.querySelectorAll('.card[data-kind="gap"]:not(.hidden-by-filter)').length;
+    var oppCount = document.querySelectorAll('.card[data-kind="opportunity"]:not(.hidden-by-filter)').length;
     setText("stat-policy-events", inRangeEvents);
     setText("stat-filing-mentions", inRangeMentions);
     setText("stat-graph-links", visibleLinks().length);
-    setText("stat-alert-cards", document.querySelectorAll('.card[data-kind="alert"]:not(.hidden-by-filter)').length);
-    setText("stat-gap-signals", document.querySelectorAll('.card[data-kind="gap"]:not(.hidden-by-filter)').length);
-    setText("stat-opportunities", document.querySelectorAll('.card[data-kind="opportunity"]:not(.hidden-by-filter)').length);
+    setText("stat-alert-cards", alertCount);
+    setText("stat-gap-signals", gapCount);
+    setText("stat-opportunities", oppCount);
+    setText("gaps-count", gapCount);
+    setText("opportunities-count", oppCount);
     setText("range-label", TIME_LABELS[state.timeRange] || "All time");
+    setText("segment-label", titleCase(state.segment));
   }
 
   function applyCardFilters() {
     var anyAlertVisible = false;
     document.querySelectorAll('.card[data-kind="alert"]').forEach(function (card) {
-      var visible = withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
+      var visible = matchesSegment(card) && withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
       card.classList.toggle("hidden-by-filter", !visible);
       if (visible) anyAlertVisible = true;
     });
@@ -774,14 +801,18 @@
 
     // Gap cards (grouped by company) and Opportunity cards (grouped by
     // country) both live inside ".company-group" <details> — filter every
-    // card inside each group by ITS OWN data-kind, then hide any group left
-    // with nothing visible. A group only ever contains one kind, but the
-    // filter pass itself has to consider both since the selector is shared.
+    // card inside each group (checking segment at the CARD level, not just
+    // the group, so a stale hidden-by-filter class never lingers on a card
+    // whose group we skipped — updateStats() counts cards by that class
+    // directly, so it has to stay accurate even for cards inside a group
+    // that's about to be hidden), then hide any group left with nothing
+    // visible. A group only ever contains one kind, but the filter pass
+    // itself has to consider both since the selector is shared.
     var anyGapVisible = false, anyOppVisible = false;
     document.querySelectorAll(".company-group").forEach(function (group) {
       var groupHasVisible = false;
       group.querySelectorAll('.card[data-kind="gap"], .card[data-kind="opportunity"]').forEach(function (card) {
-        var visible = withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
+        var visible = matchesSegment(card) && withinRange(card.dataset.date, state.timeRange) && focusMatches(card);
         card.classList.toggle("hidden-by-filter", !visible);
         if (visible) {
           groupHasVisible = true;
@@ -852,9 +883,16 @@
     state.sort = this.value;
     sortAlertCards();
   });
-  // Segment dropdown: only "pharma" is implemented this round, so it's a
-  // no-op — present so the control surface is ready as more segments ship.
-  document.getElementById("segment-select").addEventListener("change", function () {});
+  document.getElementById("segment-select").addEventListener("change", function () {
+    state.segment = this.value;
+    // A focus (drilled into one company/country) from the OLD segment could
+    // coincidentally match a same-named country in the new one (e.g. both
+    // segments have a "China" or "Germany" policy event) — clearing it on
+    // switch avoids a silently-wrong filter rather than a visibly cleared one.
+    state.focus = null;
+    renderGraph();
+    applyCardFilters();
+  });
 
   renderGraph();
   applyCardFilters();

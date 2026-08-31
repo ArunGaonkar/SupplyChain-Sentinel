@@ -1,0 +1,99 @@
+{
+  "agent": "filing_agent",
+  "call_id": "semiconductor_QCOM",
+  "timestamp": "2026-08-31T04:50:17.317538+00:00",
+  "model": "claude-sonnet-5",
+  "system_prompt": "You are the Filing Agent in a semiconductor supply-chain intelligence pipeline.\nSegment scope: Semiconductor supply chain \u2014 chip design, fabrication (foundry), memory, lithography/fab equipment, and packaging/testing dependencies between countries and US-listed chip companies, dominated in 2025-2026 by US-China export-control policy rather than tariffs specifically.\n\nYou will be given excerpts pulled from one company's SEC 10-K filing, found by\nsearching for tariff/export-control-related terms and country names. Many of\nthese excerpts are generic legal boilerplate or truly incidental mentions\n(a routine tax-rate reconciliation table with no operational content) that do\nNOT represent a real dependency. Your job is to tell those apart from a\ngenuine one.\n\nA genuine dependency runs in EITHER of two directions \u2014 both count equally:\n  - SOURCE dependency: the company manufactures, sources, or otherwise\n    materially relies on operations located in a specific country.\n  - MARKET/EXPORT dependency: the company derives material revenue from, or\n    requires a government export license/authorization to sell into, a\n    specific country \u2014 e.g. \"[Country] comprises a significant portion of\n    our revenue\" under an export-control regime, or \"sales to customers in\n    [Country] ... materially and adversely affected by export license\n    requirements.\" This direction matters as much as sourcing for segments\n    where the live policy lever is export control, not just tariffs.\n\nFor each excerpt that DOES describe a genuine dependency (either direction),\nabout one of this segment's commodities/products (advanced logic chips, memory chips, lithography equipment, wafers, chip packaging and testing), extract one\nFilingMention:\n  - mentioned_country: the country (use one of the seed countries if it\n    clearly matches: Taiwan, South Korea, China, Japan, Netherlands, Malaysia, Singapore, United States; otherwise the actual country named)\n  - mentioned_commodity: the specific commodity/product, preferring one of\n    advanced logic chips, memory chips, lithography equipment, wafers, chip packaging and testing if it clearly matches, else short free text\n  - risk_text: a verbatim quote (<=280 chars) from the excerpt supporting this\n  - excerpt_index: the integer index of the input excerpt this came from\n\nSkip excerpts that are truly incidental (e.g. a country named only in a legal\nboilerplate list with no operational or revenue content) or too generic to\nname a specific country. It is fine and expected to return an empty array if\nnone of the excerpts describe a real dependency.\n\nReturn ONLY a JSON array of objects with keys: mentioned_country,\nmentioned_commodity, risk_text, excerpt_index. No markdown fences, no\ncommentary.",
+  "user_prompt": "Company: Qualcomm (QCOM), 10-K filed 2024-11-06\n\n\n\nExcerpts:\n\n[0] (matched keyword: 'tariff') ancial position. See also the Risk Factor titled \u201c Our business, particularly our semiconductor business, may suffer as a result of our customers vertically integrating (i.e., developing their own integrated circuit products).\u201d Political actions, including trade protection and national security policies of the U.S. and Chinese governments, such as tariffs, bans or placing companies on restricted entity lists, have in the past, currently are and could in the future limit or prevent us from transacting business with certain of our Chinese customers or suppliers, limit, prevent or discourage certain of our Chinese customers or suppliers from transacting business with us, or make it more expensive to\n\n[1] (matched keyword: 'tariff') ; our non-Chinese OEM customers were limited in, or prohibited from, selling devices that incorporate our integrated circuit products into China; Chinese OEMs develop and use their own integrated circuit products or use our competitors\u2019 integrated circuit products in some or all of their devices rather than our integrated circuit products; Chinese tariffs on our integrated circuit products or on devices which incorporate our integrated circuit products made purchasing such products or devices more expensive to our Chinese customers or Chinese consumers; or our Chinese licensees delay or cease making payments of license fees they owe us, our business, revenues, results of operations, cash flows and\n\n[2] (matched keyword: 'Taiwan') purchase die in singular or wafer form from semiconductor manufacturing foundries and contract with separate third parties for manufacturing services such as wafer bump, probe, assembly and the majority of our final test requirements. The primary foundry suppliers for our various digital, analog/mixed-signal, RF and PM integrated circuits include Taiwan Semiconductor Manufacturing Company (TSMC), Global Foundries, Samsung Electronics and Semiconductor Manufacturing International Corporation (SMIC). Our primary semiconductor assembly and test suppliers are Advanced Semiconductor Engineering, Amkor Technology, Siliconware Precision Industries and STATSChipPAC. The majority of our foundry and semico\n\n[3] (matched keyword: 'South Korea') ted in a leading intellectual property portfolio related to foundational, system level technologies for the wireless industry. We have an extensive portfolio of United States and foreign patents, and we continue to pursue patent applications around the world. Our patents have broad coverage in many countries, including Brazil, China, India, Japan, South Korea, Taiwan, the United States and countries in Europe (including European patents with unitary effect). A substantial portion of our patents and patent applications relate to digital wireless communications technologies, including patents that are essential or may be important to the commercial implementation of CDMA2000, WCDMA (UMTS), LTE and/or OFD\n\n[4] (matched keyword: 'China') or the timing of such revenues fluctuates, our business and results of operations could be negatively affected. \u2022 Our business, particularly our semiconductor business, may suffer as a result of our customers vertically integrating (i.e., developing their own integrated circuit products). \u2022 A significant portion of our business is concentrated in China, and the risks of such concentration are exacerbated by U.S./China trade and national security tensions. RISKS RELATED TO NEW INITIATIVES \u2022 Our growth depends in part on our ability to extend our technologies and products into new and expanded product areas, and industries and applications beyond mobile handsets. Our research, development and othe\n\n[5] (matched keyword: 'Singapore') embly and test suppliers are located in the Asia-Pacific region. QCT primarily uses internal fabrication facilities to manufacture certain RFFE modules and RF filter products, and our manufacturing operations consist of front-end and back-end processes. The front-end processes primarily take place at manufacturing facilities located in Germany and Singapore and involve the imprinting of substrate wafers with the structure and circuitry required for the products to function (also known as wafer fabrication). The back-end processes include the assembly, packaging and test of RFFE modules and RF filter products and their preparation for distribution. Our back-end manufacturing facilities are located in\n\n[6] (matched keyword: 'Singapore') ve the imprinting of substrate wafers with the structure and circuitry required for the products to function (also known as wafer fabrication). The back-end processes include the assembly, packaging and test of RFFE modules and RF filter products and their preparation for distribution. Our back-end manufacturing facilities are located in China and Singapore. QCT's marketing strategy aims to promote Qualcomm as the leader of enabling intelligent computing everywhere, and Snapdragon as the preferred platform brand powering premium experiences across handsets, automotive and IoT. Through direct marketing efforts, partnerships and collaborations (including marketing programs with customers), products pow\n\n[7] (matched keyword: 'Taiwan') e derive a significant portion of our revenues from Chinese OEMs and from non-Chinese OEMs that utilize our integrated circuit products in devices they sell into China (which has the largest number of smartphone users in the world); our key suppliers and their manufacturing foundries and assembly, test and other facilities are primarily located in Taiwan and Korea; our manufacturing facilities for RFFE and RF products are located in China, Germany and Singapore; the primary warehouses where we store finished goods for fulfillment of customer orders are located in Singapore; and a significant portion of our workforce (including engineering and other technical personnel) is based in India. Acts of w\n\n[8] (matched keyword: 'United States') qcom-20240929 UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 FORM (Mark one) ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the fiscal year ended OR TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 For the transition period from to . Commission File Number QUALCOMM Inco\n\n[9] (matched keyword: 'China') s, services or technologies; emerging industries or business models; design wins or product launches; industry, market or technology trends, dynamics or transitions; our expectations regarding future demand or supply conditions; strategic investments or acquisitions, and the anticipated timing or benefits thereof; legal or regulatory matters; U.S./China trade or national security tensions; vertical integration by our customers; competition; and other statements regarding matters that are not historical are also forward-looking statements. Although forward-looking statements in this Annual Report reflect our good faith judgment, such statements can only be based on facts and factors currently know",
+  "raw_response": "[\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"advanced logic chips\",\n    \"risk_text\": \"Chinese tariffs on our integrated circuit products or on devices which incorporate our integrated circuit products made purchasing such products or devices more expensive to our Chinese customers or Chinese consumers\",\n    \"excerpt_index\": 1\n  },\n  {\n    \"mentioned_country\": \"Taiwan\",\n    \"mentioned_commodity\": \"wafers\",\n    \"risk_text\": \"The primary foundry suppliers for our various digital, analog/mixed-signal, RF and PM integrated circuits include Taiwan Semiconductor Manufacturing Company (TSMC), Global Foundries, Samsung Electronics and Semiconductor Manufacturing International Corporation (SMIC).\",\n    \"excerpt_index\": 2\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"advanced logic chips\",\n    \"risk_text\": \"A significant portion of our business is concentrated in China, and the risks of such concentration are exacerbated by U.S./China trade and national security tensions.\",\n    \"excerpt_index\": 4\n  },\n  {\n    \"mentioned_country\": \"Singapore\",\n    \"mentioned_commodity\": \"wafers\",\n    \"risk_text\": \"The front-end processes primarily take place at manufacturing facilities located in Germany and Singapore and involve the imprinting of substrate wafers with the structure and circuitry required for the products to function (also known as wafer fabrication).\",\n    \"excerpt_index\": 5\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"chip packaging and testing\",\n    \"risk_text\": \"The back-end processes include the assembly, packaging and test of RFFE modules and RF filter products and their preparation for distribution. Our back-end manufacturing facilities are located in China and Singapore.\",\n    \"excerpt_index\": 6\n  },\n  {\n    \"mentioned_country\": \"Taiwan\",\n    \"mentioned_commodity\": \"wafers\",\n    \"risk_text\": \"our key suppliers and their manufacturing foundries and assembly, test and other facilities are primarily located in Taiwan and Korea\",\n    \"excerpt_index\": 7\n  },\n  {\n    \"mentioned_country\": \"South Korea\",\n    \"mentioned_commodity\": \"wafers\",\n    \"risk_text\": \"our key suppliers and their manufacturing foundries and assembly, test and other facilities are primarily located in Taiwan and Korea\",\n    \"excerpt_index\": 7\n  },\n  {\n    \"mentioned_country\": \"China\",\n    \"mentioned_commodity\": \"advanced logic chips\",\n    \"risk_text\": \"we derive a significant portion of our revenues from Chinese OEMs and from non-Chinese OEMs that utilize our integrated circuit products in devices they sell into China\",\n    \"excerpt_index\": 7\n  }\n]",
+  "parsed_output": [
+    {
+      "id": "FM-4bce445814",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "advanced logic chips",
+      "risk_text": "Chinese tariffs on our integrated circuit products or on devices which incorporate our integrated circuit products made purchasing such products or devices more expensive to our Chinese customers or Chinese consumers",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-e5cb73c55b",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "Taiwan",
+      "mentioned_commodity": "wafers",
+      "risk_text": "The primary foundry suppliers for our various digital, analog/mixed-signal, RF and PM integrated circuits include Taiwan Semiconductor Manufacturing Company (TSMC), Global Foundries, Samsung Electronics and Semiconductor Manufacturing International Corporation (SMIC).",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-dcbd465e53",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "advanced logic chips",
+      "risk_text": "A significant portion of our business is concentrated in China, and the risks of such concentration are exacerbated by U.S./China trade and national security tensions.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-005912a81e",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "Singapore",
+      "mentioned_commodity": "wafers",
+      "risk_text": "The front-end processes primarily take place at manufacturing facilities located in Germany and Singapore and involve the imprinting of substrate wafers with the structure and circuitry required for the products to function (also known as wafer fabrication).",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-8f58a1df83",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "chip packaging and testing",
+      "risk_text": "The back-end processes include the assembly, packaging and test of RFFE modules and RF filter products and their preparation for distribution. Our back-end manufacturing facilities are located in China and Singapore.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-131fd4c8c1",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "Taiwan",
+      "mentioned_commodity": "wafers",
+      "risk_text": "our key suppliers and their manufacturing foundries and assembly, test and other facilities are primarily located in Taiwan and Korea",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-ed1a40a601",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "South Korea",
+      "mentioned_commodity": "wafers",
+      "risk_text": "our key suppliers and their manufacturing foundries and assembly, test and other facilities are primarily located in Taiwan and Korea",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    },
+    {
+      "id": "FM-31b3762501",
+      "company": "Qualcomm",
+      "ticker": "QCOM",
+      "filing_type": "10-K",
+      "filing_date": "2024-11-06",
+      "mentioned_country": "China",
+      "mentioned_commodity": "advanced logic chips",
+      "risk_text": "we derive a significant portion of our revenues from Chinese OEMs and from non-Chinese OEMs that utilize our integrated circuit products in devices they sell into China",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/804328/000080432824000075/qcom-20240929.htm"
+    }
+  ]
+}
