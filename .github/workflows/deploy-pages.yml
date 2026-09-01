@@ -1,0 +1,41 @@
+name: Deploy dashboard to GitHub Pages
+
+# Publishes the already-built dist/ folder (src/dashboard.py's output,
+# committed to the repo) as a static site — no build step runs here, this
+# just serves what's already on disk. Triggers on every push to main that
+# touches dist/, so the published page stays in sync whenever the dashboard
+# is rebuilt and pushed.
+
+on:
+  push:
+    branches: [main]
+    paths: ["dist/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload dist/ as the Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
